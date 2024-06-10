@@ -1,0 +1,229 @@
+<app-breadcrumb
+    [firstTitle]="'Accueil'"
+    [secondTitle]="'Boutique'"
+    [firdTitle]="'Creation de boutique'"
+></app-breadcrumb>
+
+<div class="page-content pt-50 pb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8 col-lg-10 col-md-12 m-auto">
+                <div class="row justify-content-center">
+                    <div class="d-flex">
+                        <div class="col-md-6">
+                            <img
+                                src="assets/imgs/page/Shopping-bro.svg"
+                                alt
+                            >
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="login_wrap widget-taber-content background-white">
+                                <div class="padding_eight_all bg-white">
+                                    <div class="heading_s1">
+                                        <h3 class="mb-20">Créer votre boutique ici</h3>
+                                    </div>
+                                    <form [formGroup]="shopForm">
+                                        <div *ngIf="!twostep">
+                                            <div class="row">
+
+                                                <div class="form-group col-md-6">
+                                                    <input
+                                                        type="text"
+                                                        required
+                                                        formControlName="name"
+                                                        placeholder="Le nom de votre boutique"
+                                                        [ngClass]="{'border-danger': shopForm?.controls?.['name']?.invalid && (shopForm?.controls?.['name']?.dirty || shopForm?.controls?.['name']?.touched) }"
+                                                    >
+
+                                                    <small class="text-danger" *ngIf="shopForm?.get('name')?.hasError('required') && shopForm?.get('name')?.touched">
+                                                        Le nom de la boutique est requis.
+                                                    </small>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <input
+                                                        type="text"
+                                                        required
+                                                        formControlName="email"
+                                                        placeholder="Email de votre boutique"
+                                                        [ngClass]="{'border-danger': shopForm?.controls?.['email']?.invalid && (shopForm?.controls?.['email']?.dirty || shopForm?.controls?.['email']?.touched) }"
+                                                    >
+
+                                                    <small class="text-danger" *ngIf="shopForm?.get('email')?.hasError('required') && shopForm?.get('email')?.touched">
+                                                        L'email de la noutique est requis.
+                                                    </small>
+                                                    <small class="text-danger" *ngIf="shopForm?.get('email')?.hasError('email')">
+                                                        L'email n'est pas au bon format.
+                                                    </small>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+
+                                                <div class="form-group col-md-6">
+                                                    <input
+                                                        type="text"
+                                                        required
+                                                        formControlName="phone_number_1"
+                                                        placeholder="Numero de telephone 1"
+                                                        [ngClass]="{'border-danger': shopForm?.controls?.['phone_number_1']?.invalid && (shopForm?.controls?.['phone_number_1']?.dirty || shopForm?.controls?.['phone_number_1']?.touched) }"
+                                                    >
+
+                                                    <small class="text-danger" *ngIf="shopForm?.get('phone_number_1')?.hasError('required') && shopForm?.get('phone_number_1')?.touched">
+                                                        Le numero est requis.
+                                                    </small>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <input
+                                                        type="text"
+                                                        required
+                                                        formControlName="phone_number_2"
+                                                        placeholder="Numero de telephone 2"
+                                                    >
+
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <textarea
+                                                formControlName="description"
+                                                    id="comment"
+                                                    cols="30"
+                                                    rows="10"
+                                                    placeholder="Description de votre boutique"
+                                                    [ngClass]="{'border-danger': shopForm?.controls?.['description']?.invalid && (shopForm?.controls?.['description']?.dirty || shopForm?.controls?.['description']?.touched) }"
+                                                ></textarea>
+
+                                                <small class="text-danger" *ngIf="shopForm?.get('description')?.hasError('required') && shopForm?.get('description')?.touched">
+                                                    La descripion  est requise.
+                                                </small>
+                                                <small class="text-danger justify-content-end" *ngIf="shopForm?.get('description')?.hasError('minlength')">
+                                                    Vous avez saisie {{shopForm?.get('description')?.value.length}} / 100
+                                                </small>
+                                            </div>
+                                            <div class="form-group mb-30 end">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-fill-out hover-up font-weight-bold mr-2"
+                                                    (click)="goToStep()"
+                                                >
+                                                    Suivant
+                                                    <i class="fi-rs-arrow-right ml-2 mt-4"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div *ngIf="twostep">
+                                            <div class="form-group text-center">
+                                                <label
+                                                  for="file"
+                                                  class="labelFile"
+                                                >
+                                                <span>
+                                                    <svg
+                                                        :xml:space="preserve"
+                                                        viewBox="0 0 184.69 184.69"
+                                                        :xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        id="Capa_1"
+                                                        version="1.1"
+                                                        width="60px"
+                                                        height="60px"
+                                                    >
+                                                        <g>
+                                                            <g>
+                                                                <g>
+                                                                    <path
+                                                                        d="M149.968,50.186c-8.017-14.308-23.796-22.515-40.717-19.813
+                                                                      C102.609,16.43,88.713,7.576,73.087,7.576c-22.117,0-40.112,17.994-40.112,40.115c0,0.913,0.036,1.854,0.118,2.834
+                                                                      C14.004,54.875,0,72.11,0,91.959c0,23.456,19.082,42.535,42.538,42.535h33.623v-7.025H42.538
+                                                                      c-19.583,0-35.509-15.929-35.509-35.509c0-17.526,13.084-32.621,30.442-35.105c0.931-0.132,1.768-0.633,2.326-1.392
+                                                                      c0.555-0.755,0.795-1.704,0.644-2.63c-0.297-1.904-0.447-3.582-0.447-5.139c0-18.249,14.852-33.094,33.094-33.094
+                                                                      c13.703,0,25.789,8.26,30.803,21.04c0.63,1.621,2.351,2.534,4.058,2.14c15.425-3.568,29.919,3.883,36.604,17.168
+                                                                      c0.508,1.027,1.503,1.736,2.641,1.897c17.368,2.473,30.481,17.569,30.481,35.112c0,19.58-15.937,35.509-35.52,35.509H97.391
+                                                                      v7.025h44.761c23.459,0,42.538-19.079,42.538-42.535C184.69,71.545,169.884,53.901,149.968,50.186z"
+                                                                        style="fill:#3BB77E;"
+                                                                    ></path>
+                                                                </g>
+                                                                <g>
+                                                                    <path
+                                                                        d="M108.586,90.201c1.406-1.403,1.406-3.672,0-5.075L88.541,65.078
+                                                                      c-0.701-0.698-1.614-1.045-2.534-1.045l-0.064,0.011c-0.018,0-0.036-0.011-0.054-0.011c-0.931,0-1.85,0.361-2.534,1.045
+                                                                      L63.31,85.127c-1.403,1.403-1.403,3.672,0,5.075c1.403,1.406,3.672,1.406,5.075,0L82.296,76.29v97.227
+                                                                      c0,1.99,1.603,3.597,3.593,3.597c1.979,0,3.59-1.607,3.59-3.597V76.165l14.033,14.036
+                                                                      C104.91,91.608,107.183,91.608,108.586,90.201z"
+                                                                        style="fill:#3BB77E;"
+                                                                    ></path>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </svg>
+                                                </span>
+                                                <!-- <img [src]="logo" alt=""> -->
+                                                <!-- <p>
+                                                  Selectionner votre logo !
+                                                </p> -->
+                                                </label>
+                                              <input class="input" id="file" type="file" (change)="OnSelectLogo($event)"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <input
+                                                    type="text"
+                                                    required
+                                                    formControlName="location"
+                                                    placeholder="Loalisation de votre boutique"
+                                                    [ngClass]="{'border-danger': shopForm?.controls?.['location']?.invalid && (shopForm?.controls?.['location']?.dirty || shopForm?.controls?.['location']?.touched) }"
+
+                                                >
+
+                                                <small class="text-danger" *ngIf="shopForm?.get('location')?.hasError('required') && shopForm?.get('location')?.touched">
+                                                    La location  est requise.
+                                                </small>
+                                            </div>
+                                        <div class="form-group">
+                                          <input
+                                              type="text"
+                                              required
+                                              formControlName="facebook_link"
+                                              placeholder="Lien de votre page facebook"
+                                              [ngClass]="{'border-danger': shopForm?.controls?.['facebook_link']?.invalid && (shopForm?.controls?.['facebook_link']?.dirty || shopForm?.controls?.['facebook_link']?.touched) }"
+                                            >
+
+                                            <small class="text-danger" *ngIf="shopForm?.get('facebook_link')?.hasError('required') && shopForm?.get('facebook_link')?.touched">
+                                                Le lien de votre page  est requise.
+                                            </small>
+                                        </div>
+                                        <div class="form-group">
+                                          <input
+                                              type="text"
+                                              required
+                                              formControlName="whatsapp_link"
+                                              placeholder="Numéro whatsapp business"
+                                              [ngClass]="{'border-danger': shopForm?.controls?.['whatsapp_link']?.invalid && (shopForm?.controls?.['whatsapp_link']?.dirty || shopForm?.controls?.['whatsapp_link']?.touched) }"
+                                            >
+
+                                            <small class="text-danger" *ngIf="shopForm?.get('whatsapp_link')?.hasError('required') && shopForm?.get('whatsapp_link')?.touched">
+                                                Le numero business est requise.
+                                            </small>
+                                        </div>
+
+                                            <div class="form-group mb-30">
+                                                <button
+                                                    type="submit"
+                                                    class="btn btn-fill-out hover-up font-weight-bold mr-2"
+                                                >
+                                                  Créer la boutique
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

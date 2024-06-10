@@ -1,0 +1,63 @@
+<section class="home-slider position-relative mb-30 mt-15">
+  <div class="container">
+        <div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
+            <!--class="carousel"-->
+            <ngx-slick-carousel
+                #slickModal="slick-carousel"
+                  [config]="slideConfig"
+                  (init)="slickInit($event)"
+                  (breakpoint)="breakpoint($event)"
+                  (afterChange)="afterChange($event)"
+                  (beforeChange)="beforeChange($event)">
+                  <div ngxSlickItem *ngFor="let slide of bannersConfigs" class="slide">
+                      <div ngxSlickItem class="single-hero-slider single-animation-wrap m-2" style="background-image: url(assets/imgs/slider/slider-1.png)">
+                          <div class="slider-content">
+                              <h1 class="display-2 mb-40">
+                                  {{slide.title}}
+                              </h1>
+                              <p class="mb-65">{{slide.subTitle}}</p>
+                              <form class="form-subcriber d-flex">
+                                  <input type="email" placeholder="Entrez votre adresse mail" />
+                                  <button class="btn" type="submit">S'abonner</button>
+                              </form>
+                          </div>
+                      </div>
+                      <div class="slider-arrow hero-slider-1-arrow"></div>
+                  </div>
+                </ngx-slick-carousel>
+
+      </div>
+  </div>
+</section>
+
+ <!-- <div class="home-slide-cover mt-30">
+            <div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
+                <div class="single-hero-slider single-animation-wrap" style="background-image: url(assets/imgs/slider/slider-1.png)">
+                    <div class="slider-content">
+                        <h1 class="display-2 mb-40">
+                            Don’t miss amazing<br />
+                            grocery deals
+                        </h1>
+                        <p class="mb-65">Sign up for the daily newsletter</p>
+                        <form class="form-subcriber d-flex">
+                            <input type="email" placeholder="Your emaill address" />
+                            <button class="btn" type="submit">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="single-hero-slider single-animation-wrap" style="background-image: url(assets/imgs/slider/slider-2.png)">
+                    <div class="slider-content">
+                        <h1 class="display-2 mb-40">
+                            Fresh Vegetables<br />
+                            Big discount
+                        </h1>
+                        <p class="mb-65">Save up to 50% off on your first order</p>
+                        <form class="form-subcriber d-flex">
+                            <input type="email" placeholder="Your emaill address" />
+                            <button class="btn" type="submit">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-arrow hero-slider-1-arrow"></div>
+        </div> -->

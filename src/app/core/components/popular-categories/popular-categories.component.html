@@ -1,0 +1,18 @@
+<section class="popular-categories section-padding">
+    <div class="container wow animate__animated animate__fadeIn">
+        <div class="section-title">
+            <div class="title">
+                <h3>Categories Populaires</h3>
+                <ul class="list-inline nav nav-tabs links">
+                    <li class="list-inline-item nav-item" *ngFor="let item of listOfData | async">
+                      <a class="nav-link" [routerLink]="['/categorie', item.slug , 'product']">
+                        {{item.name}}
+                      </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="slider-arrow slider-arrow-2 flex-right carausel-10-columns-arrow" id="carausel-10-columns-arrows"></div>
+        </div>
+        <app-list-categorie></app-list-categorie>
+    </div>
+</section>

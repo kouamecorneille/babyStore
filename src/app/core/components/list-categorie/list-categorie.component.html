@@ -1,0 +1,51 @@
+<div class="carausel-10-columns-cover position-relative">
+    <div class="carausel-10-columns">
+      @if(listOfData.value.length > 0){
+
+        <ngx-slick-carousel class="carousel"
+            #slickModal="slick-carousel"
+            [config]="slideConfig"
+            (init)="slickInit($event)"
+            (breakpoint)="breakpoint($event)"
+            (afterChange)="afterChange($event)"
+            (beforeChange)="beforeChange($event)"
+            >
+
+              <div ngxSlickItem *ngFor="let item of listOfData | async; let i = index;" class="slide">
+                <!-- <app-single-categorie [imageUrl]="item.image" [categorieName]="item.name" [numberItem]="20"></app-single-categorie> -->
+
+                  <div class="card-2" [ngClass]="'bg-' + i"  data-wow-delay="0s">
+                    <figure class="img-hover-scale overflow-hidden">
+                        <a href="#">
+                            <img [src]="item.image" alt="" height="40" width="40"/>
+                        </a>
+                    </figure>
+                    <h6><a  [routerLink]="['/categorie', item.slug , 'product']">{{item.name}}</a></h6>
+                    <span>25 items</span>
+                  </div>
+
+              </div>
+
+        </ngx-slick-carousel>
+
+      }@else{
+        <div class="row">
+          <div class="item">
+            <ngx-skeleton-loader
+              count="12"
+              appearance="circle"
+              [theme]="{
+                width: '124px',
+                height: '180px',
+                'border-radius': '10px'
+              }"
+            >
+            </ngx-skeleton-loader>
+          </div>
+        </div>
+      }
+    </div>
+</div>
+
+
+

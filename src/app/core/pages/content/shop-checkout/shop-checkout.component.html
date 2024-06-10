@@ -1,0 +1,157 @@
+<app-breadcrumb [firstTitle]="'Accueil'" [secondTitle]="'Shop'" [firdTitle]="'Commande'"></app-breadcrumb>
+
+<div class="container mb-80 mt-50">
+    <div class="row">
+        <div class="col-lg-8 mb-40">
+            <h1 class="heading-2 mb-10">Commandes</h1>
+            <div class="d-flex justify-content-between">
+                <h6 class="text-body">There are <span class="text-brand">3</span> products in your cart</h6>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="row mb-50">
+                <div class="col-lg-6 mb-sm-15 mb-lg-0 mb-md-3">
+                    <div class="toggle_info">
+                        <span><i class="fi-rs-user mr-10"></i><span class="text-muted font-lg">Avez vous un compte ?</span>
+                        <a href="#loginform" data-bs-toggle="collapse" class="collapsed font-lg" aria-expanded="false"> Se connecter</a></span>
+                    </div>
+                    <div class="panel-collapse collapse login_form" id="loginform">
+                        <div class="panel-body">
+                            <p class="mb-30 font-sm">
+                                Connecter vous votre compte si vous en avez.
+                            </p>
+                            <form method="post">
+                                <div class="form-group">
+                                    <input type="text" name="email" placeholder="Numero *">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" placeholder="Mot de passe *">
+                                </div>
+                                <div class="login_footer form-group">
+                                    <div class="chek-form">
+                                        <div class="custome-checkbox">
+                                            <input class="form-check-input" type="checkbox" name="checkbox" id="remember" value="">
+                                            <label class="form-check-label" for="remember"><span>Remember me</span></label>
+                                        </div>
+                                    </div>
+                                    <a routerLink="/auth/forgot-password">Forgot password?</a>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-md" name="login">Se connecter</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <form method="post" class="apply-coupon">
+                        <input type="text" placeholder="Enter le coupon...">
+                        <button class="btn  btn-md" name="login">Appliquer</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <h4 class="mb-30">Adresse de livraison</h4>
+                <form method="post">
+                    <div class="row">
+                        <div class="form-group col-lg-6">
+                            <input type="text" required="" name="fname" placeholder="First name *">
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <input type="text" required="" name="lname" placeholder="Last name *">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-6">
+                            <input type="text" name="billing_address" required="" placeholder="Address *">
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <input type="text" name="billing_address2" required="" placeholder="Numero *">
+                        </div>
+                    </div>
+                    <div class="form-group mb-30">
+                        <textarea rows="4" placeholder="Note ou  information supplementaire "></textarea>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="border p-40 cart-totals ml-30 mb-50">
+                <div class="d-flex align-items-end justify-content-between mb-30">
+                    <h4>Vos commandes</h4>
+                    <h6 class="text-muted">Sous-total</h6>
+                </div>
+                <div class="divider-2 mb-30"></div>
+                <div class="table-responsive order_table checkout">
+                    <table class="table no-border">
+                        <tbody>
+                           @if(cartItems.value.length > 0){
+                            <tr *ngFor="let item of cartItems |async">
+                              <td class="image product-thumbnail"><img [src]="item.product.image1" alt="#"></td>
+                              <td>
+                                  <h6 class="w-160 mb-5"><a [routerLink]="['/details-product', item.product.slug]"  class="text-heading">
+                                    {{item.product.name.substring(0,10)}} ...
+                                  </a></h6>
+                                  <div class="product-rate-cover">
+                                      <div class="product-rate d-inline-block">
+                                          <div class="product-rating" style="width:100%">
+                                          </div>
+                                      </div>
+                                      <span class="font-small ml-5 text-muted"> (5.0)</span>
+                                  </div>
+                              </td>
+                              <td>
+                                  <h6 class="text-muted pl-20 pr-20">x {{item.quantity}}</h6>
+                              </td>
+                              <td>
+                                <h4 class="text-brand">
+                                  {{ (item.product.reduced_price || item.product.price) | number: '1.0-0' }} CFA
+                                </h4>
+                              </td>
+
+                          </tr>
+                           }@else{
+                            <tr>
+
+                              <td colspan="4">
+                                <h6 class="text-brand text-center">
+                                  Aucun données trouvées pour le moment.
+                                </h6>
+                              </td>
+
+                          </tr>
+                           }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="payment ml-30">
+                <h4 class="mb-30">Payment</h4>
+                <div class="payment_option">
+                    <div class="custome-radio">
+                        <input class="form-check-input" required="" type="radio" name="payment_option" id="exampleRadios3" checked="">
+                        <label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse" data-target="#bankTranfer" aria-controls="bankTranfer">Direct Bank Transfer</label>
+                    </div>
+                    <div class="custome-radio">
+                        <input class="form-check-input" required="" type="radio" name="payment_option" id="exampleRadios4" checked="">
+                        <label class="form-check-label" for="exampleRadios4" data-bs-toggle="collapse" data-target="#checkPayment" aria-controls="checkPayment">Cash on delivery</label>
+                    </div>
+                    <div class="custome-radio">
+                        <input class="form-check-input" required="" type="radio" name="payment_option" id="exampleRadios5" checked="">
+                        <label class="form-check-label" for="exampleRadios5" data-bs-toggle="collapse" data-target="#paypal" aria-controls="paypal">Online Getway</label>
+                    </div>
+                </div>
+                <div class="payment-logo d-flex">
+                    <img class="mr-15" src="assets/imgs/theme/icons/payment-paypal.svg" alt="">
+                    <img class="mr-15" src="assets/imgs/theme/icons/payment-visa.svg" alt="">
+                    <img class="mr-15" src="assets/imgs/theme/icons/payment-master.svg" alt="">
+                    <img src="assets/imgs/theme/icons/payment-zapper.svg" alt="">
+                </div>
+                <a href="#" class="btn btn-fill-out btn-block mt-30">Commander<i class="fi-rs-sign-out ml-15"></i></a>
+            </div>
+        </div>
+    </div>
+</div>

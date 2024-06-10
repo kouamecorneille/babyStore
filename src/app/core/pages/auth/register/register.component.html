@@ -1,0 +1,134 @@
+<app-breadcrumb [firstTitle]="'Accueil'" [secondTitle]="'Authentification'" [firdTitle]="'Inscription'"></app-breadcrumb>
+
+<div class="page-content pt-50 pb-50" restoreScrollPosition>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8 col-lg-10 col-md-12 m-auto">
+                <div class="row">
+                    <div class="col-lg-6 col-md-8">
+                        <div class="login_wrap widget-taber-content background-white">
+                            <div class="padding_eight_all bg-white">
+                                <div class="heading_s1">
+                                    <h3 class="mb-5">Créer un compte</h3>
+                                    <p class="mb-30">Deja un compte Djassa2Baby ? <a routerLink="/auth/login">Se connecter</a></p>
+                                </div>
+                                <form [formGroup]="RegisterForm">
+                                    <div class="form-group">
+                                        <input type="text" formControlName="nom" placeholder="Nom" [ngClass]="{'border-danger': RegisterForm.controls?.['nom']?.invalid && (RegisterForm.controls?.['nom']?.dirty || RegisterForm.controls?.['nom']?.touched) }">
+                                        <small class="text-danger" *ngIf="RegisterForm?.get('nom')?.hasError('required') && RegisterForm?.get('nom')?.touched">
+                                          Le nom est un champ requis.
+                                        </small>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" formControlName="prenoms" placeholder="Prenom (s)" [ngClass]="{'border-danger': RegisterForm.controls?.['prenoms']?.invalid && (RegisterForm.controls?.['prenoms']?.dirty || RegisterForm.controls?.['prenoms']?.touched) }">
+                                        <small class="text-danger" *ngIf="RegisterForm?.get('prenoms')?.hasError('required') && RegisterForm?.get('prenoms')?.touched">
+                                          Le prenom (s) est un champ requis.
+                                        </small>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" formControlName="email" placeholder="Email" [ngClass]="{'border-danger': RegisterForm.controls?.['email']?.invalid && (RegisterForm.controls?.['email']?.dirty || RegisterForm.controls?.['email']?.touched) }">
+                                        <small class="text-danger" *ngIf="RegisterForm?.get('email')?.hasError('required') && RegisterForm?.get('email')?.touched">
+                                          L'email est un champ requis.
+                                        </small>
+                                        <small class="text-danger" *ngIf="RegisterForm?.get('email')?.hasError('email')">
+                                          L'email entrer n'est pas valide.
+                                        </small>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" formControlName="numero" placeholder="Numéro" [ngClass]="{'border-danger': RegisterForm.controls?.['numero']?.invalid && (RegisterForm.controls?.['numero']?.dirty || RegisterForm.controls?.['numero']?.touched) }">
+                                        <small class="text-danger" *ngIf="RegisterForm?.get('numero')?.hasError('required') && RegisterForm?.get('numero')?.touched">
+                                          Le numéro est un champ requis.
+                                        </small>
+                                        <small class="text-danger" *ngIf="RegisterForm?.get('numero')?.hasError('minlength')">
+                                          Le numéro doit comporter au moins 10 caractères.
+                                        </small>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" formControlName="password" placeholder="Mot de passe" [ngClass]="{'border-danger': RegisterForm.controls?.['password']?.invalid && (RegisterForm.controls?.['password']?.dirty || RegisterForm.controls?.['password']?.touched) }">
+                                        <small class="text-danger" *ngIf="RegisterForm?.get('password')?.hasError('required') && RegisterForm?.get('password')?.touched">
+                                          Le mot de passe est un champ requis.
+                                        </small>
+                                        <small class="text-danger" *ngIf="RegisterForm?.get('password')?.hasError('minlength')">
+                                          Le mot de passe doit comporter au moins 6 caractères.
+                                        </small>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" formControlName="confirmPassword" placeholder="Confirmation du mot de passe" [ngClass]="{'border-danger': RegisterForm.controls?.['confirmPassword']?.invalid && (RegisterForm.controls?.['confirmPassword']?.dirty || RegisterForm.controls?.['confirmPassword']?.touched) }">
+                                        <small class="text-danger" *ngIf="RegisterForm?.get('confirmPassword')?.hasError('required') && RegisterForm?.get('confirmPassword')?.touched">
+                                          La confirmation du passe est un champ requis.
+                                        </small>
+                                        <small class="text-danger" *ngIf="RegisterForm?.get('confirmPassword')?.hasError('minlength')">
+                                          La confirmation du passe doit comporter au moins 6 caractères.
+                                        </small>
+                                    </div>
+                                    <!-- <div class="login_footer form-group">
+                                        <div class="chek-form">
+                                            <input type="text" formControlName="securityCode" placeholder="Code de securite *" [ngClass]="{'border-danger': RegisterForm.controls?.['securityCode']?.invalid && (RegisterForm.controls?.['securityCode']?.dirty || RegisterForm.controls?.['securityCode']?.touched) }">
+                                            <small class="text-danger" *ngIf="RegisterForm?.get('securityCode')?.hasError('required') && RegisterForm?.get('securityCode')?.touched">
+                                              La code de sécurité est un champ requis.
+                                            </small>
+                                        </div>
+                                        <span class="security-code">
+                                            <b class="text-new m-1">{{securitycode[0]}}</b>
+                                            <b class="text-hot m-1">{{securitycode[1]}}</b>
+                                            <b class="text-sale m-1">{{securitycode[2]}}</b>
+                                            <b class="text-best m-1">{{securitycode[3]}}</b>
+                                        </span>
+
+                                    </div> -->
+                                    <div class="payment_option mb-10">
+                                      <div class="custome-radio" *ngFor="let item of listOfRoles; let i = index">
+                                          <input class="form-check-input" type="radio" [id]="'role_' + i" formControlName="role" [value]="item.id">
+                                          <label class="form-check-label" [for]="'role_' + i">Je suis un {{ item.label }}</label>
+                                      </div>
+                                  </div>
+
+                                    <div class="login_footer form-group mb-20">
+                                        <div class="chek-form">
+                                            <div class="custome-checkbox">
+                                                <input class="form-check-input" type="checkbox" formControlName="acceptTerms"  id="exampleCheckbox12" value="">
+                                                <label class="form-check-label" for="exampleCheckbox12"><span>J'accepte les Termes &amp; Politiques.</span></label>
+                                                <small class="text-danger" *ngIf="RegisterForm?.get('acceptTerms')?.hasError('requiredTrue')">
+                                                  Le numéro doit comporter au moins 10 caractères.
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <a [routerLink]="['/privacy-policy']">
+                                          <i class="fi-rs-book-alt mr-5 text-muted"></i>
+                                          En savoir plus
+                                        </a>
+                                    </div>
+                                    <div class="form-group mb-30">
+                                        <button type="submit" class="btn btn-fill-out btn-block hover-up font-weight-bold"
+                                            [disabled]="RegisterForm.invalid || loader"
+                                            (click)="onSubmit()"
+                                        >
+                                        {{loader ? "Traitement en cours..." : "Créer un compte"}}
+                                    </button>
+                                    </div>
+                                    <p class="font-xs text-muted"><strong>Note:</strong>Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our privacy policy</p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 pr-30 d-none d-lg-block">
+                        <div class="card-login mt-115">
+                            <a href="#" class="social-login facebook-login">
+                                <img src="assets/imgs/theme/icons/logo-facebook.svg" alt="">
+                                <span>Continuer avec Facebook</span>
+                            </a>
+                            <a href="#" class="social-login google-login">
+                                <img src="assets/imgs/theme/icons/logo-google.svg" alt="">
+                                <span>Continuer avec Google</span>
+                            </a>
+                            <a href="#" class="social-login apple-login">
+                                <img src="assets/imgs/theme/icons/logo-apple.svg" alt="">
+                                <span>Continuer avec Apple</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+@import url(../assets/css/vendors/material-icon-round.css);
+/* @import url(../assets/css/vendors/_responsive.scss); */
+.icontext {
+  display: inline-flex;
+  align-items: top;
+}
+.icontext .icon {
+  position: relative;
+  flex-shrink: 0;
+  margin-right: 15px;
+}
+.icontext .icon.border {
+  max-height: 28px;
+}
+.icontext small, .icontext .title {
+  display: block;
+}
+.icontext span {
+  font-size: 22px;
+  font-weight: 600;
+  display: block;
+}
+.icontext span.text-sm {
+  font-size: 12px;
+  font-weight: 400;
+  color: #6c757d;
+}

@@ -1,0 +1,10 @@
+.slick-slider {
+  width: 100%;
+  margin: auto;
+}
+
+
+.slick-dots{
+  align-items: center!important;
+justify-content: center !important;
+}

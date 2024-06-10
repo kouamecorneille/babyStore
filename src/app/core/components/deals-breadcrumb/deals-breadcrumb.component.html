@@ -1,0 +1,27 @@
+<div class="page-header mt-3 mb-50">
+    <div class="container">
+        <div class="archive-header">
+            <div class="row align-items-center">
+                <div class="col-xl-3">
+                    <h1 class="mb-15">
+                        {{title}}
+                    </h1>
+                    <div class="breadcrumb">
+                        <a [routerLink]="['/home']" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+                        <span></span> Shop <span></span>  {{title}}
+                    </div>
+                </div>
+                <div class="col-xl-9 text-end d-none d-xl-block" *ngIf="hasCategorie">
+                    <ul class="tags-list">
+                      <li class="hover-up" *ngFor="let item of items">
+                          <a [routerLink]="['/categorie', generateSlug(item.name) , 'product']">
+                            <i class="fi-rs-cross mr-10"></i>
+                            {{item.name}}
+                          </a>
+                      </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

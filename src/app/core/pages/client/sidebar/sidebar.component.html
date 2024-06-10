@@ -1,0 +1,22 @@
+<div class="dashboard-menu">
+    <ul class="nav flex-column" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link"  routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" role="tab" aria-controls="dashboard" ><i class="fi-rs-settings-sliders mr-10"></i>Tableau de bord</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"  routerLink="/dashboard/orders" routerLinkActive="active"  role="tab" aria-controls="orders" ><i class="fi-rs-shopping-bag mr-10"></i>Mes commandes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/dashboard/track-orders" routerLinkActive="active"  role="tab" aria-controls="track-orders" ><i class="fi-rs-shopping-cart-check mr-10"></i>Suivie de commandes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"  routerLink="/dashboard/account-detail" routerLinkActive="active"  role="tab" aria-controls="account-detail" ><i class="fi-rs-user mr-10"></i>Mon compte</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  routerLink="/dashboard/password-change" routerLinkActive="active"  role="tab" aria-controls="account-detail" ><i class="fi-rs-lock mr-10"></i>Mot de passe</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" (click)="Logout()"><i class="fi-rs-sign-out mr-10"></i>Logout</a>
+        </li>
+    </ul>
+</div>

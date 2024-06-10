@@ -1,0 +1,182 @@
+<header class="header-area header-style-1 header-height-2">
+    <div class="mobile-promotion">
+        <span>Profiter, <strong>de nos</strong> articles <strong> a moindre</strong> côut</span>
+    </div>
+    <div class="header-top header-top-ptb-1 d-none d-lg-block">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-xl-3 col-lg-4">
+                    <div class="header-info">
+                        <ul>
+                            <li><a href="page-about.htlm">Sobre Nosotros</a></li>
+                            <li><a href="page-account.html">Mi Cuenta</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-4">
+                    <div class="text-center">
+                        <div id="news-flash" class="d-inline-block">
+                            <ul>
+                                <li>Livraison sécurisée à 100 %  et rapide </li>
+                                <!-- <li>Supper Value Deals - Save more with coupons</li> -->
+                                <!-- <li>Trendy 25silver jewelry, save up 35% off today</li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4">
+                    <div class="header-info header-info-right">
+                        <ul>
+                            <li>Necesita Ayuda? Llamenos: <strong class="text-brand"> 092616265</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
+        <div class="container">
+            <div class="header-wrap">
+                <div class="logo logo-width-1">
+                    <a routerLink="/home">
+                        <img src="assets/imgs/babyshop-logo.png" alt="logo" />
+                    </a>
+                </div>
+                <div class="header-right">
+                    <div class="search-style-2">
+                        <form>
+                            <!-- <select class="select-active">
+                                <option>Categories</option>
+                                <option>Milks and Dairies</option>
+                                <option>Wines & Alcohol</option>
+                                <option>Clothing & Beauty</option>
+                                <option>Pet Foods & Toy</option>
+                                <option>Fast food</option>
+                                <option>Baking material</option>
+                                <option>Vegetables</option>
+                                <option>Fresh Seafood</option>
+                                <option>Noodles & Rice</option>
+                                <option>Ice cream</option>
+                            </select> -->
+                            <input type="text" placeholder="Search for items..." />
+                        </form>
+                    </div>
+                    <!-- <app-header-action-right/> -->
+                    <div class="header-action-right">
+                        <div class="header-action-2">
+                            <!-- <div class="header-action-icon-2">
+                                <a routerLink="/shop-compare">
+                                    <img class="svgInject" alt="Nest" src="assets/imgs/theme/icons/icon-compare.svg" />
+                                    <span class="pro-count blue">3</span>
+                                </a>
+                                <a routerLink="/shop-compare"><span class="lable ml-0">Compare</span></a>
+                            </div> -->
+                            <div class="header-action-icon-2">
+                                <a routerLink="/shop-wishlist">
+                                    <img class="svgInject" alt="Nest" src="assets/imgs/theme/icons/icon-heart.svg" />
+                                    <span class="pro-count blue">{{totalItemsWhishList}} </span>
+                                </a>
+                                <a routerLink="/shop-wishlist"><span class="lable">Wishlist</span></a>
+                            </div>
+                            <div class="header-action-icon-2">
+                                <a class="mini-cart-icon" routerLink="/cart">
+                                    <img alt="Nest" src="assets/imgs/theme/icons/icon-cart.svg" />
+                                    <span class="pro-count blue"> {{totalItems}} </span>
+                                </a>
+                                <a routerLink="/cart"><span class="lable">Pannier</span></a>
+                                <div class="cart-dropdown-wrap cart-dropdown-hm2">
+                                    <ul>
+                                        <li *ngFor="let item of cartItems">
+                                            <div class="shopping-cart-img">
+                                                <a><img alt="Nest" [src]="item.product.image1" /></a>
+                                            </div>
+                                            <div class="shopping-cart-title">
+                                                <h4><a href="shop-product-right.html"> {{item.product.name.substring(0,10)}} ... </a></h4>
+                                                <h4><span>{{item.quantity}} × </span>{{ (item.product.reduced_price && item.product.reduced_price.trim() !== '' ? item.product.reduced_price : item.product.price) | number: '1.0-0' }}</h4>
+                                            </div>
+                                            <div class="shopping-cart-delete">
+                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="shopping-cart-footer">
+                                        <div class="shopping-cart-total">
+                                          <h4>Total <span>{{totalCheckout | number:'1.0-0'}} CFA</span></h4>
+                                                                                </div>
+                                        <div class="shopping-cart-button">
+                                            <a routerLink="/cart" class="outline">Voir plus</a>
+                                            <a routerLink="/shop-checkout">Commander</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="header-action-icon-2">
+                                <a>
+                                    <img class="svgInject" alt="Nest" src="assets/imgs/theme/icons/icon-user.svg" />
+                                </a>
+                                <a routerLink="/dashboard"><span class="lable ml-0">Mon compte</span></a>
+                                <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
+                                    <ul>
+                                        <li><a routerLink="/dashboard"><i class="fi fi-rs-user mr-10"></i>Tableau de bord</a></li>
+                                        <li><a routerLink="/dashboard/track-orders"><i class="fi fi-rs-location-alt mr-10"></i>Mes commandes</a></li>
+                                        <li><a routerLink="/dashboard/account-detail"><i class="fi fi-rs-label mr-10"></i>mes informations</a></li>
+                                        <li><a routerLink="/dashboard/account"><i class="fi fi-rs-heart mr-10"></i>Liste des souhaits</a></li>
+                                        <li><a (click)="Logout()"><i class="fi fi-rs-sign-out mr-10"></i>Deconnexion</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-header-bottom></app-header-bottom>
+</header>
+<div class="mobile-header-active mobile-header-wrapper-style">
+    <div class="mobile-header-wrapper-inner">
+        <div class="mobile-header-top">
+            <div class="mobile-header-logo">
+                <a href="#">
+                  <img src="assets/imgs/babyshop-logo.png" alt="logo" />
+                </a>
+            </div>
+            <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
+                <button class="close-style search-close">
+                    <i class="icon-top"></i>
+                    <i class="icon-bottom"></i>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-header-content-area">
+            <div class="mobile-search search-style-3 mobile-header-border">
+                <form action="#">
+                    <input type="text" placeholder="Search for items…" />
+                    <button type="submit"><i class="fi-rs-search"></i></button>
+                </form>
+            </div>
+            <app-mobile-menu></app-mobile-menu>
+            <div class="mobile-header-info-wrap">
+                <div class="single-mobile-header-info">
+                    <a routerLink="/contact-us"><i class="fi-rs-marker"></i> Notre localisation </a>
+                </div>
+                <div class="single-mobile-header-info">
+                    <a routerLink="/auth/login"><i class="fi-rs-user"></i>Connexion / S'inscire </a>
+                </div>
+                <div class="single-mobile-header-info">
+                    <a href="#"><i class="fi-rs-headphones"></i>+225 0747361791 </a>
+                </div>
+            </div>
+            <div class="mobile-social-icon mb-50">
+                <h6 class="mb-15">Follow Us</h6>
+                <a href="#"><img src="assets/imgs/theme/icons/icon-facebook-white.svg" alt="" /></a>
+                <a href="#"><img src="assets/imgs/theme/icons/icon-twitter-white.svg" alt="" /></a>
+                <a href="#"><img src="assets/imgs/theme/icons/icon-instagram-white.svg" alt="" /></a>
+                <a href="#"><img src="assets/imgs/theme/icons/icon-pinterest-white.svg" alt="" /></a>
+                <a href="#"><img src="assets/imgs/theme/icons/icon-youtube-white.svg" alt="" /></a>
+            </div>
+            <div class="site-copyright">Copyright {{currentYear}} © Djassa2baby. All rights reserved. Powered by AliThemes.</div>
+        </div>
+    </div>
+</div>
+<!--End header-->
