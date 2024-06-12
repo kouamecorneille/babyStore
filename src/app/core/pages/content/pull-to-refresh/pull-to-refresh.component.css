@@ -1,0 +1,14 @@
+.container {
+  overflow: hidden;
+  position: relative;
+}
+
+.pull-to-refresh {
+  text-align: center;
+  padding: 10px;
+  background-color: #f0f0f0;
+}
+
+.content {
+  padding: 20px;
+}

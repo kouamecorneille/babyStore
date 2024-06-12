@@ -1,0 +1,9 @@
+<div class="container" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd()">
+  <div class="pull-to-refresh" *ngIf="isRefreshing">
+    <p>Rafraîchissement en cours...</p>
+  </div>
+  <div class="content">
+    <!-- Votre contenu ici -->
+    <!-- <p *ngFor="let item of items">{{ item }}</p> -->
+  </div>
+</div>

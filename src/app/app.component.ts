@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LoaderComponent } from './core/shared/header/loader/loader.component';
 import { ToastrModule } from 'ngx-toastr';
+import { PullToRefreshComponent } from './core/pages/content/pull-to-refresh/pull-to-refresh.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, LoaderComponent,ToastrModule],
+  imports: [RouterOutlet, LoaderComponent,ToastrModule, PullToRefreshComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
