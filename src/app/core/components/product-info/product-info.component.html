@@ -13,8 +13,8 @@
         </ul>
         <div class="tab-content shop_info_tab entry-main-content">
             <div class="tab-pane fade show active" id="Description">
-                <div class="fs-6">
-                    {{product.description}}
+                <div class="fs-6" [innerHTML]="product.description">
+                    <!-- {{product.description}} -->
                 </div>
             </div>
             <div class="tab-pane fade" id="Vendor-info">
@@ -81,7 +81,7 @@
                                 }@else {
                                   <div class="text-center">
                                     <img src="../../../../assets/imgs/Status update-bro.png" alt="" width="350">
-                                    <p class="fs-5 mb-2">Ce produit n'a pas encore de commentaires.</p>
+                                    <p class="fs-5 mb-2">Les clients ayant acheté ce produit n'ont pas encore émis d'avis.</p>
                                   </div>
                                 }
                             </div>

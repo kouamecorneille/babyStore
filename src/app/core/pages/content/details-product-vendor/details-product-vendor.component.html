@@ -70,8 +70,8 @@
                                         </div>
                                     </div>
                                     <div class="short-desc mb-30">
-                                        <p class="font-lg">
-                                          {{product.description.substring(0,170)}} ...
+                                        <p class="font-lg"  [innerHTML]="product.description.substring(0,170) *+ '...'">
+                                          <!-- {{product.description.substring(0,170)}} ... -->
                                         </p>
                                     </div>
                                     <!-- <div class="attr-detail attr-size mb-30">

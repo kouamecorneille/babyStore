@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { Product } from '../../../interfaces/Iproduct';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -6,6 +6,8 @@ import $ from 'jquery'
 import { CartService } from '../../../services/others/cart.service';
 import { EcommerceService } from '../../../services/others/ecommerce.service';
 import { Store } from '../../../interfaces/Ishop';
+import { Subscription } from 'rxjs';
+
 export interface SliderImgaes{
   img:string,
 }
@@ -16,12 +18,59 @@ export interface SliderImgaes{
   styleUrl: './details-product.component.css',
   // host:{ngSkipHydration:'true'}
 })
-export class DetailsProductComponent {
+export class DetailsProductComponent implements  OnInit, OnDestroy {
 
   product!:Product
-  slugProduct:string=''
+  productDetails = signal<Product>({
+    id: '',
+    category: {
+      id: '',
+      name: '',
+      slug: '',
+      description: '',
+      image: '',
+      is_active: false
+    },
+    shop: {
+      id: '',
+      name: '',
+      phone_number_1: '',
+      phone_number_2: '',
+      description: '',
+      logo: '',
+      slug: '',
+      email: '',
+      location: '',
+      facebook_link: '',
+      whatsapp_link: '',
+      instagram_link: '',
+      twitter_link: '',
+      is_active: false,
+      can_evaluate: false,
+      date_added: '',
+      subscription: ''
+    },
+    name: '',
+    description: '',
+    price: '',
+    reduced_price: '',
+    image1: '',
+    image2: '',
+    image3: '',
+    image4: '',
+    image5: '',
+    quantity_in_stock: 0,
+    instock: false,
+    added_at: '',
+    average_rating: '',
+    total_ratings: 0,
+    slug: ''
+  });
+
+  slugProduct= signal<string | undefined>(undefined);
   quantity:number=1
   similarProduct:Product[] = []
+  routeSubscription: Subscription | null = null;
   vendorDetails!:Store
   baseUrl:string='http://djassa2baby.pythonanywhere.com/'
   whatsappUrl:string=''
@@ -31,19 +80,40 @@ export class DetailsProductComponent {
     // Injectez les dépendances via le constructeur
   }
 
+
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    this.getDetailsProduct()
-    this.getSimilarProduct()
-    // this.getVendorDetails()
+    this.routeSubscription = this.activatedRoute.params.subscribe(params => {
+      this.slugProduct.set(params['id'] ? params['id'] : undefined);
+      this.getDetailsProduct();
+      this.getSimilarProduct();
+    });
+
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
         window.scrollTo(0, 0);
       }
     });
-
   }
+
+
+
+  ngOnDestroy(): void {
+		this.routeSubscription?.unsubscribe();
+	}
+
+
+  next(slug:string) {
+
+    this.bannersConfigs = [];
+    this.slugProduct.set(slug);
+    this.getDetailsProduct();
+    this.getSimilarProduct();
+
+		this.router.navigate(['/details-product/' + this.slugProduct()])
+	}
+
+
+
 
   ngAfterViewInit(): void {
     this.initProductDetails();
@@ -64,20 +134,20 @@ export class DetailsProductComponent {
 
   addTocart(){
 
-    this.cartService.addToCart(this.product, this.quantity)
+    this.cartService.addToCart(this.productDetails(), this.quantity)
   }
 
   addToWhishList(){
 
-    this.cartService.addToWhishList(this.product)
+    this.cartService.addToWhishList(this.productDetails())
   }
 
 
 
   sendWhatsappMessage() {
-    const phoneNumber = encodeURIComponent(this.product.shop.phone_number_1);
+    const phoneNumber = encodeURIComponent(this.productDetails().shop.phone_number_1);
     const message = encodeURIComponent('Votre message ici');
-    window.open(`https://api.whatsapp.com/send?phone=++225${phoneNumber}&text=${message}`)
+    window.open(`https://api.whatsapp.com/send?phone=+225${phoneNumber}&text=${message}`)
   }
 
 
@@ -93,8 +163,8 @@ export class DetailsProductComponent {
     "loop": true,
     "fade": true,
     "autoplay": true,
-    prevArrow: '<button type="button" class="slick-prev"><i class="fi-rs-arrow-small-left"></i></button>',
-    nextArrow: '<button type="button" class="slick-next"><i class="fi-rs-arrow-small-right"></i></button>'
+    // prevArrow: '<button type="button" class="slick-prev"><i class="fi-rs-arrow-small-left"></i></button>',
+    // nextArrow: '<button type="button" class="slick-next"><i class="fi-rs-arrow-small-right"></i></button>'
   };
 
 
@@ -105,8 +175,8 @@ export class DetailsProductComponent {
     "asNavFor": '.product-image-slider',
     "dots": false,
     "focusOnSelect": true,
-    // "prevArrow": '<button type="button" class="slick-prev"><i class="fi-rs-arrow-small-left"></i></button>',
-    // "nextArrow": '<button type="button" class="slick-next"><i class="fi-rs-arrow-small-right"></i></button>'
+    "prevArrow": '<button type="button" class="slick-prev"><i class="fi-rs-arrow-small-left"></i></button>',
+    "nextArrow": '<button type="button" class="slick-next"><i class="fi-rs-arrow-small-right"></i></button>'
   };
 
 
@@ -116,12 +186,12 @@ export class DetailsProductComponent {
 
 
   getDetailsProduct() {
-    const params = this.activatedRoute.snapshot.paramMap.get('id');
-    if (params) {
-      this.slugProduct = params;
-      this.apiService.getItem('products', this.slugProduct).subscribe(
+      this.apiService.getItem('products', this.slugProduct()).subscribe(
         (response: Product) => {
+
+          this.bannersConfigs = [];
           this.product = response;
+          this.productDetails.set(response)
 
           if (response.image1 && response.image1.trim() !== "") {
             this.bannersConfigs.push({ img: response.image1 });
@@ -144,7 +214,7 @@ export class DetailsProductComponent {
           // this.ecommerService.getShopDetails(response.shop)
         }
       );
-    }
+
   }
 
 
@@ -193,43 +263,30 @@ getVendorDetails(){
 
 
 initProductDetails(): void {
-
-  // Remove active class from all thumbnail slides
-  $('.slider-nav-thumbnails .slick-slide').removeClass('slick-active');
-  // Set active class to first thumbnail slides
-  $('.slider-nav-thumbnails .slick-slide').eq(0).addClass('slick-active');
-
-  // On before slide change match active thumbnail to current slide
-  $('.product-image-slider').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-    var mySlideNumber = nextSlide;
+  // Ensure Slick is initialized before performing operations
+  if ($('.product-image-slider').hasClass('slick-initialized')) {
+    // Remove active class from all thumbnail slides
     $('.slider-nav-thumbnails .slick-slide').removeClass('slick-active');
-    $('.slider-nav-thumbnails .slick-slide').eq(mySlideNumber).addClass('slick-active');
-  });
+    // Set active class to first thumbnail slide
+    $('.slider-nav-thumbnails .slick-slide').eq(0).addClass('slick-active');
 
-
-  // Qty Up-Down
-  $('.detail-qty').each(function () {
-    var qtyval = parseInt($(this).find('.qty-val').text(), 10);
-    $('.qty-up').on('click', function (event) {
-      event.preventDefault();
-      qtyval = qtyval + 1;
-      $(this).prev().text(qtyval);
-    });
-    $('.qty-down').on('click', function (event) {
-      event.preventDefault();
-      qtyval = qtyval - 1;
-      if (qtyval > 1) {
-        $(this).next().text(qtyval);
+    // On before slide change match active thumbnail to current slide
+    $('.product-image-slider').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+      if (slick) {
+        var mySlideNumber = nextSlide;
+        $('.slider-nav-thumbnails .slick-slide').removeClass('slick-active');
+        $('.slider-nav-thumbnails .slick-slide').eq(mySlideNumber).addClass('slick-active');
       } else {
-        qtyval = 1;
-        $(this).next().text(qtyval);
+        console.warn('Slick carousel not initialized yet. Thumbnail synchronization might not work.');
       }
     });
-  });
 
-  $('.dropdown-menu .cart_list').on('click', function (event) {
-    event.stopPropagation();
-  });
+    $('.dropdown-menu .cart_list').on('click', function (event) {
+      event.stopPropagation();
+    });
+  } else {
+    console.warn('Slick carousel not initialized yet.');
+  }
 }
 
 }

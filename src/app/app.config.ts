@@ -1,10 +1,11 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, isDevMode } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideToastr } from 'ngx-toastr';
 import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { httpInterceptor } from './core/helpers/interceptors/http.interceptor';
+import { provideServiceWorker } from '@angular/service-worker';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,6 +13,11 @@ export const appConfig: ApplicationConfig = {
     provideToastr(), // Toastr providers
     provideHttpClient(withInterceptorsFromDi()),
     provideHttpClient(withInterceptors([httpInterceptor])),
-  ],
+    provideServiceWorker('ngsw-worker.js', {
+        enabled: !isDevMode(),
+        registrationStrategy: 'registerWhenStable:30000'
+    }),
+
+],
 
 };
