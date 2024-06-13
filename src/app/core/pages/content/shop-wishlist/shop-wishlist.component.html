@@ -4,8 +4,8 @@
     <div class="row">
         <div class="col-xl-10 col-lg-12 m-auto">
             <div class="mb-50">
-                <h1 class="heading-2 mb-10">Votre liste des souhaits</h1>
-                <h6 class="text-body">There are <span class="text-brand">5</span> products in this list</h6>
+                <h1 class="heading-2 mb-10">Liste des souhaits</h1>
+                <!-- <h6 class="text-body">There are <span class="text-brand">5</span> products in this list</h6> -->
             </div>
             <div class="table-responsive shopping-summery">
                 <table class="table table-wishlist">
@@ -23,7 +23,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="pt-30" *ngFor="let item of whishListItems | async">
+                        @if(whishListItems.value.length > 0){
+                          <tr class="pt-30" *ngFor="let item of whishListItems | async">
                             <td class="custome-checkbox pl-30">
                                 <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="">
                                 <label class="form-check-label" for="exampleCheckbox1"></label>
@@ -57,7 +58,14 @@
                             <td class="action text-center" data-title="Remove">
                                 <a href="#" class="text-body"><i class="fi-rs-trash"></i></a>
                             </td>
-                        </tr>
+                          </tr>
+                        }@else{
+                          <tr class="pt-30">
+                            <td class="custome-checkbox pl-30" colspan="10">
+                              <p>Aucun trouvées pour le moment, allez consulter la liste de nos produits.</p>
+                            </td>
+                          </tr>
+                        }
                     </tbody>
                 </table>
             </div>
