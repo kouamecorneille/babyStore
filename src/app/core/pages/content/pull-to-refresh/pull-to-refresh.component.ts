@@ -10,10 +10,7 @@ import { Component } from '@angular/core';
 })
 export class PullToRefreshComponent {
 
-  tems: string[] = [];
   isRefreshing = false;
-  touchStartY = 0;
-  touchMoveY = 0;
   pStart = { x: 0, y: 0 };
   pStop = { x: 0, y: 0 };
 
@@ -73,30 +70,6 @@ export class PullToRefreshComponent {
     document.removeEventListener("touchend", (e) => { this.swipeEnd(e); });
   }
 
-
-
-  onTouchStart(event: TouchEvent) {
-    this.touchStartY = event.touches[0].clientY;
-  }
-
-  onTouchMove(event: TouchEvent) {
-    this.touchMoveY = event.touches[0].clientY;
-    const pullDistance = this.touchMoveY - this.touchStartY;
-
-    if (pullDistance > 50) {
-      this.isRefreshing = true;
-    }
-  }
-
-  onTouchEnd() {
-    if (this.isRefreshing) {
-      this.refreshPage();
-    }
-
-    this.isRefreshing = false;
-    this.touchStartY = 0;
-    this.touchMoveY = 0;
-  }
 
   refreshPage() {
     // Actualiser la page
