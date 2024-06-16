@@ -133,7 +133,7 @@
     </div>
     <app-header-bottom></app-header-bottom>
 </header>
-<div class="mobile-header-active mobile-header-wrapper-style">
+<div class="mobile-header-active mobile-header-wrapper-style sidebar-visible" *ngIf="ecomService.searchVisible()">
     <div class="mobile-header-wrapper-inner">
         <div class="mobile-header-top">
             <div class="mobile-header-logo">
@@ -142,7 +142,7 @@
                 </a>
             </div>
             <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
-                <button class="close-style search-close">
+                <button class="close-style search-close" (click)="tooggleClose()">
                     <i class="icon-top"></i>
                     <i class="icon-bottom"></i>
                 </button>

@@ -6,11 +6,13 @@ import { provideToastr } from 'ngx-toastr';
 import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { httpInterceptor } from './core/helpers/interceptors/http.interceptor';
 import { provideServiceWorker } from '@angular/service-worker';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideToastr(), // Toastr providers
+    provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
     provideHttpClient(withInterceptors([httpInterceptor])),
     provideServiceWorker('ngsw-worker.js', {

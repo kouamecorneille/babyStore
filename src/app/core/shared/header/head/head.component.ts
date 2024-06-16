@@ -1,4 +1,4 @@
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, inject } from '@angular/core';
 import { MobileMenuComponent } from '../mobile-menu/mobile-menu.component';
 import { HeaderBottomComponent } from '../header-bottom/header-bottom.component';
 import { HeaderActionRightComponent } from '../header-action-right/header-action-right.component';
@@ -7,6 +7,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import  $ from 'jquery';
 import { CartService } from '../../../services/others/cart.service';
 import { Product } from '../../../interfaces/Iproduct';
+import { EcommerceService } from '../../../services/others/ecommerce.service';
 interface CartItem {
   quantity: number;
   product: Product;
@@ -28,7 +29,7 @@ export class HeadComponent {
   totalCheckout:number = 0;
   totalItemsWhishList:number = 0;
   cartItems:CartItem[] = [];
-  searchVisible: boolean = false;
+  ecomService=inject(EcommerceService)
 
 
   baseUrl:string='http://djassa2baby.pythonanywhere.com/'
@@ -40,14 +41,6 @@ export class HeadComponent {
   }
 
 
-
-  openSearch() {
-    this.searchVisible = true;
-  }
-
-  closeSearch() {
-    this.searchVisible = false;
-  }
 
 
   ngOnInit(): void {
@@ -68,6 +61,12 @@ export class HeadComponent {
       this.totalItemsWhishList = data
     })
   }
+
+  tooggleClose(){
+    this.ecomService.searchVisible.set(false)
+  }
+
+
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {

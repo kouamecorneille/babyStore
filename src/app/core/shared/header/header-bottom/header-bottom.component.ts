@@ -1,4 +1,4 @@
-import { Component, Inject, PLATFORM_ID, Renderer2, OnInit } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, Renderer2, OnInit, inject } from '@angular/core';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
@@ -7,6 +7,7 @@ import { ICategory } from "../../../interfaces/Icategory";
 import { CartService } from '../../../services/others/cart.service';
 import { CartItem } from '../../../interfaces/IcartItem';
 import { CartDropdownComponent } from '../../../components/cart-dropdown/cart-dropdown.component';
+import { EcommerceService } from '../../../services/others/ecommerce.service';
 
 @Component({
   selector: 'app-header-bottom',
@@ -23,6 +24,7 @@ export class HeaderBottomComponent{
   isOpen = false;
   listOfData = new BehaviorSubject<ICategory[]>([]);
   listOfData2 = new BehaviorSubject<ICategory[]>([]);
+  ecomService =inject(EcommerceService)
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
@@ -34,7 +36,7 @@ export class HeaderBottomComponent{
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.mobileHeaderActive();
+      //this.mobileHeaderActive();
     }
 
     this.getCategory();
@@ -50,6 +52,11 @@ export class HeaderBottomComponent{
 
   toggleSearch() {
     this.isOpen = !this.isOpen;
+  }
+
+  tooggleOpen(){
+    console.log("-----this.ecomService.searchVisible.set(true)-------")
+    this.ecomService.searchVisible.set(true)
   }
 
   mobileHeaderActive(): void {

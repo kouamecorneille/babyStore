@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Product } from '../../interfaces/Iproduct';
 import { ApiService } from '../api.service';
@@ -14,6 +14,7 @@ export class EcommerceService {
   listOfProducts = new BehaviorSubject<Product[]>([]);
   listOfVendorProducts = new BehaviorSubject<Product[]>([]);
   listOfVendorProductsCategory = new BehaviorSubject<Product[]>([]);
+  searchVisible = signal<boolean>(false)
 
   newProducts = new BehaviorSubject<Product[]>([]);
   // Créez un objet conforme à l'interface Store avec des valeurs initiales

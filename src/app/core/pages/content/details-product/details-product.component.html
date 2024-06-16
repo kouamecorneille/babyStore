@@ -106,7 +106,7 @@
                                     </div>
                                     <div class="font-xs">
                                         <ul class="mr-50 float-start">
-                                            <li class="mb-5">Type: <span class="text-brand"> {{productDetails().category.name}} </span></li>
+                                            <li class="mb-5">Categorie: <span class="text-brand"> {{productDetails().category.name}} </span></li>
                                             <!-- <li class="mb-5">MFG:<span class="text-brand"> Jun 4.2021</span></li> -->
                                             <li>LIFE: <span class="text-brand">70 days</span></li>
                                         </ul>
@@ -120,7 +120,8 @@
                                 <!-- Detail Info -->
                             </div>
                         </div>
-                       <app-product-info [product]="productDetails()" [vendor]="vendorDetails"></app-product-info>
+                       <app-product-info [product]="product" [vendor]="vendorDetails"></app-product-info>
+                       
                         <div class="row mt-60">
                             <div class="col-12">
                                 <h2 class="section-title style-1 mb-30">Articles similaires</h2>

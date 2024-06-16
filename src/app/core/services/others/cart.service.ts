@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Product } from '../../interfaces/Iproduct';
 import { BehaviorSubject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
@@ -16,7 +16,7 @@ interface WhishListItem {
 export class CartService {
   private cartItems: BehaviorSubject<CartItem[]> = new BehaviorSubject<CartItem[]>([]);
   private whishListItems: BehaviorSubject<WhishListItem[]> = new BehaviorSubject<WhishListItem[]>([]);
-  private compareItems: BehaviorSubject<CartItem[]> = new BehaviorSubject<CartItem[]>([]);
+  cartItemsSignal = signal<CartItem[]>([]);
   totalItems = new BehaviorSubject<number>(0);
   totalItemsWhishList = new BehaviorSubject<number>(0);
   totalCart = new BehaviorSubject<number>(0);
@@ -28,6 +28,7 @@ export class CartService {
       const storedCartItems = localStorage.getItem('cartItems');
       if (storedCartItems) {
         this.cartItems.next(JSON.parse(storedCartItems));
+        this.cartItemsSignal.set(JSON.parse(storedCartItems))
         this.getTotalItems(); // Appel initial pour mettre à jour la valeur
         this.getTotal()
       } else {
@@ -74,6 +75,7 @@ export class CartService {
     if (existingItem) {
       existingItem.quantity += quantity;
       this.cartItems.next(existingItems); // Émettre la nouvelle valeur du panier
+      this.cartItemsSignal.set(existingItems)
       this.toastr.success('Le produit a été ajouté avec succès !', 'Succès !', { timeOut: 3000 });
       this.saveCartToLocalStorage();
       this.getTotalItems();
@@ -82,6 +84,7 @@ export class CartService {
       const newItem: CartItem = { quantity, product };
       const updatedItems = [...existingItems, newItem]; // Créer un nouveau tableau avec l'élément ajouté
       this.cartItems.next(updatedItems); // Émettre la nouvelle valeur du panier
+      this.cartItemsSignal.set(updatedItems)
       this.toastr.success('Le produit a été ajouté avec succès !', 'Succès !', { timeOut: 3000 });
       this.saveCartToLocalStorage();
       this.getTotalItems();
@@ -157,8 +160,8 @@ export class CartService {
   // }
 
 
-  getCartItems(): CartItem[] {
-    return this.cartItems.value;
+  getCartItems() {
+    return this.cartItemsSignal();
   }
 
   // getTotal(): number {

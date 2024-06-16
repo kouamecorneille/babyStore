@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CartService } from '../../services/others/cart.service';
 import { CartItem } from '../../interfaces/IcartItem';
@@ -17,21 +17,23 @@ export class CartDropdownComponent {
   totalCheckout:number = 0;
   totalItemsWhishList:number = 0;
   cartItems:CartItem[] = [];
-  constructor(private cartService: CartService) {
+  cartService = inject(CartService)
+  constructor() {
 
    this.cartService.totalItems.subscribe((data)=>{
     this.totalItems = data
     })
+
+    ///this.cartItems = this.cartService.cartItemsSignal().slice(0,3)
+
   }
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
+    
     this.cartService.totalItems.subscribe((data)=>{
       this.totalItems = data  //recuperer le nombres d'articles dans  le panier
     })
 
-    this.cartItems = this.cartService.getCartItems().slice(0,3)
 
      this.cartService.totalCart.subscribe((data)=>{
       // console.log(data)

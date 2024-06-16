@@ -1,6 +1,7 @@
 import { DOCUMENT } from "@angular/common";
-import { AfterViewInit, Component, ElementRef, Inject, Renderer2, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Inject, Renderer2, ViewChild, inject } from "@angular/core";
 import { RouterModule } from "@angular/router";
+import { EcommerceService } from "../../../services/others/ecommerce.service";
 
 @Component({
   selector: 'app-mobile-menu',
@@ -12,6 +13,7 @@ import { RouterModule } from "@angular/router";
 export class MobileMenuComponent {
 
   @ViewChild('offCanvasNav') offCanvasNav!: ElementRef;
+  ecomService=inject(EcommerceService)
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -23,8 +25,9 @@ export class MobileMenuComponent {
     const container = this.document.querySelector('.mobile-header-wrapper-style'); // Sélection de l'élément contenant la classe à modifier
     menuItems.forEach((item: HTMLElement) => {
       this.renderer.listen(item, 'click', () => {
-        this.renderer.removeClass(container, 'search-visible');
-        this.renderer.addClass(this.document.body, 'mobile-menu-active');
+        // this.renderer.removeClass(container, 'search-visible');
+        this.tooggleClose()
+        // this.renderer.addClass(this.document.body, 'mobile-menu-active');
       });
     });
 
@@ -36,7 +39,19 @@ export class MobileMenuComponent {
     //     this.renderer.removeClass(container, 'search-visible');
     //   });
     // }
+    
   }
 
+  tooggleClose(){
+    this.ecomService.searchVisible.set(false)
+  }
+
+
+  selectItem(){
+    const container = this.document.querySelector('.mobile-header-wrapper-style'); // Sélection de l'élément contenant la classe à modifier
+
+    
+    
+  }
 
 }

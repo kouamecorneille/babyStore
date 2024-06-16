@@ -1,8 +1,8 @@
 <div class="cart-dropdown-wrap cart-dropdown-hm2">
   <ul>
-    <li *ngFor="let item of cartItems">
+    <li *ngFor="let item of cartService.cartItemsSignal().slice(0,3)">
         <div class="shopping-cart-img">
-            <a><img alt="Nest" [src]="item.product.image1" /></a>
+            <a><img alt="shop" [src]="item.product.image1" /></a>
         </div>
         <div class="shopping-cart-title">
             <h4><a href="shop-product-right.html"> {{item.product.name.substring(0,10)}} ... </a></h4>

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, WritableSignal, signal } from '@angular/core';
 import { Store } from '../../interfaces/Ishop';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -30,8 +30,9 @@ interface RatingPercentages {
 })
 export class ProductInfoComponent {
 
-  @Input() product!: Product;
+  @Input() product!:Product;
   @Input() vendor!: Store;
+  @Input() description!:string;
 
   reviewForm: FormGroup;
   loader: boolean = false;

@@ -21,48 +21,8 @@
         <div class="row mb-50">
             <div class="col-12 col-lg-8 mx-auto">
                 <div class="shop-product-fillter">
-                    <div class="totall-product">
+                    <div class="totall-product text-center">
                         <p>Nous avons plus de  <strong class="text-brand">780</strong> vendeurs sur BabyShop</p>
-                    </div>
-                    <div class="sort-by-product-area">
-                        <div class="sort-by-cover mr-10">
-                            <div class="sort-by-product-wrap">
-                                <div class="sort-by">
-                                    <span><i class="fi-rs-apps"></i>Show:</span>
-                                </div>
-                                <div class="sort-by-dropdown-wrap">
-                                    <span> 50 <i class="fi-rs-angle-small-down"></i></span>
-                                </div>
-                            </div>
-                            <div class="sort-by-dropdown">
-                                <ul>
-                                    <li><a class="active" href="#">50</a></li>
-                                    <li><a href="#">100</a></li>
-                                    <li><a href="#">150</a></li>
-                                    <li><a href="#">200</a></li>
-                                    <li><a href="#">All</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="sort-by-cover">
-                            <div class="sort-by-product-wrap">
-                                <div class="sort-by">
-                                    <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
-                                </div>
-                                <div class="sort-by-dropdown-wrap">
-                                    <span> Featured <i class="fi-rs-angle-small-down"></i></span>
-                                </div>
-                            </div>
-                            <div class="sort-by-dropdown">
-                                <ul>
-                                    <li><a class="active" href="#">Mall</a></li>
-                                    <li><a href="#">Featured</a></li>
-                                    <li><a href="#">Preferred</a></li>
-                                    <li><a href="#">Total items</a></li>
-                                    <li><a href="#">Avg. Rating</a></li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -71,17 +31,17 @@
         <div class="row vendor-grid">
 
           @if(listOfVendors.value.length > 0){
-            <div class="col-lg-6 col-md-6 col-12 col-sm-6" *ngFor="let item of listOfVendors | async">
-              <app-single-vendor
-              [nameBoutique]="item.name"
-              [logourl]="item.logo"
-              [numero]="item.phone_number_1"
-              [joineddate]="item.date_added"
-              [slug]="item.slug"
-              [adresse]="item.location"
-              >
-              </app-single-vendor>
-            </div>
+              <div class="col-lg-6 col-md-6 col-12 col-sm-6" *ngFor="let item of listOfVendors | async">
+                <app-single-vendor
+                [nameBoutique]="item.name"
+                [logourl]="item.logo"
+                [numero]="item.phone_number_1"
+                [joineddate]="item.date_added"
+                [slug]="item.slug"
+                [adresse]="item.location"
+                >
+                </app-single-vendor>
+              </div>
           }@else{
 
 
