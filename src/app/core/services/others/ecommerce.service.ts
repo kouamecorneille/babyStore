@@ -14,7 +14,9 @@ export class EcommerceService {
   listOfProducts = new BehaviorSubject<Product[]>([]);
   listOfVendorProducts = new BehaviorSubject<Product[]>([]);
   listOfVendorProductsCategory = new BehaviorSubject<Product[]>([]);
+  listOfRecommendations = new BehaviorSubject<Product[]>([]);
   searchVisible = signal<boolean>(false)
+  isRefreshing = signal<boolean>(false)
 
   newProducts = new BehaviorSubject<Product[]>([]);
   // Créez un objet conforme à l'interface Store avec des valeurs initiales
@@ -47,8 +49,8 @@ export class EcommerceService {
 
     this.apiService.getItems("products").subscribe(
       (response:Product[]) => {
-
         this.listOfProduct.next(response.reverse());
+        this.listOfRecommendations.next(response.slice(5, 15));
       },
       (error:any) => {
         console.log(error.message)
@@ -94,7 +96,7 @@ export class EcommerceService {
     this.apiService.getItems("products").subscribe(
       (response:Product[]) => {
 
-        this.listOfProducts.next(response);
+        this.listOfProducts.next(response.reverse());
       },
       (error:any) => {
         console.log(error.message)

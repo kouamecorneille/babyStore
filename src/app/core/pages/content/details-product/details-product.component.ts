@@ -147,17 +147,18 @@ export class DetailsProductComponent implements  OnInit, OnDestroy {
   sendWhatsappMessage() {
     const phoneNumber = encodeURIComponent(this.productDetails().shop.phone_number_1);
     
-    // Créez le message avec des retours à la ligne et des emojis
-    const text = `Bonjour 👋,%0A%0AJ'aimerais commander l'article :%0A🛒 *${this.productDetails().name}*%0APour une quantité de : %0A🔢 ${this.quantity}%0A%0AMerci beaucoup ! 😊`;
+    // Personnalisation du message avec des retours à la ligne et des emojis
+    const productName = encodeURIComponent(`*${this.productDetails().name}*`); // Met le nom du produit en gras
+    const quantity = encodeURIComponent(`${this.quantity}`); // Convertit la quantité en texte
+    
+    const text = `Bonjour 👋,%0A%0AJ'aimerais commander l'article :%0A🛒 ${productName}%0A pour une quantité de : %0A🔢 ${quantity}%0A%0AMerci beaucoup ! 😊`;
   
     const message = encodeURIComponent(text);
   
     window.open(`https://api.whatsapp.com/send?phone=+225${phoneNumber}&text=${message}`);
   }
   
-
-
-
+  
 
 
   slideConfig = {
@@ -228,7 +229,7 @@ export class DetailsProductComponent implements  OnInit, OnDestroy {
   this.apiService.getItems(`similar-products?product_id=${this.productDetails().id}&&category_id=${this.productDetails().category.id}`).subscribe(
     (response:Product[])=>{
       console.log("PRODUCT :",response);
-
+ 
       this.similarProduct = response.slice(0,4);
     }
   )

@@ -8,11 +8,12 @@ import { CartService } from '../../../services/others/cart.service';
 import { CartItem } from '../../../interfaces/IcartItem';
 import { CartDropdownComponent } from '../../../components/cart-dropdown/cart-dropdown.component';
 import { EcommerceService } from '../../../services/others/ecommerce.service';
+import { RecommandationsCategorieComponent } from '../../../components/recommandations-categorie/recommandations-categorie.component';
 
 @Component({
   selector: 'app-header-bottom',
   standalone: true,
-  imports: [CommonModule, RouterModule, CartDropdownComponent],
+  imports: [CommonModule, RouterModule, CartDropdownComponent,RecommandationsCategorieComponent],
   templateUrl: './header-bottom.component.html',
   styleUrls: ['./header-bottom.component.css']
 })

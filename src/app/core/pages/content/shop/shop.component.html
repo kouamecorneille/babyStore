@@ -1,52 +1,83 @@
 <app-deals-breadcrumb [title]="'Nos articles'" [hasCategorie]="true"></app-deals-breadcrumb>
 <div class="container mb-30">
   <div class="row">
-      <div class="col-12">
-          <div class="shop-product-fillter">
-              <div class="totall-product">
-                  <p>We found <strong class="text-brand">29</strong> items for you!</p>
-              </div>
-              <div class="sort-by-product-area">
-                  <div class="sort-by-cover mr-10">
-                      <div class="sort-by-product-wrap">
-                          <div class="sort-by">
-                              <span><i class="fi-rs-apps"></i>Show:</span>
-                          </div>
-                          <div class="sort-by-dropdown-wrap">
-                              <span> 50 <i class="fi-rs-angle-small-down"></i></span>
-                          </div>
-                      </div>
-                      <div class="sort-by-dropdown">
+    <div class="col-lg-12">
+      <a class="shop-filter-toogle" href="javascript:void(0);" (click)="activeFilter()">
+          <span class="fi-rs-filter mr-5"></span>
+          Filtre des produits
+          <i class="fi-rs-angle-small-down angle-up" *ngIf="!activedFilter()"></i>
+          <i class="fi-rs-angle-small-up angle-up" *ngIf="activedFilter()"></i>
+      </a>
+      <div class="shop-product-fillter-header" *ngIf="activedFilter()">
+          <div class="row">
+              <div class="col-xl-4 col-lg-6 col-md-6 mb-lg-0 mb-md-2 mb-sm-2">
+                  <div class="card">
+                      <h5 class="mb-30">Par Categories</h5>
+                      <div class="categories-dropdown-wrap font-heading">
                           <ul>
-                              <li><a class="active" href="#">50</a></li>
-                              <li><a href="#">100</a></li>
-                              <li><a href="#">150</a></li>
-                              <li><a href="#">200</a></li>
-                              <li><a href="#">All</a></li>
+                              <li *ngFor="let item of listOfData2 | async;" role="button" (click)="chooseCategory(item)"  [ngClass]="{'selected': item.id === selectedCategory}">
+                                  <a href="javascript:void(0);"> 
+                                    <img [src]="item.image" alt="">
+                                    {{item.name}}
+                                  </a>
+                              </li>
                           </ul>
                       </div>
                   </div>
-                  <div class="sort-by-cover">
-                      <div class="sort-by-product-wrap">
-                          <div class="sort-by">
-                              <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
-                          </div>
-                          <div class="sort-by-dropdown-wrap">
-                              <span> Featured <i class="fi-rs-angle-small-down"></i></span>
+              </div>
+              <div class="col-xl-4 col-lg-6 col-md-6 mb-lg-0 mb-md-2 mb-sm-2">
+                  <div class="card">
+                      <h5 class="mb-30">Par boutiques</h5>
+                      <div class="d-flex">
+                          <div class="custome-checkbox mr-80">
+                             <div *ngFor="let item of listOfStores |async; track item">
+                                <input class="form-check-input" type="checkbox" name="checkbox" [id]="item.id" [value]="item.id">
+                                <label class="form-check-label" [for]="item.id"><span>
+                                  {{item.name}}
+                                </span></label>
+                                <br>
+                             </div>
                           </div>
                       </div>
-                      <div class="sort-by-dropdown">
-                          <ul>
-                              <li><a class="active" href="#">Featured</a></li>
-                              <li><a href="#">Price: Low to High</a></li>
-                              <li><a href="#">Price: High to Low</a></li>
-                              <li><a href="#">Release Date</a></li>
-                              <li><a href="#">Avg. Rating</a></li>
-                          </ul>
+                  </div>
+              </div>
+              <div class="col-xl-4 col-lg-6 col-md-6 mb-lg-0 mb-md-5 mb-sm-5">
+                  <div class="card">
+                      <h5 class="mb-10">Par prix</h5>
+                      <div class="sidebar-widget price_range range">
+                          <!-- <div class="price-filter mb-20">
+                              <div class="price-filter-inner">
+                                  <div id="slider-range"></div>
+                                  <div class="price_slider_amount">
+                                      <div class="label-input">
+                                        <input type="range" id="amount" name="price" placeholder="Add Your Price">
+                                      </div>
+                                  </div>
+                              </div>
+                          </div> -->
+                          <div class="custome-checkbox">
+                              <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox211" value="">
+                              <label class="form-check-label" for="exampleCheckbox211"><span>500 CFA - 10,000 CFA </span></label>
+                              <br>
+                              <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox22" value="">
+                              <label class="form-check-label" for="exampleCheckbox22"><span>10,000 CFA - 40,000 CFA </span></label>
+                              <br>
+                              <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox23" value="">
+                              <label class="form-check-label" for="exampleCheckbox23"><span>$40.00 - $60.00 </span></label>
+                              <br>
+                              <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox24" value="">
+                              <label class="form-check-label" for="exampleCheckbox24"><span>$60.00 - $80.00 </span></label>
+                              <br>
+                              <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox25" value="">
+                              <label class="form-check-label" for="exampleCheckbox25"><span>Over $100.00</span></label>
+                          </div>
                       </div>
                   </div>
               </div>
           </div>
+      </div>
+  </div>
+      <div class="col-12">
           <div class="row product-grid">
 
             @if(ecommerceService.listOfProducts.value.length > 0){
@@ -169,8 +200,6 @@
                     </div>
                 </div>
             }
-
-
               <!--end product card-->
           </div>
           <!--product grid-->
@@ -191,6 +220,12 @@
                   </ul>
               </nav>
           </div>
+
+          <!-- deals  -->
+
+          
+          <!-- deals 2 -->
+
           <section class="section-padding pb-5">
               <div class="section-title">
                   <h3 class="">Deals du jour</h3>
@@ -249,6 +284,275 @@
               </div>
           </section>
           <!--End Deals-->
+
+          <section class="section-padding mb-30">
+            <div class="container">
+              <div class="row">
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-sm-5 mb-md-0 wow animate__animated animate__fadeInUp"  data-wow-delay="0">
+                  <h4 class="section-title style-1 mb-30  animated animated">Mieux vendu</h4>
+                  <div class="product-list-small  animated animated">
+                    <article class="row align-items-center hover-up">
+                      <figure class="col-md-4 mb-0">
+                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-1.jpg" alt="" /></a>
+                      </figure>
+                      <div class="col-md-8 mb-0">
+                        <h6>
+                          <a href="shop-product-right.html">Nestle Original Coffee-Mate Coffee Creamer</a>
+                        </h6>
+                        <div class="product-rate-cover">
+                          <div class="product-rate d-inline-block">
+                            <div class="product-rating" style="width: 90%"></div>
+                          </div>
+                          <span class="font-small ml-5 text-muted"> (4.0)</span>
+                        </div>
+                        <div class="product-price">
+                          <span>$32.85</span>
+                          <span class="old-price">$33.8</span>
+                        </div>
+                      </div>
+                    </article>
+                    <article class="row align-items-center hover-up">
+                      <figure class="col-md-4 mb-0">
+                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-2.jpg" alt="" /></a>
+                      </figure>
+                      <div class="col-md-8 mb-0">
+                        <h6>
+                          <a href="shop-product-right.html">Nestle Original Coffee-Mate Coffee Creamer</a>
+                        </h6>
+                        <div class="product-rate-cover">
+                          <div class="product-rate d-inline-block">
+                            <div class="product-rating" style="width: 90%"></div>
+                          </div>
+                          <span class="font-small ml-5 text-muted"> (4.0)</span>
+                        </div>
+                        <div class="product-price">
+                          <span>$32.85</span>
+                          <span class="old-price">$33.8</span>
+                        </div>
+                      </div>
+                    </article>
+                    <article class="row align-items-center hover-up">
+                      <figure class="col-md-4 mb-0">
+                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-3.jpg" alt="" /></a>
+                      </figure>
+                      <div class="col-md-8 mb-0">
+                        <h6>
+                          <a href="shop-product-right.html">Nestle Original Coffee-Mate Coffee Creamer</a>
+                        </h6>
+                        <div class="product-rate-cover">
+                          <div class="product-rate d-inline-block">
+                            <div class="product-rating" style="width: 90%"></div>
+                          </div>
+                          <span class="font-small ml-5 text-muted"> (4.0)</span>
+                        </div>
+                        <div class="product-price">
+                          <span>$32.85</span>
+                          <span class="old-price">$33.8</span>
+                        </div>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-md-0 wow animate__animated animate__fadeInUp"  data-wow-delay=".1s">
+                  <h4 class="section-title style-1 mb-30  animated animated">Nouvelle tendence</h4>
+                  <div class="product-list-small  animated animated">
+                    <article class="row align-items-center hover-up">
+                      <figure class="col-md-4 mb-0">
+                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-4.jpg" alt="" /></a>
+                      </figure>
+                      <div class="col-md-8 mb-0">
+                        <h6>
+                          <a href="shop-product-right.html">Organic Cage-Free Grade A Large Brown Eggs</a>
+                        </h6>
+                        <div class="product-rate-cover">
+                          <div class="product-rate d-inline-block">
+                            <div class="product-rating" style="width: 90%"></div>
+                          </div>
+                          <span class="font-small ml-5 text-muted"> (4.0)</span>
+                        </div>
+                        <div class="product-price">
+                          <span>$32.85</span>
+                          <span class="old-price">$33.8</span>
+                        </div>
+                      </div>
+                    </article>
+                    <article class="row align-items-center hover-up">
+                      <figure class="col-md-4 mb-0">
+                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-5.jpg" alt="" /></a>
+                      </figure>
+                      <div class="col-md-8 mb-0">
+                        <h6>
+                          <a href="shop-product-right.html">Seeds of Change Organic Quinoa, Brown, & Red Rice</a>
+                        </h6>
+                        <div class="product-rate-cover">
+                          <div class="product-rate d-inline-block">
+                            <div class="product-rating" style="width: 90%"></div>
+                          </div>
+                          <span class="font-small ml-5 text-muted"> (4.0)</span>
+                        </div>
+                        <div class="product-price">
+                          <span>$32.85</span>
+                          <span class="old-price">$33.8</span>
+                        </div>
+                      </div>
+                    </article>
+                    <article class="row align-items-center hover-up">
+                      <figure class="col-md-4 mb-0">
+                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-6.jpg" alt="" /></a>
+                      </figure>
+                      <div class="col-md-8 mb-0">
+                        <h6>
+                          <a href="shop-product-right.html">Naturally Flavored Cinnamon Vanilla Light Roast Coffee</a>
+                        </h6>
+                        <div class="product-rate-cover">
+                          <div class="product-rate d-inline-block">
+                            <div class="product-rating" style="width: 90%"></div>
+                          </div>
+                          <span class="font-small ml-5 text-muted"> (4.0)</span>
+                        </div>
+                        <div class="product-price">
+                          <span>$32.85</span>
+                          <span class="old-price">$33.8</span>
+                        </div>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-sm-5 mb-md-0 d-none d-lg-block wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">
+                  <h4 class="section-title style-1 mb-30  animated animated">Recement ajoutes</h4>
+                  <div class="product-list-small  animated animated">
+                    <article class="row align-items-center hover-up">
+                      <figure class="col-md-4 mb-0">
+                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-7.jpg" alt="" /></a>
+                      </figure>
+                      <div class="col-md-8 mb-0">
+                        <h6>
+                          <a href="shop-product-right.html">Pepperidge Farm Farmhouse Hearty White Bread</a>
+                        </h6>
+                        <div class="product-rate-cover">
+                          <div class="product-rate d-inline-block">
+                            <div class="product-rating" style="width: 90%"></div>
+                          </div>
+                          <span class="font-small ml-5 text-muted"> (4.0)</span>
+                        </div>
+                        <div class="product-price">
+                          <span>$32.85</span>
+                          <span class="old-price">$33.8</span>
+                        </div>
+                      </div>
+                    </article>
+                    <article class="row align-items-center hover-up">
+                      <figure class="col-md-4 mb-0">
+                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-8.jpg" alt="" /></a>
+                      </figure>
+                      <div class="col-md-8 mb-0">
+                        <h6>
+                          <a href="shop-product-right.html">Organic Frozen Triple Berry Blend</a>
+                        </h6>
+                        <div class="product-rate-cover">
+                          <div class="product-rate d-inline-block">
+                            <div class="product-rating" style="width: 90%"></div>
+                          </div>
+                          <span class="font-small ml-5 text-muted"> (4.0)</span>
+                        </div>
+                        <div class="product-price">
+                          <span>$32.85</span>
+                          <span class="old-price">$33.8</span>
+                        </div>
+                      </div>
+                    </article>
+                    <article class="row align-items-center hover-up">
+                      <figure class="col-md-4 mb-0">
+                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-9.jpg" alt="" /></a>
+                      </figure>
+                      <div class="col-md-8 mb-0">
+                        <h6>
+                          <a href="shop-product-right.html">Oroweat Country Buttermilk Bread</a>
+                        </h6>
+                        <div class="product-rate-cover">
+                          <div class="product-rate d-inline-block">
+                            <div class="product-rating" style="width: 90%"></div>
+                          </div>
+                          <span class="font-small ml-5 text-muted"> (4.0)</span>
+                        </div>
+                        <div class="product-price">
+                          <span>$32.85</span>
+                          <span class="old-price">$33.8</span>
+                        </div>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-sm-5 mb-md-0 d-none d-xl-block wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">
+                  <h4 class="section-title style-1 mb-30  animated animated">Mieux notes</h4>
+                  <div class="product-list-small  animated animated">
+                    <article class="row align-items-center hover-up">
+                      <figure class="col-md-4 mb-0">
+                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-10.jpg" alt="" /></a>
+                      </figure>
+                      <div class="col-md-8 mb-0">
+                        <h6>
+                          <a href="shop-product-right.html">Foster Farms Takeout Crispy Classic Buffalo Wings</a>
+                        </h6>
+                        <div class="product-rate-cover">
+                          <div class="product-rate d-inline-block">
+                            <div class="product-rating" style="width: 90%"></div>
+                          </div>
+                          <span class="font-small ml-5 text-muted"> (4.0)</span>
+                        </div>
+                        <div class="product-price">
+                          <span>$32.85</span>
+                          <span class="old-price">$33.8</span>
+                        </div>
+                      </div>
+                    </article>
+                    <article class="row align-items-center hover-up">
+                      <figure class="col-md-4 mb-0">
+                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-11.jpg" alt="" /></a>
+                      </figure>
+                      <div class="col-md-8 mb-0">
+                        <h6>
+                          <a href="shop-product-right.html">Angie’s Boomchickapop Sweet & Salty Kettle Corn</a>
+                        </h6>
+                        <div class="product-rate-cover">
+                          <div class="product-rate d-inline-block">
+                            <div class="product-rating" style="width: 90%"></div>
+                          </div>
+                          <span class="font-small ml-5 text-muted"> (4.0)</span>
+                        </div>
+                        <div class="product-price">
+                          <span>$32.85</span>
+                          <span class="old-price">$33.8</span>
+                        </div>
+                      </div>
+                    </article>
+                    <article class="row align-items-center hover-up">
+                      <figure class="col-md-4 mb-0">
+                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-12.jpg" alt="" /></a>
+                      </figure>
+                      <div class="col-md-8 mb-0">
+                        <h6>
+                          <a href="shop-product-right.html">All Natural Italian-Style Chicken Meatballs</a>
+                        </h6>
+                        <div class="product-rate-cover">
+                          <div class="product-rate d-inline-block">
+                            <div class="product-rating" style="width: 90%"></div>
+                          </div>
+                          <span class="font-small ml-5 text-muted"> (4.0)</span>
+                        </div>
+                        <div class="product-price">
+                          <span>$32.85</span>
+                          <span class="old-price">$33.8</span>
+                        </div>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+
       </div>
   </div>
 </div>

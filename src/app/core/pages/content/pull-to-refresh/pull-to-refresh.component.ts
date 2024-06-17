@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { EcommerceService } from '../../../services/others/ecommerce.service';
 
 @Component({
   selector: 'app-pull-to-refresh',
@@ -10,9 +11,10 @@ import { Component } from '@angular/core';
 })
 export class PullToRefreshComponent {
 
-  isRefreshing = false;
+ 
   pStart = { x: 0, y: 0 };
   pStop = { x: 0, y: 0 };
+  ecomService = inject(EcommerceService)
 
   constructor() {
     document.addEventListener("touchstart", (e) => { this.swipeStart(e) });
@@ -52,6 +54,7 @@ export class PullToRefreshComponent {
     const changeX = this.pStart.x - this.pStop.x;
     if (this.isPullDown(changeY, changeX)) {
       // do something to refresh / call apis to refresh data
+      this.ecomService.isRefreshing.set(true)
       this.refreshPage();
     }
   }

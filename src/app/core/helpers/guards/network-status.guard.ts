@@ -9,16 +9,17 @@ export const networkStatusGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const toastr = inject(ToastrService)
 
-  return networkStatusService.isOnline.pipe(
-    map(isOnline => {
-      if (!isOnline) {
-       toastr.error("Oops votre connexion n'est pas stable!", 'Erreur de connexion',{
-          timeOut:5000
-        });
-        // router.navigate(['/offline']);
-        return false;
-      }
-      return true;
-    })
-  );
+  // return networkStatusService.isOnline.pipe(
+  //   map(isOnline => {
+  //     if (!isOnline) {
+  //      toastr.error("Oops votre connexion n'est pas stable!", 'Erreur de connexion',{
+  //         timeOut:5000
+  //       });
+  //       // router.navigate(['/offline']);
+  //       return false;
+  //     }
+  //     return true;
+  //   })
+  // );
+  return true;
 };
