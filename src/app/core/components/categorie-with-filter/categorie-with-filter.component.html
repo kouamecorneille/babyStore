@@ -134,8 +134,8 @@
                             </div>
                             <div class="product-action-1">
                                 <a aria-label="Add To Wishlist" class="action-btn" (click)="addToWhishList(item)"><i class="fi-rs-heart"></i></a>
-                                <!-- <a aria-label="Compare" class="action-btn"><i class="fi-rs-shuffle"></i></a> -->
-                                <a aria-label="Quick view" class="action-btn" (click)="addTocart(item)"><i class="fi-rs-shopping-cart"></i></a>
+                                <a aria-label="Voir" class="action-btn"  [routerLink]="['/details-product', item.slug]"><i class="fi-rs-eye"></i></a>
+                                <a aria-label="Acheter" class="action-btn" (click)="addTocart(item)"><i class="fi-rs-shopping-cart"></i></a>
                             </div>
                             <div class="product-badges product-badges-position product-badges-mrg">
                                 <!-- <span class="sale">Sale</span> -->
@@ -253,7 +253,7 @@
                 (pageChange)="onPageChange($event)">
               </app-pagniate-data> -->
         </div>
-        
-        
+
+
     </div>
 </div>

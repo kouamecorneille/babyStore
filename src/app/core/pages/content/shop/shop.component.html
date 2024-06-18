@@ -16,7 +16,7 @@
                       <div class="categories-dropdown-wrap font-heading">
                           <ul>
                               <li *ngFor="let item of listOfData2 | async;" role="button" (click)="chooseCategory(item)"  [ngClass]="{'selected': item.id === selectedCategory}">
-                                  <a href="javascript:void(0);"> 
+                                  <a href="javascript:void(0);">
                                     <img [src]="item.image" alt="">
                                     {{item.name}}
                                   </a>
@@ -95,6 +95,7 @@
                             <a aria-label="Add To Wishlist" class="action-btn" (click)="addToWhishList(item)"><i class="fi-rs-heart"></i></a>
                             <!-- <a aria-label="Compare" class="action-btn" href="/shop-compare"><i class="fi-rs-shuffle"></i></a> -->
                             <a aria-label="Quick view" class="action-btn" [routerLink]="['/details-product', item.slug]"><i class="fi-rs-eye"></i></a>
+                            <a aria-label="Achéter" class="action-btn" (click)="addTocart(item)"><i class="fi-rs-shopping-cart"></i></a>
                         </div>
                         <!-- <div class="product-badges product-badges-position product-badges-mrg">
                             <span class="sale">New</span>
@@ -223,7 +224,7 @@
 
           <!-- deals  -->
 
-          
+
           <!-- deals 2 -->
 
           <section class="section-padding pb-5">

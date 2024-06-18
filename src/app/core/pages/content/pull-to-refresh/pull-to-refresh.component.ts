@@ -11,7 +11,7 @@ import { EcommerceService } from '../../../services/others/ecommerce.service';
 })
 export class PullToRefreshComponent {
 
- 
+
   pStart = { x: 0, y: 0 };
   pStop = { x: 0, y: 0 };
   ecomService = inject(EcommerceService)
@@ -54,8 +54,13 @@ export class PullToRefreshComponent {
     const changeX = this.pStart.x - this.pStop.x;
     if (this.isPullDown(changeY, changeX)) {
       // do something to refresh / call apis to refresh data
-      this.ecomService.isRefreshing.set(true)
-      this.refreshPage();
+
+      setTimeout(() => {
+          this.ecomService.isRefreshing.set(true)
+          this.refreshPage();
+          },
+        2000
+      );
     }
   }
 

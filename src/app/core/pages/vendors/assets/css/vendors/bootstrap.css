@@ -7752,7 +7752,7 @@ textarea.form-control-lg {
 }
 
 .flex-row-reverse {
-  flex-direction: row-reverse !important;
+  flex-direction: row !important;
 }
 
 .flex-column-reverse {

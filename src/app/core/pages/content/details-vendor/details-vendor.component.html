@@ -12,6 +12,72 @@
 
     <div class="container mb-30">
       <div class="row flex-row-reverse">
+        <div class="col-lg-1-5 primary-sidebar sticky-sidebar">
+          <div class="sidebar-widget widget-category-2 mb-30">
+              <h5 class="section-title style-1 mb-30">Categories</h5>
+              <ul>
+                  @if(listOfData.value.length > 0){
+                    <li *ngFor="let item of listOfData|async" role="button" (click)="chooseCategory(item)"  [ngClass]="{'selected': item.slug === selectedCategory}">
+                      <a href="javascript:void(0);">
+                          <img [src]="item.image" alt="">{{item.name}}</a>
+                          <!-- <span class="count">30</span> [routerLink]="['/store', vendorDetails.slug , 'categorie', item.slug]" -->
+                    </li>
+                  }@else{
+                    <li >
+                      <a class="category-loader ml-40">
+                        <div class="loader3">
+                          <div class="bar1"></div>
+                          <div class="bar2"></div>
+                          <div class="bar3"></div>
+                          <div class="bar4"></div>
+                          <div class="bar5"></div>
+                          <div class="bar6"></div>
+                          <div class="bar7"></div>
+                          <div class="bar8"></div>
+                          <div class="bar9"></div>
+                          <div class="bar10"></div>
+                          <div class="bar11"></div>
+                          <div class="bar12"></div>
+                      </div>
+                      </a>
+                    </li>
+                  }
+
+              </ul>
+          </div>
+
+          <!-- Product sidebar Widget -->
+          @if(ecommerceService.newProducts.value.length >0){
+              <div class="sidebar-widget product-sidebar mb-30 p-30 bg-grey border-radius-10">
+                <h5 class="section-title style-1 mb-30">Nouveaux articles</h5>
+                <div class="single-post clearfix" *ngFor="let item of ecommerceService.newProducts |async">
+                    <div class="image">
+                        <img [src]="item.image1" alt="#">
+                    </div>
+                    <div class="content pt-10">
+                        <h5><a [routerLink]="['/store', vendorDetails.slug, 'details-product',item.slug]">{{item.name.substring(0, 15)}} ...</a></h5>
+                        <p class="price mb-0 mt-5">{{item.reduced_price |number:'1.0-0'}} CFA</p>
+                        <div class="product-rate">
+                            <div class="product-rating" style="width: 90%"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+          }
+
+          <div class="banner-img wow fadeIn mb-lg-0 animated d-lg-block d-none">
+              <img src="assets/imgs/banner/banner-11.png" alt="">
+              <div class="banner-text">
+                  <span>Oganic</span>
+                  <h4>
+                      Save 17% <br>
+                      on <span class="text-brand">Oganic</span><br>
+                      Juice
+                  </h4>
+              </div>
+          </div>
+        </div>
           <div class="col-lg-4-5">
               <div class="shop-product-fillter">
                   <div class="totall-product">
@@ -36,8 +102,7 @@
                               </div>
                               <div class="product-action-1">
                                   <a aria-label="Add To Wishlist" class="action-btn" (click)="addToWishList(item)"><i class="fi-rs-heart"></i></a>
-                                  <!-- <a aria-label="Compare" class="action-btn"><i class="fi-rs-shuffle"></i></a> -->
-                                  <a aria-label="Quick view" class="action-btn" (click)="addToCart(item)"><i class="fi-rs-shopping-cart"></i></a>
+                                  <a aria-label="Voir" class="action-btn"  [routerLink]="['/store', vendorDetails.slug, 'details-product',item.slug]"><i class="fi-rs-eye"></i></a>                                  <a aria-label="Quick view" class="action-btn" (click)="addToCart(item)"><i class="fi-rs-shopping-cart"></i></a>
                               </div>
                               <div class="product-badges product-badges-position product-badges-mrg">
                                   <!-- <span class="sale">Sale</span> -->
@@ -148,72 +213,7 @@
               }
 
           </div>
-          <div class="col-lg-1-5 primary-sidebar sticky-sidebar">
-              <div class="sidebar-widget widget-category-2 mb-30">
-                  <h5 class="section-title style-1 mb-30">Categories</h5>
-                  <ul>
-                      @if(listOfData.value.length > 0){
-                        <li *ngFor="let item of listOfData|async">
-                          <a [routerLink]="['/store', vendorDetails.slug , 'categorie', item.slug]">
-                              <img [src]="item.image" alt="">{{item.name}}</a>
-                              <!-- <span class="count">30</span> -->
-                        </li>
-                      }@else{
-                        <li >
-                          <a class="category-loader ml-40">
-                            <div class="loader3">
-                              <div class="bar1"></div>
-                              <div class="bar2"></div>
-                              <div class="bar3"></div>
-                              <div class="bar4"></div>
-                              <div class="bar5"></div>
-                              <div class="bar6"></div>
-                              <div class="bar7"></div>
-                              <div class="bar8"></div>
-                              <div class="bar9"></div>
-                              <div class="bar10"></div>
-                              <div class="bar11"></div>
-                              <div class="bar12"></div>
-                          </div>
-                          </a>
-                        </li>
-                      }
 
-                  </ul>
-              </div>
-
-              <!-- Product sidebar Widget -->
-              @if(ecommerceService.newProducts.value.length >0){
-                  <div class="sidebar-widget product-sidebar mb-30 p-30 bg-grey border-radius-10">
-                    <h5 class="section-title style-1 mb-30">Nouveaux articles</h5>
-                    <div class="single-post clearfix" *ngFor="let item of ecommerceService.newProducts |async">
-                        <div class="image">
-                            <img [src]="item.image1" alt="#">
-                        </div>
-                        <div class="content pt-10">
-                            <h5><a [routerLink]="['/store', vendorDetails.slug, 'details-product',item.slug]">{{item.name.substring(0, 15)}} ...</a></h5>
-                            <p class="price mb-0 mt-5">{{item.reduced_price |number:'1.0-0'}} CFA</p>
-                            <div class="product-rate">
-                                <div class="product-rating" style="width: 90%"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-              }
-
-              <div class="banner-img wow fadeIn mb-lg-0 animated d-lg-block d-none">
-                  <img src="assets/imgs/banner/banner-11.png" alt="">
-                  <div class="banner-text">
-                      <span>Oganic</span>
-                      <h4>
-                          Save 17% <br>
-                          on <span class="text-brand">Oganic</span><br>
-                          Juice
-                      </h4>
-                  </div>
-              </div>
-          </div>
       </div>
   </div>
 

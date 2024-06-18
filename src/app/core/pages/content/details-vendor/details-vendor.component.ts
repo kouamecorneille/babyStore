@@ -21,6 +21,7 @@ export class DetailsVendorComponent {
   storeName: string = '';
   ecommerceService = inject(EcommerceService);
   baseUrl:string='http://djassa2baby.pythonanywhere.com/'
+  selectedCategory!:string;
 
   constructor(
     private apiService: ApiService,
@@ -34,6 +35,21 @@ export class DetailsVendorComponent {
     this.getStoreDetails();
     this.getCategory();
   }
+
+  chooseCategory(item:ICategory){
+
+    this.selectedCategory = item.slug
+    this.ecommerceService.getVendorProductsCategory(this.selectedCategory);
+
+    console.log(this.ecommerceService.listOfProductByCategory.value)
+    this.ecommerceService.listOfProductByCategory.subscribe(
+      (products)=>{
+        this.ecommerceService.listOfVendorProducts.next(products)
+      }
+    )
+
+  }
+
 
   getStoreDetails(): void {
     const nameParam = this.activatedRoute.snapshot.paramMap.get('name');
