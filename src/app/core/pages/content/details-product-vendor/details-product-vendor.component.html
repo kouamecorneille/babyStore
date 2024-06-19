@@ -1,8 +1,9 @@
 <app-breadcrumb [firstTitle]="'Accueil'" [secondTitle]="'Produits'"  [firdTitle]="'Detals du produit'"></app-breadcrumb>
 <!-- [firdTitle]="product.name ? product.name : ''" -->
 <div class="container mb-30" restoreScrollPosition>
-    <div class="row">
-        <div class="col-xl-11 col-lg-12 m-auto">
+
+    <div class="row" style="transform: none;">
+        <div class="col-xl-9 m-auto">
             <div class="row">
                 @if(product){
                     <div class="product-detail accordion-detail">
@@ -143,5 +144,177 @@
                 }
             </div>
         </div>
+        <div
+        class="col-xl-3 primary-sidebar sticky-sidebar mt-30"
+        style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;"
+    >
+
+        <div
+            class="theiaStickySidebar"
+            style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none;"
+        >
+            <div class="sidebar-widget widget-vendor mb-30 bg-grey-9 box-shadow-none">
+                <h5 class="section-title style-3 mb-20">Informations de la boutique</h5>
+                <div class="vendor-logo d-flex mb-30">
+                    <img
+                        [src]="product.shop.logo"
+                        [alt]="product.shop.name"
+                        class="img-fluid"
+                        width="100"
+                        height="100"
+                    >
+                    <div class="vendor-name ml-15 mt-30">
+                        <h6>
+                            <a href="/vendor-details-2">
+                              {{product.shop.name}}
+                            </a>
+                        </h6>
+                        <div class="product-rate-cover text-end">
+                            <div class="product-rate d-inline-block">
+                                <div
+                                    class="product-rating"
+                                    style="width: 90%"
+                                ></div>
+                            </div>
+                            <span class="font-small ml-5 text-muted">(32 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+                <ul class="contact-infor">
+                    <li>
+                        <img
+                            src="assets/imgs/theme/icons/icon-location.svg"
+                            alt
+                        >
+                        <strong>Addresse:  </strong>
+                        <span>
+                           {{product.shop.location}}
+                        </span>
+                    </li>
+                    <li>
+                        <img
+                            src="assets/imgs/theme/icons/icon-contact.svg"
+                            alt
+                        >
+                        <strong>Numéro de téléphone:  </strong>
+                        <span>{{product.shop.phone_number_1}}</span>
+                    </li>
+                    <li class="hr">
+                        <span></span>
+                    </li>
+                </ul>
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p class="text-brand font-xs">Rating</p>
+                        <h4 class="mb-0">92%</h4>
+                    </div>
+                    <div>
+                        <p class="text-brand font-xs">Ship on time</p>
+                        <h4 class="mb-0">100%</h4>
+                    </div>
+                    <div>
+                        <p class="text-brand font-xs">Chat response</p>
+                        <h4 class="mb-0">89%</h4>
+                    </div>
+                </div>
+                <ul>
+                    <li class="hr">
+                        <span></span>
+                    </li>
+                </ul>
+                <p>
+                    Voulez-vous devenir vendeur?
+                    <a [routerLink]="['/vendors/guide']">S'inscrire maintenant</a>
+                </p>
+            </div>
+            <div class="sidebar-widget product-sidebar mb-30 p-30 bg-grey border-radius-10">
+              <h5 class="section-title style-1 mb-30">Nouveau produits</h5>
+              <div class="single-post clearfix">
+                  <div class="image">
+                      <img
+                          src="assets/imgs/shop/thumbnail-3.jpg"
+                          alt="#"
+                      >
+                  </div>
+                  <div class="content pt-10">
+                      <h5>
+                          <a href="shop-product-detail.html">Chen Cardigan</a>
+                      </h5>
+                      <p class="price mb-0 mt-5">$99.50</p>
+                      <div class="product-rate">
+                          <div
+                              class="product-rating"
+                              style="width: 90%"
+                          ></div>
+                      </div>
+                  </div>
+              </div>
+              <div class="single-post clearfix">
+                  <div class="image">
+                      <img
+                          src="assets/imgs/shop/thumbnail-4.jpg"
+                          alt="#"
+                      >
+                  </div>
+                  <div class="content pt-10">
+                      <h6>
+                          <a href="shop-product-detail.html">Chen Sweater</a>
+                      </h6>
+                      <p class="price mb-0 mt-5">$89.50</p>
+                      <div class="product-rate">
+                          <div
+                              class="product-rating"
+                              style="width: 80%"
+                          ></div>
+                      </div>
+                  </div>
+              </div>
+              <div class="single-post clearfix">
+                  <div class="image">
+                      <img
+                          src="assets/imgs/shop/thumbnail-5.jpg"
+                          alt="#"
+                      >
+                  </div>
+                  <div class="content pt-10">
+                      <h6>
+                          <a href="shop-product-detail.html">Colorful Jacket</a>
+                      </h6>
+                      <p class="price mb-0 mt-5">$25</p>
+                      <div class="product-rate">
+                          <div
+                              class="product-rating"
+                              style="width: 60%"
+                          ></div>
+                      </div>
+                  </div>
+                  <div class="content pt-10">
+                    <h6>
+                        <a href="shop-product-detail.html">Colorful Jacket</a>
+                    </h6>
+                    <p class="price mb-0 mt-5">$25</p>
+                    <div class="product-rate">
+                        <div
+                            class="product-rating"
+                            style="width: 60%"
+                        ></div>
+                    </div>
+                </div>
+                <div class="content pt-10">
+                  <h6>
+                      <a href="shop-product-detail.html">Colorful Jacket</a>
+                  </h6>
+                  <p class="price mb-0 mt-5">$25</p>
+                  <div class="product-rate">
+                      <div
+                          class="product-rating"
+                          style="width: 60%"
+                      ></div>
+                  </div>
+              </div>
+              </div>
+          </div>
+        </div>
+      </div>
     </div>
 </div>

@@ -2,51 +2,22 @@
 <div class="container mb-30">
   <div class="row">
       <div class="col-12">
-          <div class="shop-product-fillter">
-              <div class="totall-product">
-                  <p>We found <strong class="text-brand">29</strong> items for you!</p>
-              </div>
-              <div class="sort-by-product-area">
-                  <div class="sort-by-cover mr-10">
-                      <div class="sort-by-product-wrap">
-                          <div class="sort-by">
-                              <span><i class="fi-rs-apps"></i>Show:</span>
-                          </div>
-                          <div class="sort-by-dropdown-wrap">
-                              <span> 50 <i class="fi-rs-angle-small-down"></i></span>
-                          </div>
-                      </div>
-                      <div class="sort-by-dropdown">
-                          <ul>
-                              <li><a class="active" href="#">50</a></li>
-                              <li><a href="#">100</a></li>
-                              <li><a href="#">150</a></li>
-                              <li><a href="#">200</a></li>
-                              <li><a href="#">All</a></li>
-                          </ul>
-                      </div>
-                  </div>
-                  <div class="sort-by-cover">
-                      <div class="sort-by-product-wrap">
-                          <div class="sort-by">
-                              <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
-                          </div>
-                          <div class="sort-by-dropdown-wrap">
-                              <span> Featured <i class="fi-rs-angle-small-down"></i></span>
-                          </div>
-                      </div>
-                      <div class="sort-by-dropdown">
-                          <ul>
-                              <li><a class="active" href="#">Featured</a></li>
-                              <li><a href="#">Price: Low to High</a></li>
-                              <li><a href="#">Price: High to Low</a></li>
-                              <li><a href="#">Release Date</a></li>
-                              <li><a href="#">Avg. Rating</a></li>
-                          </ul>
+        <div class="archive-header-2 text-center">
+          <!-- <h3 class="display-2 mb-50">Rechercher des articles</h3> -->
+          <div class="row">
+              <div class="col-lg-5 mx-auto">
+                  <div class="sidebar-widget-2 widget_search mb-50">
+                      <div class="search-form">
+                          <form action="#">
+                              <input type="text" placeholder="Rechercher une boutique ici..">
+                              <button type="submit"><i class="fi-rs-search"></i></button>
+                          </form>
                       </div>
                   </div>
               </div>
           </div>
+      </div>
+
           <div class="row product-grid">
 
             @if(ecommerceService.listOfProductByCategory.value.length > 0){
@@ -61,9 +32,9 @@
                             </a>
                         </div>
                         <div class="product-action-1">
-                            <a aria-label="Add To Wishlist" class="action-btn" (click)="addToWhishList(item)"><i class="fi-rs-heart"></i></a>
-                            <!-- <a aria-label="Compare" class="action-btn" href="/shop-compare"><i class="fi-rs-shuffle"></i></a> -->
-                            <a aria-label="Quick view" class="action-btn" [routerLink]="['/details-product', item.slug]"><i class="fi-rs-eye"></i></a>
+                            <a aria-label="Ajouter" class="action-btn" (click)="addToWhishList(item)"><i class="fi-rs-heart"></i></a>
+                            <a aria-label="Achéter" class="action-btn" (click)="addTocart(item)"><i class="fi-rs-shopping-cart"></i></a>
+                            <a aria-label="Voir plus" class="action-btn" [routerLink]="['/details-product', item.slug]"><i class="fi-rs-eye"></i></a>
                         </div>
                         <div class="product-badges product-badges-position product-badges-mrg">
                             <span class="sale">New</span>
