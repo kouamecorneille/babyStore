@@ -9,6 +9,7 @@ import { EcommerceService } from '../../services/others/ecommerce.service';
 import { PagniateDataComponent } from '../pagniate-data/pagniate-data.component';
 import { CartService } from '../../services/others/cart.service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { Store } from '../../interfaces/Ishop';
 
 @Component({
   selector: 'app-categorie-with-filter',
@@ -20,6 +21,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 export class CategorieWithFilterComponent {
 
   listOfData = new BehaviorSubject<ICategory[]>([])
+  listOfStores = new BehaviorSubject<Store[]>([])
   listOfData2 = new BehaviorSubject<ICategory[]>([])
   // @Input() items:Product[] = [];
   listOfLoader = [0,1,2,3,5,6,7,8,9,10,11,12,13,14,15]
@@ -60,12 +62,39 @@ export class CategorieWithFilterComponent {
 
 
 
+  getListOfVendors(){
+
+
+    this.apiService.getItems(`shops`).subscribe(
+      (response:Store[]) => {
+
+        console.log(response)
+
+        if(response){
+         setTimeout(()=>{
+          this.listOfStores.next(response);
+         }, 1000)
+
+        }
+      },
+      (err:any)=>{
+
+        console.log(err)
+      }
+    )
+
+  }
+
+
+
+
 
   ngOnInit(): void {
 
     this.getCategory()
     this.SortData()
     this.iniData()
+    this.getListOfVendors()
 
   }
 
