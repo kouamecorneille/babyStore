@@ -110,10 +110,9 @@
         </div>
         <div class="col-lg-4-5">
             @if(ecommerceService.listOfProduct.value.length > 0){
-
               <div class="archive-header-2 text-center">
                 <!-- <h3 class="display-2 mb-50">Rechercher des articles</h3> -->
-                <div class="row">
+                  <div class="row">
                     <div class="col-lg-5 mx-auto">
                         <div class="sidebar-widget-2 widget_search mb-50">
                             <div class="search-form">
@@ -125,8 +124,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
+              </div>
               <div class="row product-grid">
                 <div class="col-lg-1-5 col-md-4 col-12 col-sm-6" *ngFor="let item of ecommerceService.listOfProduct |async">
                     <div class="product-cart-wrap mb-30">
