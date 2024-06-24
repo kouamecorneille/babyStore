@@ -15,11 +15,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="pt-10" *ngFor="let item of cartItems">
-                        <td class="image product-thumbnail pt-40"><img [src]="item.product.image1" alt="#"></td>
+                    @if(cartItems.length > 0){
+
+                      <tr class="pt-10 border-bottom" *ngFor="let item of cartItems">
+                        <td class="image product-thumbnail pt-30"><img [src]="item.product.image1" alt="#"></td>
                         <td class="product-des product-name">
                             <h6 class="mb-5">
-                              <a class="product-name mb-10 text-heading" href="/shop-product-right">
+                              <a class="product-name mb-10 text-heading" href="javascript:void(0);">
                                 {{item.product.name.substring(0,10)}} ...
                             </a>
                             </h6>
@@ -58,62 +60,22 @@
                           </h4>
                         </td>
                         <td class="action text-center" data-title="Supprimer">
-                          <a href="#" class="text-body"><i class="fi-rs-trash"></i></a>
+                          <a href="javascript:void(0);" role="button" class="text-body"><i class="fi-rs-trash"></i></a>
                         </td>
                     </tr>
+                    }@else{
+                      <tr class="pt-10">
+                        <td class="pt-20 text-center" colspan="8">
+                          <p>Aucun article present dans votre pannier pour le moment.</p>
+                        </td>
+
+                    </tr>
+                    }
                 </tbody>
             </table>
         </div>
-        <div class="divider-2 mb-10"></div>
-        <div class="row mt-50 mb-30" data-select2-id="17">
-            <div class="col-lg-7" data-select2-id="16">
-                <div class="calculate-shiping p-40 border-radius-15 border" data-select2-id="15">
-                    <h4 class="mb-10">Frais de livraison</h4>
-                    <!-- <p class="mb-30"><span class="font-lg text-muted">Flat rate:</span><strong class="text-brand">5%</strong></p> -->
-                    <form class="field_form shipping_calculator" data-select2-id="14">
-                        <div class="form-row" data-select2-id="13">
-                            <div class="form-group col-lg-12" data-select2-id="12">
-                                <div class="custom_select" data-select2-id="11">
-                                  <select class="form-control select-active w-100" data-select2-id="7" tabindex="-1" aria-hidden="true">
-                                    <option data-select2-id="9">Choisir une commune</option>
-                                    <option value="ABOBO" data-select2-id="10">Abobo</option>
-                                    <option value="ADJAME" data-select2-id="11">Adjamé</option>
-                                    <option value="ANYAMA" data-select2-id="12">Anyama</option>
-                                    <option value="ATTECOUBE" data-select2-id="13">Attécoubé</option>
-                                    <option value="BINGERVILLE" data-select2-id="14">Bingerville</option>
-                                    <option value="COCODY" data-select2-id="15">Cocody</option>
-                                    <option value="KOUMASSI" data-select2-id="16">Koumassi</option>
-                                    <option value="MARCORY" data-select2-id="17">Marcory</option>
-                                    <option value="PLATEAU" data-select2-id="18">Plateau</option>
-                                    <option value="PORT-BOUET" data-select2-id="19">Port-Bouët</option>
-                                    <option value="TREICHVILLE" data-select2-id="20">Treichville</option>
-                                    <option value="YOPOUGON" data-select2-id="21">Yopougon</option>
-                                </select>
+        <div class="divider-2 mb-20"></div>
 
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row row">
-                            <div class="form-group col-lg-12">
-                                <input required="required" placeholder="State / Country" name="name" type="text">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="col-lg-5 border-radius-15 border mt-20">
-                <div class="p-40">
-                    <h4 class="mb-10">Utiliser un coupon</h4>
-                    <p class="mb-30"><span class="font-lg text-muted">Utilisation d'un code promo ?</span></p>
-                    <form action="#">
-                        <div class="d-flex justify-content-between">
-                            <input class="font-medium mr-15 coupon" name="Coupon" placeholder="Entrez votre coupon">
-                            <button class="btn"><i class="fi-rs-label mr-10"></i>Appliquer</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
         <div class="cart-action d-flex justify-content-between">
           <a class="btn " [routerLink]="['/hot-deals']"><i class="fi-rs-arrow-left mr-10"></i>Continuer mes achats</a>
       </div>
@@ -147,9 +109,8 @@
                     </tbody>
                 </table>
             </div>
-            <a href="#" class="btn mb-20 w-100">Commander<i class="fi-rs-sign-out ml-15"></i></a>
-            <a href="#" class="btn mb-20 w-100">Commander sur whatsapp<i class="fi-rs-paper-plane ml-15"></i></a>
-
+            <a href="#" class="btn mb-20 w-100" [routerLink]="['/shop-checkout']">Commander<i class="fi-rs-sign-out ml-15"></i></a>
+            <!-- <a href="#" class="btn mb-20 w-100">Commander sur whatsapp<i class="fi-rs-paper-plane ml-15"></i></a> -->
         </div>
     </div>
 </div>
