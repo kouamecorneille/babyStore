@@ -161,9 +161,6 @@ export class DetailsProductComponent implements  OnInit, OnDestroy {
 
 
 
-
-
-
   slideConfig = {
     "arrows":false,
     "draggable": true,

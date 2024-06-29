@@ -75,10 +75,19 @@ export class DetailsProductVendorComponent {
 
 
   sendWhatsappMessage() {
-    const phoneNumber = encodeURIComponent(this.product.shop.phone_number_1);
-    const message = encodeURIComponent('Votre message ici');
-    window.open(`https://api.whatsapp.com/send?phone=++225${phoneNumber}&text=${message}`)
-  }
+    const phoneNumber = this.product.shop.phone_number_1;
+
+    const linkProduct = window.location.href;
+    // Personnalisation du message avec des retours à la ligne et des emojis
+    const productName = `*${this.product.name}*`; // Met le nom du produit en gras
+    const quantity = `${this.quantity}`; // Convertit la quantité en texte
+
+    const text = `Bonjour 👋 ${this.product.shop.name},\n\n🌟 J'aimerais commander l'article suivant :\n\n🛒 ${productName}\n\n📦 Quantité désirée : ${quantity}\n\nPour plus d'informations, vous pouvez consulter le lien du produit ici :\n${linkProduct}\n\nMerci beaucoup et passez une excellente journée ! 😊`;
+
+    const message = encodeURIComponent(text);
+
+    window.open(`https://api.whatsapp.com/send?phone=+225${phoneNumber}&text=${message}`);
+}
 
 
 
