@@ -5,6 +5,11 @@
   border-radius: 10px;
 }
 
+.selected{
+  border: 3px solid #3BB77E;
+  border-radius: 10%;
+}
+
 .loader3 div {
   width: 8%;
   height: 24%;

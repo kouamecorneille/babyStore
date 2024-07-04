@@ -36,7 +36,7 @@ export class ProductInfoComponent {
 
   reviewForm: FormGroup;
   loader: boolean = false;
-  rating=1
+  rating=0
   userSession: User | null;
   listOfReviews = new BehaviorSubject<ProductReview[]>([])
   reviews: ProductReview[] = [];

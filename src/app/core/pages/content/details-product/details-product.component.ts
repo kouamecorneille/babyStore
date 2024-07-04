@@ -7,7 +7,7 @@ import { CartService } from '../../../services/others/cart.service';
 import { EcommerceService } from '../../../services/others/ecommerce.service';
 import { Store } from '../../../interfaces/Ishop';
 import { Subscription } from 'rxjs';
-
+import SwiperCore from 'swiper';
 export interface SliderImgaes{
   img:string,
 }
@@ -20,6 +20,7 @@ export interface SliderImgaes{
 })
 export class DetailsProductComponent implements  OnInit, OnDestroy {
 
+  defaultImage!:string
   product!:Product
   productDetails = signal<Product>({
     id: '',
@@ -195,6 +196,11 @@ export class DetailsProductComponent implements  OnInit, OnDestroy {
   ]
 
 
+  changeImage(image:string){
+
+    this.defaultImage = image;
+  }
+
   getDetailsProduct() {
       this.apiService.getItem('products', this.slugProduct()).subscribe(
         (response: Product) => {
@@ -205,6 +211,7 @@ export class DetailsProductComponent implements  OnInit, OnDestroy {
 
           if (response.image1 && response.image1.trim() !== "") {
             this.bannersConfigs.push({ img: response.image1 });
+            this.defaultImage = response.image1
           }
           if (response.image2 && response.image2.trim() !== "") {
             this.bannersConfigs.push({ img: response.image2 });
@@ -231,7 +238,7 @@ export class DetailsProductComponent implements  OnInit, OnDestroy {
  getSimilarProduct(){
   this.apiService.getItems(`similar-products?product_id=${this.productDetails().id}&&category_id=${this.productDetails().category.id}`).subscribe(
     (response:Product[])=>{
-      console.log("PRODUCT :",response);
+      // console.log("PRODUCT :",response);
 
       this.similarProduct = response.slice(0,4);
     }
@@ -266,7 +273,7 @@ getVendorDetails(){
 
   this.ecommerService.getShopDetails(this.product.shop.slug);
   this.ecommerService.storeDetails.subscribe((data) => {
-    console.log("VENDOR: ",data)
+    // console.log("VENDOR: ",data)
     this.vendorDetails = data
   })
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { LoaderComponent } from './core/shared/header/loader/loader.component';
 import { ToastrModule } from 'ngx-toastr';
 import { PullToRefreshComponent } from './core/pages/content/pull-to-refresh/pull-to-refresh.component';
@@ -13,4 +13,11 @@ import { PullToRefreshComponent } from './core/pages/content/pull-to-refresh/pul
 })
 export class AppComponent {
   title = 'babyStore';
+  constructor(private router: Router) {}
+
+  // ngOnInit() {
+  //   this.router.events.pipe(
+  //     // RxJS operators go here
+  //   ).subscribe()
+  // }
 }

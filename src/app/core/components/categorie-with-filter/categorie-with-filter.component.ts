@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { ICategory } from '../../interfaces/Icategory';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Product } from '../../interfaces/Iproduct';
 import { EcommerceService } from '../../services/others/ecommerce.service';
 import { PagniateDataComponent } from '../pagniate-data/pagniate-data.component';
@@ -35,7 +35,7 @@ export class CategorieWithFilterComponent {
   ecommerceService = inject(EcommerceService);
   baseUrl:string='http://djassa2baby.pythonanywhere.com/'
 
-  constructor(private apiService:ApiService,private elementRef: ElementRef, private renderer: Renderer2,private cartService: CartService) {
+  constructor(private apiService:ApiService,private elementRef: ElementRef, private renderer: Renderer2,private cartService: CartService, private router:Router) {
 
   }
 
@@ -97,6 +97,17 @@ export class CategorieWithFilterComponent {
     this.getListOfVendors()
 
   }
+
+
+
+  goToDetails(item:Product){
+
+    this.router.navigate(['/details-product', item.slug], {state: { scrollTop: 0 }});
+  }
+  trackById(index: number, item: Store): string {
+    return item.id;
+  }
+
 
   iniData(){
     this.ecommerceService.getAllProducts()
