@@ -50,6 +50,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TimestampFormatPipe } from '../../helpers/pipes/timestamp-format.pipe';
 import { CorePipesModule } from '../../helpers/pipes/pipes.module';
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 @NgModule({
     declarations: [
         ErrorComponent,
@@ -102,7 +103,7 @@ import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
         SlickCarouselModule,
         CategorieWithFilterComponent,
         NgxSkeletonLoaderModule,
-        // SwiperModule,
+         NgxSliderModule,
         CorePipesModule
     ]
 })

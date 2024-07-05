@@ -21,6 +21,14 @@
                                     {{item.name}}
                                   </a>
                               </li>
+                              <li>
+                                <a role="button" (click)="showMoreCategory()" >
+                                  <div class="more_categories">
+                                    <span class="icon mb-2"></span>
+                                    <span class="heading-sm-1 mb-2">Affichez plus...</span></div>
+                                </a>
+                                  <!-- <span class="count">30</span> -->
+                              </li>
                           </ul>
                       </div>
                   </div>
@@ -29,14 +37,47 @@
                   <div class="card">
                       <h5 class="mb-30">Par boutiques</h5>
                       <div class="d-flex">
-                          <div class="custome-checkbox mr-80">
-                             <div *ngFor="let item of listOfStores |async; track item">
-                                <input class="form-check-input" type="checkbox" name="checkbox" [id]="item.id" [value]="item.id">
-                                <label class="form-check-label" [for]="item.id"><span>
-                                  {{item.name}}
-                                </span></label>
-                                <br>
-                             </div>
+                          <div class="mr-80">
+                             <div class="categories-dropdown-wrap font-heading">
+                              <ul>
+                                @if(listOfStores.value.length > 0){
+                                  <li *ngFor="let item of listOfStores | async" class="d-flex">
+                                    <a role="button" href="javascript:void(0);">
+                                      <input class="form-check-input" type="checkbox" name="checkbox" [id]="item.id" [value]="item.id">
+                                    <span class="m-2"> {{item.name}}</span>
+                                      </a>
+                                  </li>
+                                  <li>
+                                    <a role="button" (click)="showMoreStores()">
+                                      <div class="more_categories">
+                                        <span class="icon mb-2"></span>
+                                        <span class="heading-sm-1 mb-2">Affichez plus...</span></div>
+                                    </a>
+                                      <!-- <span class="count">30</span> -->
+                                  </li>
+                                }@else{
+                                  <li >
+                                    <a class="category-loader ml-40">
+                                      <div class="loader3">
+                                        <div class="bar1"></div>
+                                        <div class="bar2"></div>
+                                        <div class="bar3"></div>
+                                        <div class="bar4"></div>
+                                        <div class="bar5"></div>
+                                        <div class="bar6"></div>
+                                        <div class="bar7"></div>
+                                        <div class="bar8"></div>
+                                        <div class="bar9"></div>
+                                        <div class="bar10"></div>
+                                        <div class="bar11"></div>
+                                        <div class="bar12"></div>
+                                    </div>
+                                    </a>
+                                  </li>
+                                }
+
+                            </ul>
+                          </div>
                           </div>
                       </div>
                   </div>
@@ -46,20 +87,11 @@
                       <h5 class="mb-10">Par prix</h5>
                       <div class="sidebar-widget price_range range">
                           <div class="custome-checkbox">
-                              <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox211" value="">
-                              <label class="form-check-label" for="exampleCheckbox211"><span>500 CFA - 10,000 CFA </span></label>
-                              <br>
-                              <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox22" value="">
-                              <label class="form-check-label" for="exampleCheckbox22"><span>10,000 CFA - 40,000 CFA </span></label>
-                              <br>
-                              <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox23" value="">
-                              <label class="form-check-label" for="exampleCheckbox23"><span>$40.00 - $60.00 </span></label>
-                              <br>
-                              <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox24" value="">
-                              <label class="form-check-label" for="exampleCheckbox24"><span>$60.00 - $80.00 </span></label>
-                              <br>
-                              <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox25" value="">
-                              <label class="form-check-label" for="exampleCheckbox25"><span>Over $100.00</span></label>
+                            <ngx-slider
+                              [(value)]="sliderValue"
+                              [(highValue)]="highValue"
+                              [options]="sliderOptions">
+                            </ngx-slider>
                           </div>
 
                           <div class="mt-10">
