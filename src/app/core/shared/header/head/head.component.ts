@@ -72,9 +72,6 @@ export class HeadComponent {
     if (isPlatformBrowser(this.platformId)) {
       this.activeMobileMenu();
 
-      $(".select-active").select();
-
-
 
     }
   }

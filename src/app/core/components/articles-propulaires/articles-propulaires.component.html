@@ -3,98 +3,52 @@
         <div class="section-title style-2 wow animate__animated animate__fadeIn">
             <h3> {{title}} </h3>
             <ul class="nav nav-tabs links" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="nav-tab-one" data-bs-toggle="tab" data-bs-target="#tab-one" type="button" role="tab" aria-controls="tab-one" aria-selected="true">Tout</button>
+                @if(categorys){
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link active" id="nav-tab-one" data-bs-toggle="tab" data-bs-target="#tab-one" type="button" role="tab" aria-controls="tab-one" aria-selected="true">Tout</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="nav-tab-two" data-bs-toggle="tab" data-bs-target="#tab-two" type="button" role="tab" aria-controls="tab-two" aria-selected="false">
+                         @if(categorys[0]){
+                          {{categorys[0].name}}
+                         }
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="nav-tab-three" data-bs-toggle="tab" data-bs-target="#tab-three" type="button" role="tab" aria-controls="tab-three" aria-selected="false">
+                          @if(categorys[1]){
+                            {{categorys[1].name}}
+                           }
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="nav-tab-three" data-bs-toggle="tab" data-bs-target="#tab-four" type="button" role="tab" aria-controls="tab-three" aria-selected="false">
+                        @if(categorys[2]){
+                          {{categorys[2].name}}
+                         }
+                      </button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="nav-tab-three" data-bs-toggle="tab" data-bs-target="#tab-four" type="button" role="tab" aria-controls="tab-three" aria-selected="false">
+                      @if(categorys[3]){
+                        {{categorys[3].name}}
+                       }
+                    </button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="nav-tab-two" data-bs-toggle="tab" data-bs-target="#tab-two" type="button" role="tab" aria-controls="tab-two" aria-selected="false">Electroonics </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="nav-tab-three" data-bs-toggle="tab" data-bs-target="#tab-three" type="button" role="tab" aria-controls="tab-three" aria-selected="false">Telephones</button>
-                </li>              
+                }
             </ul>
         </div>
         <!--End nav-tabs-->
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="tab-one" role="tabpanel" aria-labelledby="tab-one">
                 <div class="row product-grid-4">
-                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                        <app-single-product ></app-single-product>
-                    </div>
-                    <!--end product card-->
-                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                        <app-single-product ></app-single-product>
-                    </div>
-                    <!--end product card-->
-                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                        <app-single-product ></app-single-product>
-                    </div>
-                    <!--end product card-->
-                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                        <app-single-product ></app-single-product>
-                    </div>
-                    <!--end product card-->
-                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                        <app-single-product ></app-single-product>
-                    </div>
-                    <!--end product card-->
-                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                        <app-single-product ></app-single-product>
-                    </div>
-                    <!--end product card-->
-                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                        <app-single-product ></app-single-product>
-                    </div>
-                    <!--end product card-->
-                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                        <app-single-product ></app-single-product>
-                    </div>
-                    <!--end product card-->
-                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                        <app-single-product ></app-single-product>
-                    </div>
-                    <!--end product card-->
-                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6 d-none d-xl-block">
-                        <app-single-product ></app-single-product>
+                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6" *ngFor="let item of allProducts">
+                        <app-single-product [product]="item"></app-single-product>
                     </div>
                     <!--end product card-->
                 </div>
                 <!--End product-grid-4-->
             </div>
-            <!--En tab one-->
-            <div class="tab-pane fade" id="tab-two" role="tabpanel" aria-labelledby="tab-two">
-                <div class="row product-grid-4">
-                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                        <app-single-product ></app-single-product>
-                    </div>  
-                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                        <app-single-product ></app-single-product>
-                    </div>
-                </div>
-                <!--End product-grid-4-->
-            </div>
-            <!--En tab two-->
-            <div class="tab-pane fade" id="tab-three" role="tabpanel" aria-labelledby="tab-three">
-                <div class="row product-grid-4">
-                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                        <app-single-product ></app-single-product>
-                    </div>
-                    <!--end product card-->
-                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                        <app-single-product ></app-single-product>
-                    </div>
-                    <!--end product card-->
-                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                        <app-single-product ></app-single-product>
-                    </div>
-                    <!--end product card-->
-                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                        <app-single-product ></app-single-product>
-                    </div>
-                </div>
-                <!--End product-grid-4-->
-            </div>
-            <!--En tab three-->
         </div>
         <!--End tab-content-->
     </div>

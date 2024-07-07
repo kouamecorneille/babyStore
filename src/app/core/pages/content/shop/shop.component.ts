@@ -6,6 +6,7 @@ import { EcommerceService } from '../../../services/others/ecommerce.service';
 import { Product } from '../../../interfaces/Iproduct';
 import { CartService } from '../../../services/others/cart.service';
 import { Store } from '../../../interfaces/Ishop';
+import { Options } from '@angular-slider/ngx-slider';
 
 @Component({
   selector: 'app-shop',
@@ -20,10 +21,27 @@ export class ShopComponent {
   listOfStores = new BehaviorSubject<Store[]>([])
   ecommerceService = inject(EcommerceService);
   listOfLoader = [0,1,2,3,5,6,7,8,9,10,11,12,13,14,15]
+  private displayedStoreCount = 4;
   activedFilter = signal<boolean>(false)
   selectedCategory!:string;
+  displayedCategoriesCount=4
 
-  constructor(private apiService:ApiService, private cartService: CartService) {
+  minValue: number = 0;
+  maxValue: number = 500000;
+  sliderValue: number = 500;
+  highValue: number = 500000;
+  sliderOptions: Options = {
+    floor: 500,
+    ceil: 500000,
+    step: 500,
+    translate: (value: number): string => {
+      return  value + ' CFA' ;
+    }
+  };
+
+
+
+  constructor(private apiService:ApiService, private cartService: CartService, private ecomService:EcommerceService) {
 
   }
 
@@ -35,29 +53,39 @@ export class ShopComponent {
     this.getListOfVendors()
 
   }
-
   getListOfVendors(){
 
 
-    this.apiService.getItems(`shops`).subscribe(
-      (response:Store[]) => {
-
-        console.log(response)
-
-        if(response){
-         setTimeout(()=>{
-          this.listOfStores.next(response);
-         }, 1000)
-
-        }
-      },
-      (err:any)=>{
-
-        console.log(err)
-      }
+    this.ecomService.getListOfVendors()
+    this.ecomService.listOfStores.subscribe(
+     (data) => {
+       this.listOfStores.next(data.slice(0, this.displayedStoreCount + 1));
+     }
     )
 
+   }
+
+  showMoreCategory(){
+
+    this.displayedCategoriesCount += 4;
+    this.ecomService.listOfCategory.subscribe(
+      (data) => {
+        this.listOfData2.next(data.slice(0,this.displayedCategoriesCount));
+      }
+    )
   }
+
+  showMoreStores(){
+
+    this.displayedStoreCount += 4;
+    this.ecomService.listOfStores.subscribe(
+      (data) => {
+        this.listOfStores.next(data.slice(0, this.displayedStoreCount));
+      }
+    )
+  }
+
+
 
   chooseCategory(item:ICategory){
 
@@ -65,16 +93,12 @@ export class ShopComponent {
   }
 
   getCategory() {
-    // Appel de l'API pou r récupérer les catégories d'éléments
-    this.apiService.getItems('categories').subscribe(
-      (response: ICategory[]) => {  // Utilisation de subscribe pour s'abonner à la réponse
-        console.log("CC:",response);  // Affichage de la réponse dans la console
-
-        // Mettre à jour la première partie de la liste de données avec les 7 premiers éléments
-        this.listOfData2.next(response.slice(0, 10));
-        // Affichage de la valeur actuelle de listOfData dans la console
+    this.ecomService.getCategory()
+    this.ecomService.listOfCategory.subscribe(
+      (data) => {
+        this.listOfData2.next(data.slice(0, this.displayedCategoriesCount + 1));
       }
-    );
+    )
   }
 
 

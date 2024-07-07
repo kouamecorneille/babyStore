@@ -57,7 +57,8 @@
               "src/assets/js/plugins/jquery.vticker-min.js",
               "src/assets/js/plugins/jquery.theia.sticky.js",
               "src/assets/js/plugins/jquery.elevatezoom.js",
-              "src/assets/js/main.js"
+              "src/assets/js/main.js",
+              "node_modules/jquery/dist/jquery.min.js"
             ]
           },
           "configurations": {

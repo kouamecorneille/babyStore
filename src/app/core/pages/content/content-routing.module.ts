@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { provideRouter, RouterModule, Routes, withDebugTracing, withInMemoryScrolling } from '@angular/router';
+import { InMemoryScrollingFeature, InMemoryScrollingOptions, provideRouter, RouterModule, Routes, withDebugTracing, withInMemoryScrolling } from '@angular/router';
 import { ContactComponent } from './contact/contact.component';
 import { ShopComponent } from './shop/shop.component';
 import { VendorComponent } from './vendor/vendor.component';
@@ -125,6 +125,13 @@ const routes: Routes = [
 ];
 
 
+const scrollConfig: InMemoryScrollingOptions = {
+  scrollPositionRestoration: 'enabled',
+  anchorScrolling: 'enabled',
+};
+
+const inMemoryScrollingFeature: InMemoryScrollingFeature =
+  withInMemoryScrolling(scrollConfig);
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
@@ -132,10 +139,7 @@ const routes: Routes = [
   providers:[
     provideRouter(
       routes,
-      // withDebugTracing(),
-      withInMemoryScrolling({
-        scrollPositionRestoration: 'top',
-      })
+      inMemoryScrollingFeature
     ),
   ]
 })

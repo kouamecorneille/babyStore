@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Product } from '../../interfaces/Iproduct';
 import { ApiService } from '../api.service';
 import { Store } from '../../interfaces/Ishop';
+import { ICategory } from '../../interfaces/Icategory';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class EcommerceService {
   listOfVendorProducts = new BehaviorSubject<Product[]>([]);
   listOfVendorProductsCategory = new BehaviorSubject<Product[]>([]);
   listOfRecommendations = new BehaviorSubject<Product[]>([]);
+  listOfStores = new BehaviorSubject<Store[]>([]);
   searchVisible = signal<boolean>(false)
   isRefreshing = signal<boolean>(false)
 
@@ -43,6 +45,7 @@ export class EcommerceService {
 // Créez un BehaviorSubject avec l'objet initial
   storeDetails = new BehaviorSubject<Store>(this.initialStore);
   listOfProductByCategory = new BehaviorSubject<Product[]>([]);
+  listOfCategory = new BehaviorSubject<ICategory[]>([]);
   constructor(private apiService:ApiService) { }
 
   getAllProducts() {
@@ -58,6 +61,29 @@ export class EcommerceService {
     )
 
   }
+
+  getListOfVendors(){
+
+
+    this.apiService.getItems(`shops`).subscribe(
+      (response:Store[]) => {
+
+        if(response){
+         setTimeout(()=>{
+          this.listOfStores.next(response);
+         }, 1000)
+
+        }
+      },
+      (err:any)=>{
+
+        console.log(err)
+      }
+    )
+
+  }
+
+
 
   getVendorProducts(slug:string) {
 
@@ -133,6 +159,18 @@ export class EcommerceService {
       }
     )
 
+  }
+
+
+  getCategory() {
+    // Appel de l'API pour récupérer les catégories d'éléments
+    this.apiService.getItems('categories').subscribe(
+      (response: ICategory[]) => {  // Utilisation de subscribe pour s'abonner à la réponse
+        // Mettre à jour la première partie de la liste de données avec les 7 premiers éléments
+        this.listOfCategory.next(response);
+        // Affichage de la valeur actuelle de listOfData dans la console
+      }
+    );
   }
 
 

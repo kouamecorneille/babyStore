@@ -1,11 +1,11 @@
 <app-breadcrumb [firstTitle]="'Accueil'" [secondTitle]="'Produits'"  [firdTitle]="'Detals du produit'"></app-breadcrumb>
 <!-- [firdTitle]="product.name ? product.name : ''" -->
-<div class="container mb-30" restoreScrollPosition>
+<div class="container mb-30" >
     <div class="row">
         <div class="col-xl-11 col-lg-12 m-auto">
             <div class="row">
                 @if(productDetails()){
-                 
+
                 <div class="product-detail accordion-detail">
                     <div class="row mb-50 mt-30">
                         <div class="col-md-6 col-sm-12 col-xs-12 mb-md-0 mb-sm-5">
@@ -13,37 +13,20 @@
                             <span class="zoom-icon"><i class="fi-rs-search"></i></span>
                             <!-- MAIN SLIDES -->
                             <div class="product-image-slider">
-                                <ngx-slick-carousel
-                                    #slickModal="slick-carousel"
-                                    [config]="slideConfig"
-                                    (init)="slickInit($event)"
-                                    (breakpoint)="breakpoint($event)"
-                                    (afterChange)="afterChange($event)"
-                                    (beforeChange)="beforeChange($event)">
-                                    <div ngxSlickItem *ngFor="let slide of bannersConfigs">
-                                        <figure class="border-radius-10">
-                                        <img [src]="slide.img" alt="product image">
-                                        </figure>
-                                    </div>
-                                    </ngx-slick-carousel>
+                              <figure class="border-radius-10">
+                                <img [src]="defaultImage" alt="product image" class="img-fluid">
+                              </figure>
                             </div>
                             <!-- THUMBNAILS -->
-                            <div class="slider-nav-thumbnails">
-                                <ngx-slick-carousel
-                                    #slickModal="slick-carousel"
-                                        [config]="slidethumbnailsConfig"
-                                        (init)="slickInit($event)"
-                                        (breakpoint)="breakpoint($event)"
-                                        (afterChange)="afterChange($event)"
-                                        (beforeChange)="beforeChange($event)">
-                                        <div ngxSlickItem *ngFor="let slide of bannersConfigs">
-                                        @if(slide.img){
-                                        <div role="button">
-                                            <img [src]="slide.img" alt="product image">
-                                        </div>
-                                        }
-                                        </div>
-                                    </ngx-slick-carousel>
+                            <div class="slider-nav-thumbnails d-flex">
+                                <div *ngFor="let slide of bannersConfigs">
+                                  <div *ngIf="slide.img">
+                                      <div role="button" (click)="changeImage(slide.img)" class="m-2" [ngClass]="{'selected': slide.img === defaultImage}">
+                                          <img [src]="slide.img" alt="product image" class="img-fluid rounded-2" width="100" height="100">
+                                      </div>
+                                  </div>
+                              </div>
+
                             </div>
                         </div>
 
@@ -56,9 +39,9 @@
                                 <div class="product-detail-rating">
                                     <div class="product-rate-cover text-end">
                                         <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
+                                            <div class="product-rating" style="width: 30%"></div>
                                         </div>
-                                        <span class="font-small ml-5 text-muted"> (32 reviews)</span>
+                                        <span class="font-small ml-5 text-muted"> (0 reviews)</span>
                                     </div>
                                 </div>
                                 <div class="clearfix product-price-cover">
@@ -120,8 +103,10 @@
                             <!-- Detail Info -->
                         </div>
                     </div>
-                    <app-product-info [product]="product" [vendor]="vendorDetails"></app-product-info>
-                    
+                    @if(product){
+                      <app-product-info [product]="product" [vendor]="vendorDetails"></app-product-info>
+                    }
+
                     <div class="row mt-60">
                         <div class="col-12">
                             <h2 class="section-title style-1 mb-30">Articles similaires</h2>
@@ -205,7 +190,7 @@
                         </div>
                     </div>
                 </div>
-               
+
                 }@else{
 
                 <div class="item mt-30">

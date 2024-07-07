@@ -1,3 +1,4 @@
+
 .loader1 {
   position: relative;
   height: 200px;
@@ -174,4 +175,43 @@
   transform: rotate(330deg) translate(0, -130%);
   animation-delay: -0.1s;
 }
+
+
+
+/* Change the track color */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  background: #ddd;
+  outline: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+input[type="range"]:hover {
+  opacity: 1;
+}
+
+/* Change the thumb color */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #3bb77e; /* Blue color */
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #3bb77e; /* Blue color */
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+
+
 

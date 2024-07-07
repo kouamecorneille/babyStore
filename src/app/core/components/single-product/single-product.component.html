@@ -1,50 +1,90 @@
 <div class="product-cart-wrap mb-30">
-    <div class="product-img-action-wrap">
+    @if(product){
+      <div class="product-img-action-wrap">
         <div class="product-img product-img-zoom">
-            <a href="shop-product-right.html">
-                <img class="default-img" src="assets/imgs/shop/product-2-1.jpg" alt="">
-                <img class="hover-img" src="assets/imgs/shop/product-2-2.jpg" alt="">
+            <a (click)="goToDetails(product)">
+                <img
+                    class="default-img img-fluid"
+                    [src]="product.image1"
+                    alt
+                >
+                <img
+                    class="hover-img img-fluid"
+                    [src]="product?.image2"
+                    alt
+                >
             </a>
         </div>
         <div class="product-action-1">
-            <a aria-label="J'aime" class="action-btn" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-            <a aria-label="Comparer" class="action-btn" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-            <a aria-label="Voir +" class="action-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
+            <a
+                aria-label="Add To Wishlist"
+                class="action-btn"
+                (click)="addToWhishList(product)"
+            >
+                <i class="fi-rs-heart"></i>
+            </a>
+            <a
+                aria-label="Voir"
+                class="action-btn"
+                (click)="goToDetails(product)"
+            >
+                <i class="fi-rs-eye"></i>
+            </a>
+            <a
+                aria-label="Acheter"
+                class="action-btn"
+                (click)="addTocart(product)"
+            >
+                <i class="fi-rs-shopping-cart"></i>
+            </a>
         </div>
         <div class="product-badges product-badges-position product-badges-mrg">
-            <span class="sale">Sale</span>
+            <!-- <span class="best">Best sale</span> -->
         </div>
     </div>
     <div class="product-content-wrap">
         <div class="product-category">
-            <a href="shop-grid-right.html">Electronics</a>
+            <a [routerLink]="['/details-product', product.slug]">{{product.category.name}}</a>
         </div>
-        <h2><a href="shop-product-right.html">Hp G3 840 8g de ram</a></h2>
-        <div class="product-rate-cover">
-            <div class="product-rate d-inline-block">
-                <div class="product-rating" style="width: 80%"></div>
+        <h2>
+            <a [routerLink]="['/details-product', product.slug]">{{product.name.substring(0, 17)}} ...</a>
+        </h2>
+        <div class="product-rate d-inline-block">
+            <div
+                class="product-rating"
+                style="width: 75%"
+            ></div>
+        </div>
+        <div class="product-price mt-10">
+            <span>
+                {{product.reduced_price |number:'1.0-0'}} CFA
+            </span>
+            <span class="old-price">{{product.price  |number:'1.0-0'}} CFA</span>
+        </div>
+        <div class="sold mt-15 mb-15">
+            <div class="progress mb-5">
+                <div
+                    class="progress-bar"
+                    role="progressbar"
+                    style="width: 50%"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                ></div>
             </div>
-            <span class="font-small ml-5 text-muted"> (3.5)</span>
+            <span class="font-xs text-heading">
+                <span class="text-success">{{product.quantity_in_stock}}</span>
+                articles en stock
+            </span>
         </div>
-        <div>
-            <span class="font-small text-muted">By <a href="vendor-details-1.html">Stella Shop</a></span>
-        </div>
-        <div class="product-card-bottom">
-            <div class="product-price">
-                <span>$52.85</span>
-                <span class="old-price">$55.8</span>
-            </div>
-            <!-- <div class="add-cart">
-                <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Ajouter au panier </a>
-            </div> -->
-        </div>
-        <div>
-            <button class="btn w-100 hover-up mt-3">
-                <i class="fi-rs-shopping-cart mr-5"></i>
-                Ajouter
-            </button>
-        </div>
+        <a
+            class="btn w-100 hover-up"
+            href="javascript:void(0);"
+            (click)="addTocart(product)"
+        >
+            <i class="fi-rs-shopping-cart mr-5"></i>
+            J'ACHETE
+        </a>
     </div>
-</div>
+    }
 
-<!-- <app-quickview-modal ></app-quickview-modal> -->
+</div>

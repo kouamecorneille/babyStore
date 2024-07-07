@@ -22,6 +22,7 @@ export class DetailsProductVendorComponent {
   slugProduct:string=''
   quantity:number=1
   similarProduct:Product[] = []
+  defaultImage!:string
   vendorDetails!:Store
   baseUrl:string='http://djassa2baby.pythonanywhere.com/'
   whatsappUrl:string=''
@@ -123,6 +124,11 @@ export class DetailsProductVendorComponent {
 
   ]
 
+  changeImage(image:string){
+
+    this.defaultImage = image;
+  }
+
 
   getDetailsProduct() {
     const params = this.activatedRoute.snapshot.paramMap.get('id');
@@ -134,6 +140,8 @@ export class DetailsProductVendorComponent {
 
           if (response.image1 && response.image1.trim() !== "") {
             this.bannersConfigs.push({ img: response.image1 });
+            this.defaultImage = response.image1
+
           }
           if (response.image2 && response.image2.trim() !== "") {
             this.bannersConfigs.push({ img: response.image2 });

@@ -3,18 +3,20 @@ import { BehaviorSubject } from 'rxjs';
 import { ICategory } from '../../interfaces/Icategory';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Product } from '../../interfaces/Iproduct';
 import { EcommerceService } from '../../services/others/ecommerce.service';
 import { PagniateDataComponent } from '../pagniate-data/pagniate-data.component';
 import { CartService } from '../../services/others/cart.service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { Store } from '../../interfaces/Ishop';
-
+import { SingleProductComponent } from '../single-product/single-product.component';
+import { ArticlesPropulairesComponent } from '../articles-propulaires/articles-propulaires.component';
+import { NgxSliderModule, Options } from '@angular-slider/ngx-slider';
 @Component({
   selector: 'app-categorie-with-filter',
   standalone: true,
-  imports: [CommonModule, RouterModule,PagniateDataComponent,NgxSkeletonLoaderModule],
+  imports: [CommonModule, RouterModule,PagniateDataComponent,NgxSkeletonLoaderModule,SingleProductComponent,ArticlesPropulairesComponent,NgxSliderModule],
   templateUrl: './categorie-with-filter.component.html',
   styleUrl: './categorie-with-filter.component.css'
 })
@@ -22,20 +24,43 @@ export class CategorieWithFilterComponent {
 
   listOfData = new BehaviorSubject<ICategory[]>([])
   listOfStores = new BehaviorSubject<Store[]>([])
+  listOfProducts = new BehaviorSubject<Product[]>([])
   listOfData2 = new BehaviorSubject<ICategory[]>([])
   // @Input() items:Product[] = [];
   listOfLoader = [0,1,2,3,5,6,7,8,9,10,11,12,13,14,15]
+  selectedCategory : ICategory[] = [];
   products!: Product[]
   newProducts!: Product[]
   currentPage:number=1
   totalItems:number = 0
+  rangeValue: number = 500; // Valeur initiale du slider
   pageSize:number =0
   loading:boolean=true
-
+  private displayedCategoriesCount = 4;
+  private displayedStoreCount = 4;
   ecommerceService = inject(EcommerceService);
   baseUrl:string='http://djassa2baby.pythonanywhere.com/'
 
-  constructor(private apiService:ApiService,private elementRef: ElementRef, private renderer: Renderer2,private cartService: CartService) {
+  minValue: number = 0;
+  maxValue: number = 500000;
+  sliderValue: number = 500;
+  highValue: number = 500000;
+  sliderOptions: Options = {
+    floor: 500,
+    ceil: 500000,
+    step: 500,
+    translate: (value: number): string => {
+      return  value + ' CFA' ;
+    }
+  };
+
+
+  constructor(private apiService:ApiService,
+    private elementRef: ElementRef,
+     private renderer: Renderer2,
+     private cartService: CartService,
+      private router:Router,
+    private ecomService:EcommerceService) {
 
   }
 
@@ -62,34 +87,8 @@ export class CategorieWithFilterComponent {
 
 
 
-  getListOfVendors(){
-
-
-    this.apiService.getItems(`shops`).subscribe(
-      (response:Store[]) => {
-
-        console.log(response)
-
-        if(response){
-         setTimeout(()=>{
-          this.listOfStores.next(response);
-         }, 1000)
-
-        }
-      },
-      (err:any)=>{
-
-        console.log(err)
-      }
-    )
-
-  }
-
-
-
-
-
   ngOnInit(): void {
+
 
     this.getCategory()
     this.SortData()
@@ -98,12 +97,36 @@ export class CategorieWithFilterComponent {
 
   }
 
+
+  getListOfVendors(){
+
+
+    this.ecomService.getListOfVendors()
+    this.ecomService.listOfStores.subscribe(
+     (data) => {
+       this.listOfStores.next(data.slice(0, this.displayedStoreCount + 1));
+     }
+    )
+
+   }
+
+
+
+  goToDetails(item:Product){
+
+    this.router.navigate(['/details-product', item.slug], {state: { scrollTop: 0 }});
+  }
+  trackById(index: number, item: Store): string {
+    return item.id;
+  }
+
+
   iniData(){
     this.ecommerceService.getAllProducts()
-    // this.ecommerceService.listOfProduct.subscribe((data) => {
+    this.ecommerceService.listOfProduct.subscribe((data) => {
 
-    //   this.products = data;
-    // })
+      this.listOfProducts.next(data.slice(0,10))
+    })
 
     this.ecommerceService.filterProductsByDate(this.ecommerceService.listOfProduct.value)
   }
@@ -114,16 +137,43 @@ export class CategorieWithFilterComponent {
 
 
   getCategory() {
-    // Appel de l'API pour récupérer les catégories d'éléments
-    this.apiService.getItems('categories').subscribe(
-      (response: ICategory[]) => {  // Utilisation de subscribe pour s'abonner à la réponse
-        console.log(response);  // Affichage de la réponse dans la console
-
-        // Mettre à jour la première partie de la liste de données avec les 7 premiers éléments
-        this.listOfData.next(response.slice(0, 10));
-        // Affichage de la valeur actuelle de listOfData dans la console
+    this.ecomService.getCategory()
+    this.ecomService.listOfCategory.subscribe(
+      (data) => {
+        this.listOfData.next(data.slice(0, this.displayedCategoriesCount + 1));
+        const category =this.shuffleArray(data)
+        this.selectedCategory = category
       }
-    );
+    )
+  }
+
+  showMoreCategory(){
+
+    this.displayedCategoriesCount += 4;
+    this.ecomService.listOfCategory.subscribe(
+      (data) => {
+        this.listOfData.next(data.slice(0,this.displayedCategoriesCount));
+      }
+    )
+  }
+
+  // Function to shuffle an array
+  shuffleArray(array: ICategory[]): ICategory[] {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array.slice(0, 4);
+  }
+
+  showMoreStores(){
+
+    this.displayedStoreCount += 4;
+    this.ecomService.listOfStores.subscribe(
+      (data) => {
+        this.listOfStores.next(data.slice(0, this.displayedStoreCount));
+      }
+    )
   }
 
 

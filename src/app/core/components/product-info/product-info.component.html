@@ -8,19 +8,18 @@
                 <a class="nav-link" id="Vendor-info-tab" data-bs-toggle="tab" href="#Vendor-info">Boutique</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews">Commentaires (3)</a>
+                <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews">Commentaires</a>
             </li>
         </ul>
         <div class="tab-content shop_info_tab entry-main-content">
             <div class="tab-pane fade show active" id="Description">
                 <div class="fs-6" [innerHTML]="product.description">
-                    <!-- {{product.description}} -->
                 </div>
             </div>
             <div class="tab-pane fade" id="Vendor-info">
                 <div *ngIf="vendor">
                     <div class="vendor-logo d-flex mb-30">
-                        <img [src]="vendor.logo" alt="">
+                        <img [src]="vendor.logo" alt="" class="img-fluid rounded-circle">
                         <div class="vendor-name ml-15 mt-40">
                             <h6>
                                 <a [routerLink]="['/vendors/details', vendor.slug]">{{vendor.name}}</a>
@@ -34,7 +33,7 @@
                         </div>
                     </div>
                     <ul class="contact-infor mb-50">
-                        <li><img src="assets/imgs/theme/icons/icon-location.svg" alt=""><strong>Adresse:</strong> <span>{{vendor.location}}</span></li>
+                        <li><img src="assets/imgs/theme/icons/icon-location.svg" alt=""><strong>Adresse  :</strong> <span>{{vendor.location}}</span></li>
                         <li><img src="assets/imgs/theme/icons/icon-contact.svg" alt=""><strong>Contact du vendeur :</strong> <span>{{vendor.phone_number_1}}</span></li>
                     </ul>
                     <p>{{vendor.description}}</p>
