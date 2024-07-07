@@ -10,8 +10,8 @@ import { CartService } from '../../../services/others/cart.service';
 })
 export class ShopCheckoutComponent {
 
-  cartItems: BehaviorSubject<CartItem[]> = new BehaviorSubject<CartItem[]>([]);
-  totalCheckout:number = 0;
+  cartItems = new BehaviorSubject<CartItem[]>([]);
+  totalCheckout :number = 0;
   cartService = inject(CartService)
 
   constructor() {
@@ -24,29 +24,22 @@ export class ShopCheckoutComponent {
     }
   }
 
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.cartService.totalCart.subscribe((data)=>{
+      // console.log(data)
+      this.totalCheckout = data //recuperer le prix total des articles dans le panier
+    })
+  }
+
   sendWhatsappMessage() {
     const cartItemsValue = this.cartItems.value;
     if (cartItemsValue.length > 0) {
       const shopName = cartItemsValue[0].product.shop.name;
       const phoneNumber = cartItemsValue[0].product.shop.phone_number_1;
 
-<<<<<<< HEAD
       let messageText = `Bonjour 👋 ${shopName},\n\n🌟 J'aimerais commander les articles suivants :\n\n`;
-=======
-  ngOnInit(): void {
-
-
-     this.cartService.totalCart.subscribe((data)=>{
-      // console.log(data)
-      this.totalCheckout = data //recuperer le prix total des articles dans le panier
-    })
-
-
-  }
-
-
-
->>>>>>> 62b3b6ea089bba01c93e6c7f6c275b15cd5b68c0
 
       cartItemsValue.forEach((item) => {
         const productName = `${item.product.name}`; // Product name

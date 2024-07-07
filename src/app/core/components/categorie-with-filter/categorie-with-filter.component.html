@@ -48,7 +48,7 @@
                 <h5 class="section-title style-1 mb-30">Filtre</h5>
 
                 <div class="categories-dropdown-wrap font-heading">
-                    <h6 class="mb-2">Selectionner une boutique</h6>
+                    <!-- <h6 class="mb-2">Selectionner une boutique</h6> -->
                     <ul>
                       @if(listOfStores.value.length > 0){
                         <li *ngFor="let item of listOfStores | async" class="d-flex">
@@ -69,7 +69,7 @@
                       }@else{
                         <li >
                           <a class="category-loader ml-40">
-                            <div class="loader3">
+                            <div class="loader3 m-3">
                               <div class="bar1"></div>
                               <div class="bar2"></div>
                               <div class="bar3"></div>

@@ -7,7 +7,6 @@ import { CartService } from '../../../services/others/cart.service';
 import { EcommerceService } from '../../../services/others/ecommerce.service';
 import { Store } from '../../../interfaces/Ishop';
 import { Subscription } from 'rxjs';
-import SwiperCore from 'swiper';
 export interface SliderImgaes{
   img:string,
 }
