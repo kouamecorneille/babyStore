@@ -7,3 +7,7 @@ i{
   overflow-x:auto;
   -webkit-overflow-scrolling:touch
 }
+
+@import url(../css/stye.css);
+@import url(../css/plugin.css);
+

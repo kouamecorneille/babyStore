@@ -114,6 +114,9 @@ body .slick-next {
   color: transparent !important;;
 }
 
+.rounded{
+  border-radius: 20%!important;
+}
 
 
 .loader {

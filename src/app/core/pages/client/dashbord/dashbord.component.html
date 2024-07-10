@@ -1,25 +1,28 @@
-
-
 <app-head />
 <main class="main pages">
-    <app-breadcrumb [firstTitle]="'Accueil'" [secondTitle]="'Pages'" [firdTitle]="'Mon compte'"></app-breadcrumb>
-    <div class="page-content pt-30 pb-50">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 m-auto">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <app-sidebar></app-sidebar>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="tab-content account dashboard-content pl-50">
-                                <router-outlet />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <app-breadcrumb
+    [firstTitle]="'Accueil'"
+    [secondTitle]="'Pages'"
+    [firdTitle]="'Mon compte'"
+  ></app-breadcrumb>
+  <div class="page-content pt-30 pb-50">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-10 m-auto">
+          <div class="row">
+            <div class="col-md-3">
+              <app-sidebar></app-sidebar>
             </div>
+            <div class="col-md-9">
+              <div class="tab-content account dashboard-content pl-50">
+                <router-outlet />
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </main>
-<app-footer/>
+<app-footer />

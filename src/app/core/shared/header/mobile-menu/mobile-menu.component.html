@@ -18,7 +18,7 @@
               <i class="fi-rs-angle-small-down"></i></span>
                 <a href="javascript:void(0);">Categories</a>
                 <ul class="dropdown">
-                    <li *ngFor="let item of listOfData |async">
+                    <li *ngFor="let item of listOfData | async">
                       <a [routerLink]="['/categorie', item.slug , 'product']">{{item.name}}</a>
                     </li>
                 </ul>

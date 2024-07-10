@@ -1,28 +1,58 @@
 <div class="tab-pane" role="tabpanel" aria-labelledby="account-detail-tab">
-    <div class="card">
-        <div class="card-header">
-            <h5>Details du compte</h5>
-        </div>
-        <div class="card-body">
-          <form [formGroup]="userForm">
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label for="first_name">Nom <span class="required">*</span></label>
-                    <input id="first_name" formControlName="first_name" required="" class="form-control" type="text">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="last_name">Prenom <span class="required">*</span></label>
-                    <input id="last_name" formControlName="last_name" required="" class="form-control" type="text">
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="phone_number">Numéro de telephone <span class="required">*</span></label>
-                    <input id="phone_number" formControlName="phone_number" required="" class="form-control" type="text">
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="email">Addresse email <span class="required">*</span></label>
-                    <input id="email" formControlName="email" required="" class="form-control" type="email">
-                </div>
-                <!-- <div class="form-group col-md-12">
+  <div class="card border rounded p-20">
+    <div class="card-header">
+      <h5>Details du compte</h5>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="userForm">
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="first_name">Nom <span class="required">*</span></label>
+            <input
+              id="first_name"
+              formControlName="first_name"
+              required=""
+              class="form-control"
+              type="text"
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="last_name"
+              >Prenom <span class="required">*</span></label
+            >
+            <input
+              id="last_name"
+              formControlName="last_name"
+              required=""
+              class="form-control"
+              type="text"
+            />
+          </div>
+          <div class="form-group col-md-12">
+            <label for="phone_number"
+              >Numéro de telephone <span class="required">*</span></label
+            >
+            <input
+              id="phone_number"
+              formControlName="phone_number"
+              required=""
+              class="form-control"
+              type="text"
+            />
+          </div>
+          <div class="form-group col-md-12">
+            <label for="email"
+              >Addresse email <span class="required">*</span></label
+            >
+            <input
+              id="email"
+              formControlName="email"
+              required=""
+              class="form-control"
+              type="email"
+            />
+          </div>
+          <!-- <div class="form-group col-md-12">
                     <label for="role">Role <span class="required">*</span></label>
                     <input id="role" formControlName="role" required="" class="form-control" type="text">
                 </div>
@@ -30,14 +60,19 @@
                     <label for="is_active">Active <span class="required">*</span></label>
                     <input id="is_active" formControlName="is_active" required="" class="form-control" type="checkbox">
                 </div> -->
-                <div class="col-md-12">
-                    <button type="submit" class="btn btn-fill-out submit font-weight-bold" name="submit" value="Submit">
-                        Modifier mes informations
-                    </button>
-                </div>
-            </div>
-        </form>
-
+          <div class="col-md-12 text-end">
+            <button
+              type="submit"
+              class="btn btn-fill-out submit font-weight-bold"
+              name="submit"
+              value="Submit"
+            >
+              Modifier mes informations
+            </button>
+          </div>
         </div>
+      </form>
     </div>
+
+  </div>
 </div>

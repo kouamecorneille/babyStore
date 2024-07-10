@@ -31,12 +31,9 @@ export class MobileMenuComponent {
 
   ngAfterViewInit(): void {
     const menuItems = this.offCanvasNav.nativeElement.querySelectorAll('a');
-    const container = this.document.querySelector('.mobile-header-wrapper-style'); // Sélection de l'élément contenant la classe à modifier
     menuItems.forEach((item: HTMLElement) => {
       this.renderer.listen(item, 'click', () => {
-        // this.renderer.removeClass(container, 'search-visible');
         this.tooggleClose()
-        // this.renderer.addClass(this.document.body, 'mobile-menu-active');
       });
     });
 
@@ -44,14 +41,6 @@ export class MobileMenuComponent {
       this.activeMobileMenu();
     }
 
-    // const endTrigger = this.document.querySelector('.mobile-menu-close');
-    // if (endTrigger) {
-    //   this.renderer.listen(endTrigger, 'click', () => {
-    //     this.renderer.removeClass(this.document.body, 'mobile-menu-active'); // Corrected class name
-    //     // Removed the redundant double quote in the class name below
-    //     this.renderer.removeClass(container, 'search-visible');
-    //   });
-    // }
 
   }
 

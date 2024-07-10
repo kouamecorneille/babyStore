@@ -1,22 +1,189 @@
 <div class="dashboard-menu">
-    <ul class="nav flex-column" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link"  routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" role="tab" aria-controls="dashboard" ><i class="fi-rs-settings-sliders mr-10"></i>Tableau de bord</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link"  routerLink="/dashboard/orders" routerLinkActive="active"  role="tab" aria-controls="orders" ><i class="fi-rs-shopping-bag mr-10"></i>Mes commandes</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" routerLink="/dashboard/track-orders" routerLinkActive="active"  role="tab" aria-controls="track-orders" ><i class="fi-rs-shopping-cart-check mr-10"></i>Suivie de commandes</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link"  routerLink="/dashboard/account-detail" routerLinkActive="active"  role="tab" aria-controls="account-detail" ><i class="fi-rs-user mr-10"></i>Mon compte</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link"  routerLink="/dashboard/password-change" routerLinkActive="active"  role="tab" aria-controls="account-detail" ><i class="fi-rs-lock mr-10"></i>Mot de passe</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" (click)="Logout()"><i class="fi-rs-sign-out mr-10"></i>Logout</a>
-        </li>
-    </ul>
+  <div class="user-info-wrapper border m-3">
+    <div class="user-info">
+      <div class="user-avatar">
+        <img
+          id="avater_photo_view"
+          src="https://geniusdevs.com/codecanyon/omnimart40/assets/images/16385217454444.jpg"
+          alt="User"
+        />
+      </div>
+
+      <div class="user-data">
+        <h4 class="h5">Alex Smith</h4>
+        <span>Joined Sep Mon 2021</span>
+      </div>
+    </div>
+  </div>
+
+  <ul class="nav flex-column" role="tablist">
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        routerLink="/dashboard"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        role="tab"
+        aria-controls="dashboard"
+        ><i class="fi-rs-settings-sliders mr-10"></i>Tableau de bord</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        routerLink="/dashboard/orders"
+        routerLinkActive="active"
+        role="tab"
+        aria-controls="orders"
+        ><i class="fi-rs-shopping-bag mr-10"></i>Mes commandes</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        routerLink="/dashboard/track-orders"
+        routerLinkActive="active"
+        role="tab"
+        aria-controls="track-orders"
+        ><i class="fi-rs-shopping-cart-check mr-10"></i>Suivie de commandes</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        routerLink="/dashboard/account-detail"
+        routerLinkActive="active"
+        role="tab"
+        aria-controls="account-detail"
+        ><i class="fi-rs-user mr-10"></i>Mon compte</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        routerLink="/dashboard/password-change"
+        routerLinkActive="active"
+        role="tab"
+        aria-controls="account-detail"
+        ><i class="fi-rs-lock mr-10"></i>Mot de passe</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        role="tab"
+        aria-controls="account-detail"
+        ><i class="fi-rs-trash mr-10"></i>Surpprimer mon compte</a
+      >
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" (click)="Logout()"
+        ><i class="fi-rs-sign-out mr-10"></i>Logout</a
+      >
+    </li>
+  </ul>
 </div>
+
+<!-- <div class="dashboard-menu">
+  <aside class="user-info-wrapper">
+    <div class="user-info">
+      <div class="user-avatar">
+        <img
+          id="avater_photo_view"
+          src="https://geniusdevs.com/codecanyon/omnimart40/assets/images/16385217454444.jpg"
+          alt="User"
+        />
+      </div>
+
+      <div class="user-data">
+        <h4 class="h5">Alex Smith</h4>
+        <span>Joined Sep Mon 2021</span>
+      </div>
+    </div>
+    <nav class="list-group">
+      <a
+        class="list-group-item"
+        href="https://geniusdevs.com/codecanyon/omnimart40/user/dashboard"
+        ><i class="icon-command"></i>Dashboard</a
+      >
+      <a
+        class="list-group-item"
+        href="https://geniusdevs.com/codecanyon/omnimart40/user/profile"
+        ><i class="icon-user"></i>Profile</a
+      >
+      <a
+        class="list-group-item"
+        href="https://geniusdevs.com/codecanyon/omnimart40/user/ticket"
+        ><i class="icon-file-text"></i>Support Ticket</a
+      >
+      <a
+        class="list-group-item with-badge"
+        href="https://geniusdevs.com/codecanyon/omnimart40/user/orders"
+        ><i class="icon-shopping-bag"></i>Orders<span
+          class="badge badge-default badge-pill"
+          >27</span
+        ></a
+      >
+      <a
+        class="list-group-item nav-item"
+        href="https://geniusdevs.com/codecanyon/omnimart40/user/addresses"
+        ><i class="icon-map-pin"></i>Address</a
+      >
+      <a
+        class="list-group-item with-badge active"
+        href="https://geniusdevs.com/codecanyon/omnimart40/user/wishlists"
+        ><i class="icon-heart"></i>Wishlist<span
+          class="badge badge-default badge-pill"
+          >0</span
+        ></a
+      >
+      <a
+        class="list-group-item remove-account with-badge"
+        data-bs-toggle="modal"
+        data-bs-target=".modal"
+        href="javascript:;"
+        ><i class="icon-trash"></i>Delete Account</a
+      >
+      <a
+        class="list-group-item with-badge"
+        href="https://geniusdevs.com/codecanyon/omnimart40/user/logout"
+        ><i class="icon-log-out"></i>Log out</a
+      >
+    </nav>
+  </aside>
+
+  <div class="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Remove Account</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p>Are You Sure?</p>
+          <p>Do you remove you account?</p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <a
+            href="https://geniusdevs.com/codecanyon/omnimart40/admin/remove/account"
+            type="button"
+            class="btn btn-danger"
+            >Remove Account</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
