@@ -46,8 +46,8 @@
                               {{item.category.name}}
                             </a>
                         </div>
-                        <h2><a [routerLink]="['/details-product', item.slug]">
-                          {{item.name.substring(0, 17)}} ...
+                        <h2 class="text-truncate"><a [routerLink]="['/details-product', item.slug]">
+                          {{item.name}}
                         </a></h2>
                         <div class="product-rate-cover">
                             <div class="product-rate d-inline-block">

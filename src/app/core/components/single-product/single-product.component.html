@@ -46,8 +46,8 @@
         <div class="product-category">
             <a [routerLink]="['/details-product', product.slug]">{{product.category.name}}</a>
         </div>
-        <h2>
-            <a [routerLink]="['/details-product', product.slug]">{{product.name.substring(0, 17)}} ...</a>
+        <h2 class="text-truncate">
+            <a [routerLink]="['/details-product', product.slug]">{{product.name}}</a>
         </h2>
         <div class="product-rate d-inline-block">
             <div
@@ -72,7 +72,7 @@
                 ></div>
             </div>
             <span class="font-xs text-heading">
-                <span class="text-success">{{product.quantity_in_stock}}</span>
+                <span class="text-success fw-bold fs-6">{{product.quantity_in_stock}}</span>
                 articles en stock
             </span>
         </div>
