@@ -107,7 +107,7 @@ export class DetailsProductComponent implements  OnInit, OnDestroy {
     this.bannersConfigs = [];
     this.slugProduct.set(slug);
     this.getDetailsProduct();
-    this.getSimilarProduct();
+
 
 		this.router.navigate(['/details-product/' + this.slugProduct()])
 	}
@@ -224,6 +224,8 @@ export class DetailsProductComponent implements  OnInit, OnDestroy {
 
           this.vendorDetails = response.shop;
 
+          this.getSimilarProduct();
+
           // this.ecommerService.getShopDetails(response.shop)
         }
       );
@@ -232,13 +234,14 @@ export class DetailsProductComponent implements  OnInit, OnDestroy {
 
 
  getSimilarProduct(){
-  this.apiService.getItems(`similar-products?product_id=${this.productDetails().id}&&category_id=${this.productDetails().category.id}`).subscribe(
-    (response:Product[])=>{
-      // console.log("PRODUCT :",response);
-
-      this.similarProduct = response.slice(0,4);
-    }
-  )
+  if(this.product){
+    this.apiService.getItems(`products/${this.product.slug}/similar`).subscribe(
+      (response:Product[])=>{
+        // console.log("PRODUCT :",response);
+        this.similarProduct = response.slice(0,4);
+      }
+    )
+  }
  }
 
  slickInit(e: any) {

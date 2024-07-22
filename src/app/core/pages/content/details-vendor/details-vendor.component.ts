@@ -22,6 +22,7 @@ export class DetailsVendorComponent {
   ecommerceService = inject(EcommerceService);
   baseUrl:string='http://djassa2baby.pythonanywhere.com/'
   selectedCategory!:string;
+  isSelectedCategory:boolean=false
 
   constructor(
     private apiService: ApiService,
@@ -38,10 +39,9 @@ export class DetailsVendorComponent {
 
   chooseCategory(item:ICategory){
 
-    this.selectedCategory = item.slug
-    this.ecommerceService.getVendorProductsCategory(this.selectedCategory);
-
-    console.log(this.ecommerceService.listOfProductByCategory.value)
+    this.isSelectedCategory = true
+    this.selectedCategory = item.id
+    this.ecommerceService.getVendorProductsCategory(this.selectedCategory, this.vendorDetails.id);
     this.ecommerceService.listOfProductByCategory.subscribe(
       (products)=>{
         this.ecommerceService.listOfVendorProducts.next(products)

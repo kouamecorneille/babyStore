@@ -1,14 +1,20 @@
 <app-breadcrumb [firstTitle]="'Accueil'" [secondTitle]="'Boutiques'" [firdTitle]="storeName"></app-breadcrumb>
 <div class="container mb-30">
-  @if(vendorDetails){
-    <app-banner-vendors
-    [logo]="vendorDetails.logo"
-    [shopName]="vendorDetails.name"
-    [adresse]="vendorDetails.location"
-    [number]="vendorDetails.phone_number_1"
-    [description]="vendorDetails.description"
-     >
-    </app-banner-vendors>
+  @if(vendorDetails && ecommerceService.listOfVendorProducts){
+
+      @if(vendorDetails){
+
+          <app-banner-vendors
+          [logo]="vendorDetails.logo"
+          [shopName]="vendorDetails.name"
+          [adresse]="vendorDetails.location"
+          [number]="vendorDetails.phone_number_1"
+          [description]="vendorDetails.description"
+          >
+          </app-banner-vendors>
+      }@else{
+
+      }
 
     <div class="container mb-30">
 
@@ -22,7 +28,7 @@
               <h5 class="section-title style-1 mb-30">Categories</h5>
               <ul>
                   @if(listOfData.value.length > 0){
-                    <li *ngFor="let item of listOfData|async" role="button" (click)="chooseCategory(item)"  [ngClass]="{'selected': item.slug === selectedCategory}">
+                    <li *ngFor="let item of listOfData|async" role="button" (click)="chooseCategory(item)"  [ngClass]="{'selected': item.id === selectedCategory}">
                       <a href="javascript:void(0);">
                           <img [src]="item.image" alt="">{{item.name}}</a>
                           <!-- <span class="count">30</span> [routerLink]="['/store', vendorDetails.slug , 'categorie', item.slug]" -->
@@ -93,9 +99,9 @@
                   </div>
               </div> -->
               <div class="archive-header-2 text-center pt-10 pb-20">
-                <h1 class="display-2 mb-50">
+                <!-- <h1 class="display-2 mb-50">
                   Rechercher vos articles ici.
-                </h1>
+                </h1> -->
                 <div class="row">
                     <div class="col-lg-5 mx-auto">
                         <div class="sidebar-widget-2 widget_search mb-50">
@@ -114,12 +120,19 @@
 
                 <div class="row product-grid">
                   <div class="col-lg-1-5 col-md-4 col-12 col-sm-6" *ngFor="let item of ecommerceService.listOfVendorProducts |async">
+                    <!-- <app-single-product [product]="item"></app-single-product> -->
                       <div class="product-cart-wrap mb-30">
                           <div class="product-img-action-wrap">
                               <div class="product-img product-img-zoom">
                                   <a [routerLink]="['/store', vendorDetails.slug, 'details-product',item.slug]">
+                                    @if(isSelectedCategory){
+                                      <img class="default-img" [src]="item.image1" alt="">
+                                      <img class="hover-img" [src]="item?.image2" alt="">
+                                    }@else{
                                       <img class="default-img" [src]="baseUrl + item.image1" alt="">
                                       <img class="hover-img" [src]="baseUrl + item?.image2" alt="">
+                                    }
+
                                   </a>
                               </div>
                               <div class="product-action-1">
@@ -127,7 +140,6 @@
                                   <a aria-label="Voir" class="action-btn"  [routerLink]="['/store', vendorDetails.slug, 'details-product',item.slug]"><i class="fi-rs-eye"></i></a>                                  <a aria-label="Quick view" class="action-btn" (click)="addToCart(item)"><i class="fi-rs-shopping-cart"></i></a>
                               </div>
                               <div class="product-badges product-badges-position product-badges-mrg">
-                                  <!-- <span class="sale">Sale</span> -->
                               </div>
                           </div>
                           <div class="product-content-wrap">
@@ -145,13 +157,10 @@
                                   </div>
                                   <span class="font-small ml-5 text-muted"> (3.5)</span>
                               </div>
-                              <!-- <div>
-                                  <span class="font-small text-muted">Par <a href="vendor-details-1.html"> {{item.shop.name}} </a></span>
-                              </div> -->
+
                               <div class="product-card-bottom">
                                   <div class="product-price">
                                       <span> {{item.reduced_price |number:'1.0-0'}} CFA </span>
-                                      <!-- <span class="old-price">{{item.price}}</span> -->
                                   </div>
                                   <div class="add-cart">
                                       <a class="add" [routerLink]="['/store', vendorDetails.slug, 'details-product',item.slug]"><i class="fi-rs-shopping-cart mr-5"></i>Voir</a>

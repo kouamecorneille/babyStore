@@ -100,12 +100,12 @@ export class EcommerceService {
 
   }
 
-  getVendorProductsCategory(category_slug:string) {
+  getVendorProductsCategory(category_id:string,shop_id:string) {
 
-    this.apiService.getItems(`/shops/products/category/${category_slug}/`).subscribe(
+    this.apiService.getItems(`/products/shop/${shop_id}/category/${category_id}/`).subscribe(
       (response:Product[]) => {
-
-        this.listOfVendorProductsCategory.next(response.reverse());
+        console.log("getVendorProductsCategory :", response)
+        this.listOfVendorProducts.next(response.reverse());
       },
       (error:any) => {
         console.log(error.message)

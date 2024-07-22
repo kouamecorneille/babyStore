@@ -1,7 +1,7 @@
 {
   "name": "babyStore",
   "short_name": "babyStore",
-  "theme_color": "#1976d2",
+  "theme_color": "#29A56C",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",

@@ -103,10 +103,9 @@ export class ProductInfoComponent {
   getProductReviews(){
 
     this.apiService.getItems(`products/${this.product.slug}/reviews/`).subscribe(
-      (response:ProductReview[])=>{///products/{slug}/reviews/
-        console.log(response)
+      (response:ProductReview[])=>{
         this.listOfReviews.next(response)
-        this.reviews = response;
+        this.reviews = response.reverse();
         this.calculateRatings();
       }
     )

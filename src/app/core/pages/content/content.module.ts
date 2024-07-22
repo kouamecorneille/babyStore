@@ -104,7 +104,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
         CategorieWithFilterComponent,
         NgxSkeletonLoaderModule,
          NgxSliderModule,
-        CorePipesModule
+        CorePipesModule,
     ]
 })
 export class ContentModule { }
