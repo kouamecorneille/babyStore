@@ -74,6 +74,7 @@ export class DetailsProductComponent implements  OnInit, OnDestroy {
   vendorDetails!:Store
   baseUrl:string='http://djassa2baby.pythonanywhere.com/'
   whatsappUrl:string=''
+  arrayOfLoader = Array(4).fill(0);
 
 
   constructor(private apiService: ApiService, private activatedRoute:ActivatedRoute, private cartService: CartService, private ecommerService:EcommerceService,private router: Router) {

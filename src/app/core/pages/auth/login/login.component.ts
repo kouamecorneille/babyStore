@@ -53,22 +53,33 @@ export class LoginComponent {
       this.authService.login(data).subscribe(
         (response: UserApiResponse) => {
           if (response) {
+
             this.authService.isAuthenticate = true;
-            this.loader = false;
             const userData = response;
 
             localStorage.setItem('Djassa2Access', this.crypt.encryptData(userData.access));
             localStorage.setItem('Djassa2Refrech', this.crypt.encryptData(userData.refresh));
             localStorage.setItem('DjassaAuthUser',  this.crypt.encryptData(userData.user));
+            this.loader = false;
+
             this.toastr.success('Connexion réussie avec succès!', 'Succès !');
 
             this.router.navigate(['/dashboard']);
+
           }
         },
         (err: any) => {
           this.loader = false;
           console.log(err);
-          this.toastr.error('Impossible de se connecter pour le moment !', 'Error');
+          if(err.status==401){
+
+            this.toastr.error('Numéro ou mot de passe incorrect, réessqyer encore !', 'Error');
+
+          }else{
+
+            this.toastr.error('Impossible de se connecter pour le moment !', 'Error');
+
+          }
         }
       );
     } else {

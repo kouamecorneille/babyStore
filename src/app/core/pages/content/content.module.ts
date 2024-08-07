@@ -51,6 +51,7 @@ import { TimestampFormatPipe } from '../../helpers/pipes/timestamp-format.pipe';
 import { CorePipesModule } from '../../helpers/pipes/pipes.module';
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { RegisterStoreComponent } from './register-store/register-store.component';
 @NgModule({
     declarations: [
         ErrorComponent,
@@ -78,6 +79,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
         DetailsProductVendorComponent,
         ProductInfoComponent,
         TimestampFormatPipe, // Ajoutez le pipe aux déclarations
+        RegisterStoreComponent
 
     ],
     imports: [

@@ -48,7 +48,7 @@ export class CategorieWithFilterComponent {
   sliderOptions: Options = {
     floor: 500,
     ceil: 500000,
-    step: 500,
+    step: 1000,
     translate: (value: number): string => {
       return  value + ' CFA' ;
     }
@@ -108,7 +108,7 @@ export class CategorieWithFilterComponent {
      }
     )
 
-   }
+  }
 
 
 
@@ -116,6 +116,8 @@ export class CategorieWithFilterComponent {
 
     this.router.navigate(['/details-product', item.slug], {state: { scrollTop: 0 }});
   }
+
+
   trackById(index: number, item: Store): string {
     return item.id;
   }

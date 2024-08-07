@@ -20,6 +20,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { networkStatusGuard } from '../../helpers/guards/network-status.guard';
 import { ProductPerCategoryVendorComponent } from './product-per-category-vendor/product-per-category-vendor.component';
 import { DetailsProductVendorComponent } from './details-product-vendor/details-product-vendor.component';
+import { RegisterStoreComponent } from './register-store/register-store.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,11 @@ const routes: Routes = [
       {
         path: 'hot-deals',
         component: HotdealsComponent,
+        canActivate: [networkStatusGuard]
+      },
+      {
+        path: 'register-store',
+        component: RegisterStoreComponent,
         canActivate: [networkStatusGuard]
       },
       {

@@ -26,7 +26,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                               </div>
                             </div>
 
@@ -109,7 +108,95 @@
                                 <h2 class="section-title style-1 mb-30">Articles similaires</h2>
                             </div>
                             <div class="col-12">
+
                                <app-related-products [products]="similarProduct" ></app-related-products>
+                               <div class="row related-products">
+                                <div
+                                  class="col-lg-3 col-md-4 col-12 col-sm-6"
+                                *ngFor="let item of arrayOfLoader"
+                                >
+                                  <div class="product-cart-wrap hover-up">
+                                    <div class="product-img-action-wrap">
+                                      <div class="product-img product-img-zoom">
+                                        <ngx-skeleton-loader
+                                          count="1"
+                                          animation=""
+                                          [theme]="{
+                                            height: '250px'
+                                          }"
+                                        ></ngx-skeleton-loader>
+                                      </div>
+                                      <div class="product-action-1">
+                                        <a
+                                          aria-label="Quick view"
+                                          class="action-btn small hover-up"
+                                          data-bs-toggle="modal"
+                                          data-bs-target="#quickViewModal"
+                                        >
+                                          <i class="fi-rs-search"></i>
+                                        </a>
+                                        <a
+                                          aria-label="Add To Wishlist"
+                                          class="action-btn small hover-up"
+                                          href="shop-wishlist.html"
+                                          tabindex="0"
+                                        >
+                                          <i class="fi-rs-heart"></i>
+                                        </a>
+                                        <a
+                                          aria-label="Compare"
+                                          class="action-btn small hover-up"
+                                          href="shop-compare.html"
+                                          tabindex="0"
+                                        >
+                                          <i class="fi-rs-shuffle"></i>
+                                        </a>
+                                      </div>
+
+                                    </div>
+                                    <div class="product-content-wrap">
+                                      <ngx-skeleton-loader
+                                      count="1"
+                                      animation="progress"
+                                      [theme]="{
+                                        height: '20px'
+                                      }"
+                                    ></ngx-skeleton-loader>
+                                      <div class="rating-result" title="90%">
+                                        <span></span>
+                                      </div>
+                                      <div class="product-price">
+                                        <span
+                                          >
+                                          <ngx-skeleton-loader
+                                          count="1"
+                                          animation="progress"
+                                          [theme]="{
+                                            height: '20px',
+                                            width:'130px'
+                                          }"
+                                        ></ngx-skeleton-loader>
+                                          </span
+                                        >
+                                        <span class="old-price"
+                                          >
+                                          <ngx-skeleton-loader
+                                          count="1"
+                                          animation="progress"
+                                          [theme]="{
+                                            height: '20px',
+                                            width:'130px'
+                                          }"
+                                        ></ngx-skeleton-loader>
+
+                                        </span
+                                        >
+                                      </div>
+
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                         </div>
                     </div>

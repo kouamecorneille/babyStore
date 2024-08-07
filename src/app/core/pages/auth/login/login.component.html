@@ -12,8 +12,8 @@
                         <div class="login_wrap widget-taber-content background-white">
                             <div class="padding_eight_all bg-white">
                                 <div class="heading_s1">
-                                    <h1 class="mb-5">Connexion</h1>
-                                    <p class="mb-30">Pas de compte? <a routerLink="/auth/register">Creer un compte ici</a></p>
+                                    <h1 class="mb-20">Connexion</h1>
+                                    <p class="mb-30">Pas de compte? <a routerLink="/auth/register">Créer un compte ici</a></p>
                                 </div>
                                 <form [formGroup]="LoginForm">
                                   <div class="form-group">
@@ -46,8 +46,8 @@
                                             Mot de passe oublie ?
                                         </a>
                                     </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn d-block hover-up" name="login"
+                                    <div class="form-group text-end">
+                                        <button type="submit" class="btn btn-block hover-up" name="login"
                                             [disabled]="LoginForm.invalid || loader"
                                             (click)="login()"
                                         >

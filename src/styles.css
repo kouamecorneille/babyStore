@@ -22,9 +22,20 @@ body .slick-next {
   align-items: center;
 }
 
+.d-block {
+  display: block !important;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+}
+
 
 .border-danger{
   border-color: red!important;
+}
+
+.text-danger{
+  color: red!important;
 }
 /*
 .slick-prev .slick-next {

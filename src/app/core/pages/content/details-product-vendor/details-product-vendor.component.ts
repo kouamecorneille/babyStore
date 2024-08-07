@@ -21,11 +21,13 @@ export class DetailsProductVendorComponent {
   product!:Product
   slugProduct:string=''
   quantity:number=1
-  similarProduct:Product[] = []
+  similarProduct: Product[] = []
   defaultImage!:string
   vendorDetails!:Store
   baseUrl:string='http://djassa2baby.pythonanywhere.com/'
   whatsappUrl:string=''
+  arrayOfLoader = Array(4).fill(0);
+
 
 
   constructor(private apiService: ApiService, private activatedRoute:ActivatedRoute, private cartService: CartService, private ecommerService:EcommerceService,private router: Router) {
@@ -89,7 +91,6 @@ export class DetailsProductVendorComponent {
 
     window.open(`https://api.whatsapp.com/send?phone=+225${phoneNumber}&text=${message}`);
 }
-
 
 
 

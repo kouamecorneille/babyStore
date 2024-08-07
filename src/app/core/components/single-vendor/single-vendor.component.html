@@ -5,14 +5,11 @@
         <img class="default-img rounded-circle" [src]="logourl" alt="" />
       </a>
     </div>
-    <!-- <div class="mt-10">
-                <span class="font-small total-product">{{numberOfProduct}} produits</span>
-            </div> -->
   </div>
   <div class="vendor-content-wrap">
     <div class="mb-30">
       <div class="product-category">
-        <span class="text-muted">Inscrit depuis {{ joineddate | date : "yyyy" }}</span>
+        <span class="text-muted">Inscrit depuis le {{ joineddate | date : "dd/MM/yyyy" }}</span>
       </div>
       <h4 class="mb-5">
         <a [routerLink]="['/vendors/details', slug]"> {{ nameBoutique }}</a>
@@ -40,7 +37,7 @@
             ><span> {{ numero }} </span>
           </li>
         </ul>
-        <a [routerLink]="['/vendors/details', slug]" class="btn btn-xs mr-2"
+        <a [routerLink]="['/vendors/details', slug]" class="btn btn-xs mr-4"
           >Visiter la boutique  <i class="fi-rs-arrow-small-right ml-2"></i
         ></a>
       </div>
