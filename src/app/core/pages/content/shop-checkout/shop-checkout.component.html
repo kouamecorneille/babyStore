@@ -3,7 +3,7 @@
 <div class="container mb-80 mt-50">
     <div class="row">
         <div class="col-lg-8 mb-40">
-            <h1 class="heading-2 mb-10">Commandes</h1>
+            <h1 class="heading-2 mb-10">Commande</h1>
             <!-- <div class="d-flex justify-content-between">
                 <h6 class="text-body">There are <span class="text-brand">3</span> products in your cart</h6>
             </div> -->
@@ -57,19 +57,19 @@
                 <form method="post">
                     <div class="row">
                         <div class="form-group col-lg-12">
-                            <input type="text" required="" name="fname" placeholder="Nom complet du client *">
+                            <input type="text" required="" [(ngModel)]="full_name"  name="full_name" placeholder="Nom complet du client *" >
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-lg-6">
-                            <input type="text" name="billing_address" required="" placeholder="Address de livraison *">
+                            <input type="text" [(ngModel)]="delivery_address" name="delivery_address" required="" placeholder="Address de livraison *">
                         </div>
                         <div class="form-group col-lg-6">
-                            <input type="text" name="billing_address2" required="" placeholder="Numéro de telephone *">
+                            <input type="text" [(ngModel)]="commune" name="commune"  placeholder="Numéro de telephone *">
                         </div>
                     </div>
                     <div class="form-group mb-30">
-                        <textarea rows="3" placeholder="Note ou  information supplementaire "></textarea>
+                        <textarea rows="3" [(ngModel)]="note" [ngModelOptions]="{standalone: true}" placeholder="Note ou  information supplementaire "></textarea>
                     </div>
                 </form>
             </div>
@@ -80,7 +80,7 @@
                     <h4>Vos articles</h4>
                     <h6 class="text-muted">Sous-total</h6>
                 </div>
-                <div class="divider-2 mb-30"></div>
+                <div class="divider-2 mb-20"></div>
                 <div class="table-responsive order_table checkout">
                     <table class="table no-border">
                         <tbody>
@@ -148,7 +148,14 @@
                     <img class="mr-15" src="assets/imgs/theme/icons/payment-master.svg" alt="">
                     <img src="assets/imgs/theme/icons/payment-zapper.svg" alt="">
                 </div> -->
-                <a href="javascript:void(0);" role="button" class="btn btn-fill-out btn-block mt-30">Commander<i class="fi-rs-sign-out ml-15"></i></a>
+                <button  class="btn btn-fill-out btn-block mt-30"
+                (click)="onSubmit()"
+                    [disabled]="!full_name || !delivery_address || !commune || loading"
+                  >
+                 {{loading ? "Traitement en cours ...": "Finaliser ma Commande"}}
+                  <i class="fi-rs-sign-out ml-15">
+                  </i>
+                </button>
             </div>
         </div>
     </div>

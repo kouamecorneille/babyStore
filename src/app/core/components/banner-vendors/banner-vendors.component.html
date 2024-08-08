@@ -1,11 +1,13 @@
-<div class="archive-header-3 mt-30 mb-80" style="background-image: url(assets/imgs/vendor/vendor-header-bg.png)">
+<div class="archive-header-3 mt-30 mb-40" style="background-image: url(assets/imgs/vendor/vendor-header-bg.png)">
     <div class="archive-header-3-inner">
         <div class="vendor-logo mr-50">
             <img [src]="logo" alt="">
         </div>
         <div class="vendor-content">
             <div class="product-category">
-                <span class="text-muted">Since 2012</span>
+                <span class="text-muted">
+                  Dépuis le {{date_aded | date:'longDate'}}
+                </span>
             </div>
             <div class="d-flex">
               <h3 class="mb-5 text-white d-flex">

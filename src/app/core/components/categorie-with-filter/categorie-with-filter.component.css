@@ -215,4 +215,18 @@ input[type="range"]::-moz-range-thumb {
 
 
 
+.resultat-box ul {
+  padding: 15px 10px;
+}
+
+.resultat-box ul li{
+  list-style: none;
+  border-radius: 3px;
+  padding: 15px 10px;
+  cursor: pointer;
+}
+
+.resultat-box ul li:hover{
+  background: #e9f3ff;
+}
 

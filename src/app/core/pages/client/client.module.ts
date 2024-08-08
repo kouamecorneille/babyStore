@@ -14,6 +14,7 @@ import { HeadComponent } from '../../shared/header/head/head.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PasswordChangeComponent } from './password-change/password-change.component';
+import { CorePipesModule } from '../../helpers/pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { PasswordChangeComponent } from './password-change/password-change.compo
     RouterModule,
     HeadComponent,
     FooterComponent,
-    ReactiveFormsModule // Add here
+    ReactiveFormsModule, // Add here
+    CorePipesModule,
   ]
 })
 

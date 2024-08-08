@@ -10,3 +10,18 @@
 .selected{
   border: 4px solid #3BB77E ;
 }
+
+.resultat-box ul {
+  padding: 15px 10px;
+}
+
+.resultat-box ul li{
+  list-style: none;
+  border-radius: 3px;
+  padding: 15px 10px;
+  cursor: pointer;
+}
+
+.resultat-box ul li:hover{
+  background: #e9f3ff;
+}

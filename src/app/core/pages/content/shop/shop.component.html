@@ -106,15 +106,38 @@
       <div class="col-12">
           <div class="row product-grid">
             <div class="archive-header-2 text-center">
-              <!-- <h3 class="display-2 mb-50">Rechercher des articles</h3> -->
               <div class="row">
                   <div class="col-lg-5 mx-auto">
                       <div class="sidebar-widget-2 widget_search mb-50">
                           <div class="search-form">
-                              <form action="#">
-                                  <input type="text" placeholder="Rechercher une boutique ici..">
-                                  <button type="submit"><i class="fi-rs-search"></i></button>
-                              </form>
+                            <form>
+                              <input
+                                type="text"
+                                placeholder="Rechercher vos articles ici ..."
+                                [(ngModel)]="searchString"
+                                name="searchString"
+                                (input)="searchItem()"
+                              />
+                              <button type="submit" [disabled]="!searchString" (click)="searchItem()">
+                                <i class="fi-rs-search"></i>
+                              </button>
+                            </form>
+                              <div class="resultat-box card mt-2" *ngIf="searchString && searchProducts.value.length > 0">
+                                <h6 class="text-center mt-2">Résultat de votre recherche</h6>
+                                <ul>
+                                  <li class="border mb-1" *ngFor="let item of searchProducts | async" [routerLink]="['/details-product', item.slug]">
+                                    <div class="d-flex">
+                                      <img [src]="item.image1" height="40" width="40" [alt]="item.name" class="img-fluid me-3">
+                                      <div>
+                                        <h6 class="text-truncate">
+                                          {{ item.name.length > 20 ? (item.name.substring(0, 20) + '...') : item.name }}
+                                        </h6>
+                                        <p><span>{{ item.reduced_price ? item.reduced_price : item.price | number:'1.0-0' }}</span> FCFA</p>
+                                      </div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
                           </div>
                       </div>
                   </div>
@@ -122,12 +145,12 @@
           </div>
 
             @if(ecommerceService.listOfProducts.value.length > 0){
-              <div class="row product-grid">
+              <!-- <div class="row product-grid">
                 <div class="col-lg-3 col-md-4 col-12 col-sm-6" *ngFor="let item of ecommerceService.listOfProducts |async">
                     <app-single-product [product]="item"></app-single-product>
                 </div>
-              </div>
-              <!-- <div class="col-lg-1-5 col-md-4 col-12 col-sm-6" *ngFor="let item of ecommerceService.listOfProducts |async">
+              </div> -->
+              <div class="col-lg-1-5 col-md-4 col-12 col-sm-6" *ngFor="let item of ecommerceService.listOfProducts |async">
                 <div class="product-cart-wrap mb-30">
                     <div class="product-img-action-wrap">
                         <div class="product-img product-img-zoom">
@@ -141,7 +164,6 @@
                             <a aria-label="Quick view" class="action-btn" [routerLink]="['/details-product', item.slug]"><i class="fi-rs-eye"></i></a>
                             <a aria-label="Achéter" class="action-btn" (click)="addTocart(item)"><i class="fi-rs-shopping-cart"></i></a>
                         </div>
-
                     </div>
                     <div class="product-content-wrap">
                         <div class="product-category">
@@ -171,7 +193,7 @@
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
 
             }@else{
 

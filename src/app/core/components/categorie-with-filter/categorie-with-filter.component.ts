@@ -13,10 +13,20 @@ import { Store } from '../../interfaces/Ishop';
 import { SingleProductComponent } from '../single-product/single-product.component';
 import { ArticlesPropulairesComponent } from '../articles-propulaires/articles-propulaires.component';
 import { NgxSliderModule, Options } from '@angular-slider/ngx-slider';
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-categorie-with-filter',
   standalone: true,
-  imports: [CommonModule, RouterModule,PagniateDataComponent,NgxSkeletonLoaderModule,SingleProductComponent,ArticlesPropulairesComponent,NgxSliderModule],
+  imports: [CommonModule,
+    FormsModule,
+    RouterModule,
+    PagniateDataComponent,
+    NgxSkeletonLoaderModule,
+    SingleProductComponent,
+    ArticlesPropulairesComponent,
+    NgxSliderModule
+  ],
   templateUrl: './categorie-with-filter.component.html',
   styleUrl: './categorie-with-filter.component.css'
 })
@@ -31,11 +41,13 @@ export class CategorieWithFilterComponent {
   selectedCategory : ICategory[] = [];
   products!: Product[]
   newProducts!: Product[]
+  searchProducts = new BehaviorSubject<Product[]>([])
   currentPage:number=1
   totalItems:number = 0
   rangeValue: number = 500; // Valeur initiale du slider
   pageSize:number =0
   loading:boolean=true
+  searchString:string ='';
   private displayedCategoriesCount = 4;
   private displayedStoreCount = 4;
   ecommerceService = inject(EcommerceService);
@@ -176,6 +188,23 @@ export class CategorieWithFilterComponent {
         this.listOfStores.next(data.slice(0, this.displayedStoreCount));
       }
     )
+  }
+
+  searchItem(){
+
+    if(this.searchString && this.searchString.length >=4){
+
+      this.ecomService.searchProduct(this.searchString).subscribe(
+        (response:Product[])=>{
+
+          if(response){
+
+            this.searchProducts.next(response);
+          }
+        }
+      )
+    }
+
   }
 
 

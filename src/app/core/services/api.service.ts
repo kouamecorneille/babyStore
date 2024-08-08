@@ -34,6 +34,12 @@ export class ApiService {
 
   }
 
+  postOrder(item:any, url:string):Observable<any>{
+
+    return this.Http.post(`${this.baseUrl + url}/`, item);
+
+  }
+
 
   /**
    * The `getItem(url:string):Observable<any>{` method in the `ApiService` class is a function that sends an HTTP GET request

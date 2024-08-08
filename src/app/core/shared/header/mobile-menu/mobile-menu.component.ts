@@ -56,7 +56,7 @@ export class MobileMenuComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.ecommService.getCategory()
+    //this.ecommService.getCategory()
     this.ecommService.listOfCategory.subscribe(
       (data) => {
         this.listOfData.next(data);

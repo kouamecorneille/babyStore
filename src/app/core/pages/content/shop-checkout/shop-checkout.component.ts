@@ -2,6 +2,15 @@ import { Component, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CartItem } from '../../../interfaces/IcartItem';
 import { CartService } from '../../../services/others/cart.service';
+import { ApiService } from '../../../services/api.service';
+import { ToastrService } from 'ngx-toastr';
+
+export interface Item{
+  product:string;
+  quantity:number;
+  price:number |string;
+  shop:string;
+}
 
 @Component({
   selector: 'app-shop-checkout',
@@ -13,8 +22,14 @@ export class ShopCheckoutComponent {
   cartItems = new BehaviorSubject<CartItem[]>([]);
   totalCheckout :number = 0;
   cartService = inject(CartService)
+  full_name!:string
+  delivery_address!:string
+  commune!:string
+  note!:string
+  loading:boolean = false
+  orderItems:Item[] = [];
 
-  constructor() {
+  constructor(private apiService:ApiService,private toastr: ToastrService) {
     if (typeof localStorage !== 'undefined') {
       // Load the cart from localStorage when initializing the service
       const storedCartItems = localStorage.getItem('cartItems');
@@ -54,5 +69,58 @@ export class ShopCheckoutComponent {
     } else {
       console.error('No items in the cart to send a WhatsApp message');
     }
+  }
+
+
+  parseProduct(){
+
+    this.cartItems.value.forEach((item) => {
+
+      const dt ={
+        quantity:item.quantity,
+        product:item.product.id,
+        price:item.product.price,
+        shop:item.product.shop.id,
+      }
+
+      this.orderItems.push(dt)
+
+    })
+
+  }
+
+
+  onSubmit(){
+
+    this.loading = true;
+    this.parseProduct()
+
+    const data ={
+      full_name:this.full_name,
+      delivery_address:this.delivery_address,
+      commune:this.commune,
+      note:this.note,
+      items: this.orderItems,
+      status:'pending'
+    }
+
+    this.apiService.postOrder(data, 'anonymous-orders').subscribe(
+
+      (response) => {
+
+        if(response){
+
+          this.loading = false;
+          this.toastr.success('Votre commande a été prise en compte !', 'Succès !', { timeOut: 3000 });
+
+        }
+      },
+      (err) => {
+        console.log(err)
+        this.loading = false
+        this.toastr.error('Oops, nous vaons rencontrer une erreur !', 'Succès !', { timeOut: 3000 });
+      }
+    )
+
   }
 }

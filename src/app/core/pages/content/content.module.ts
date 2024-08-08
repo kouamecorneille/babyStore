@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ContentRoutingModule } from './content-routing.module';
@@ -46,7 +46,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { RestoreScrollPositionDirective } from '../../helpers/directives/restore-scroll-position.directive';
 import { ProductPerCategoryVendorComponent } from './product-per-category-vendor/product-per-category-vendor.component';
 import { DetailsProductVendorComponent } from './details-product-vendor/details-product-vendor.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TimestampFormatPipe } from '../../helpers/pipes/timestamp-format.pipe';
 import { CorePipesModule } from '../../helpers/pipes/pipes.module';
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
@@ -80,15 +80,15 @@ import { RegisterStoreComponent } from './register-store/register-store.componen
         ProductInfoComponent,
         TimestampFormatPipe, // Ajoutez le pipe aux déclarations
         RegisterStoreComponent
-
     ],
     imports: [
         CommonModule,
         NgbRatingModule,
         ContentRoutingModule,
         BreadcrumbComponent,
-        ReactiveFormsModule,
         RouterModule,
+        ReactiveFormsModule,
+        FormsModule, // Add FormsModule here
         PopularCategoriesComponent,
         BannersComponent,
         SingleVendorComponent,
@@ -105,8 +105,11 @@ import { RegisterStoreComponent } from './register-store/register-store.componen
         SlickCarouselModule,
         CategorieWithFilterComponent,
         NgxSkeletonLoaderModule,
-         NgxSliderModule,
+        NgxSliderModule,
         CorePipesModule,
-    ]
+    ],
+    providers: [
+      { provide: LOCALE_ID, useValue: 'fr' }
+    ],
 })
 export class ContentModule { }

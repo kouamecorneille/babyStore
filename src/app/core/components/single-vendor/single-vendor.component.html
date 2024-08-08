@@ -9,7 +9,7 @@
   <div class="vendor-content-wrap">
     <div class="mb-30">
       <div class="product-category">
-        <span class="text-muted">Inscrit depuis le {{ joineddate | date : "dd/MM/yyyy" }}</span>
+        <span class="text-muted">Inscrit dépuis {{joineddate | date:'longDate'}}</span>
       </div>
       <h4 class="mb-5">
         <a [routerLink]="['/vendors/details', slug]"> {{ nameBoutique }}</a>
@@ -37,7 +37,7 @@
             ><span> {{ numero }} </span>
           </li>
         </ul>
-        <a [routerLink]="['/vendors/details', slug]" class="btn btn-xs mr-4"
+        <a [routerLink]="['/vendors/details', slug]" class="btn btn-xs ms-4"
           >Visiter la boutique  <i class="fi-rs-arrow-small-right ml-2"></i
         ></a>
       </div>

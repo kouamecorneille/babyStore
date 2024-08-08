@@ -137,6 +137,12 @@ body .slick-next {
   transform: rotate(165deg);
  }
 
+ .resultat-box{
+  background: #fff!important;
+  margin: auto;
+  border: 5px;
+}
+
  .loader:before, .loader:after {
   content: "";
   position: absolute;

@@ -21,9 +21,11 @@ export class ShopComponent {
   listOfStores = new BehaviorSubject<Store[]>([])
   ecommerceService = inject(EcommerceService);
   listOfLoader = [0,1,2,3,5,6,7,8,9,10,11,12,13,14,15]
+  searchProducts = new BehaviorSubject<Product[]>([])
   private displayedStoreCount = 4;
   activedFilter = signal<boolean>(false)
   selectedCategory!:string;
+  searchString:string ='';
   displayedCategoriesCount=4
 
   minValue: number = 0;
@@ -64,6 +66,25 @@ export class ShopComponent {
     )
 
    }
+
+
+  searchItem(){
+
+    if(this.searchString && this.searchString.length >=4){
+
+      this.ecomService.searchProduct(this.searchString).subscribe(
+        (response:Product[])=>{
+
+          if(response){
+
+            this.searchProducts.next(response);
+          }
+        }
+      )
+    }
+
+  }
+
 
   showMoreCategory(){
 
