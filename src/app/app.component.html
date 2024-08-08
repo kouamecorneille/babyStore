@@ -1,5 +1,4 @@
-<router-outlet></router-outlet>
-
+<router-outlet #outlet="outlet" [@fadeInAnimation]="prepareRoute(outlet)"></router-outlet>
 <app-loader></app-loader>
 <app-pull-to-refresh></app-pull-to-refresh>
 
