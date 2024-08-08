@@ -78,7 +78,7 @@ export class DetailsVendorComponent {
   getCategory(): void {
     this.apiService.getItems('categories').subscribe(
       (response: ICategory[]) => {
-        this.listOfData.next(response);
+        this.listOfData.next(response.slice(0,6));
       },
       (error) => console.error(error)
     );

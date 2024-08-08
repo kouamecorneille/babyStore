@@ -165,15 +165,16 @@ export class DetailsProductVendorComponent {
     }
   }
 
-
- getSimilarProduct(){
-  this.apiService.getItems('similar-products').subscribe(
-    (response:Product[])=>{
-
-      this.similarProduct = response.slice(0,4);
+  getSimilarProduct(){
+    if(this.product){
+      this.apiService.getItems(`products/${this.product.slug}/similar`).subscribe(
+        (response:Product[])=>{
+          console.log("PRODUCT :",response);
+          this.similarProduct = response.slice(0,4);
+        }
+      )
     }
-  )
- }
+   }
 
  slickInit(e: any) {
   console.log('slick initialized');

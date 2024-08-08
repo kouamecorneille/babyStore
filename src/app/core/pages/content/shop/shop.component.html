@@ -122,8 +122,12 @@
           </div>
 
             @if(ecommerceService.listOfProducts.value.length > 0){
-
-              <div class="col-lg-1-5 col-md-4 col-12 col-sm-6" *ngFor="let item of ecommerceService.listOfProducts |async">
+              <div class="row product-grid">
+                <div class="col-lg-3 col-md-4 col-12 col-sm-6" *ngFor="let item of ecommerceService.listOfProducts |async">
+                    <app-single-product [product]="item"></app-single-product>
+                </div>
+              </div>
+              <!-- <div class="col-lg-1-5 col-md-4 col-12 col-sm-6" *ngFor="let item of ecommerceService.listOfProducts |async">
                 <div class="product-cart-wrap mb-30">
                     <div class="product-img-action-wrap">
                         <div class="product-img product-img-zoom">
@@ -134,13 +138,10 @@
                         </div>
                         <div class="product-action-1">
                             <a aria-label="Add To Wishlist" class="action-btn" (click)="addToWhishList(item)"><i class="fi-rs-heart"></i></a>
-                            <!-- <a aria-label="Compare" class="action-btn" href="/shop-compare"><i class="fi-rs-shuffle"></i></a> -->
                             <a aria-label="Quick view" class="action-btn" [routerLink]="['/details-product', item.slug]"><i class="fi-rs-eye"></i></a>
                             <a aria-label="Achéter" class="action-btn" (click)="addTocart(item)"><i class="fi-rs-shopping-cart"></i></a>
                         </div>
-                        <!-- <div class="product-badges product-badges-position product-badges-mrg">
-                            <span class="sale">New</span>
-                        </div> -->
+
                     </div>
                     <div class="product-content-wrap">
                         <div class="product-category">
@@ -163,7 +164,6 @@
                         <div class="product-card-bottom">
                             <div class="product-price">
                                 <span>{{item.reduced_price | number:'1.0-0'}} CFA</span>
-                                <!-- <span class="old-price">$32.8</span> -->
                             </div>
                             <div class="add-cart">
                                 <a class="add" [routerLink]="['/details-product', item.slug]"><i class="fi-rs-shopping-cart mr-5"></i>Voir+ </a>
@@ -171,7 +171,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             }@else{
 

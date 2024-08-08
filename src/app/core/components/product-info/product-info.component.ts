@@ -71,8 +71,7 @@ export class ProductInfoComponent {
         const data = {
           comment: this.reviewForm.value.comment,
           product: this.product.id,
-          user_id : this.userSession.id,
-          // shop: this.vendor.id,
+          user : this.userSession.id,
           rating:this.rating
         };
 

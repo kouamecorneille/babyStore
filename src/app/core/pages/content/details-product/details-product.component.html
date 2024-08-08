@@ -189,8 +189,13 @@
             </div>
             <div class="col-12">
               <!-- <app-related-products [products]="similarProduct" ></app-related-products> -->
-              <div class="row related-products" *ngIf="similarProduct.length==0">
-                <div
+              <div class="row related-products" *ngIf="similarProduct.length>0">
+                <div class="row product-grid">
+                  <div class="col-lg-3 col-md-4 col-12 col-sm-6" *ngFor="let item of similarProduct">
+                      <app-single-product [product]="item"></app-single-product>
+                  </div>
+                </div>
+                <!-- <div
                   class="col-lg-3 col-md-4 col-12 col-sm-6"
                   *ngFor="let item of similarProduct"
                 >
@@ -261,9 +266,10 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
-              <div class="row related-products">
+              <div class="row related-products" *ngIf="similarProduct.length==0">
+
                 <div
                   class="col-lg-3 col-md-4 col-12 col-sm-6"
                 *ngFor="let item of arrayOfLoader"
