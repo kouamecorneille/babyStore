@@ -73,7 +73,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="divider-2 mb-20"></div>
+        <!-- <div class="divider-2 mb-20"></div> -->
 
         <div class="cart-action d-flex justify-content-between">
           <a class="btn " [routerLink]="['/hot-deals']"><i class="fi-rs-arrow-left mr-10"></i>Continuer mes achats</a>
@@ -86,7 +86,7 @@
                     <tbody>
                         <tr>
                             <td class="cart_total_label">
-                                <h6 class="text-muted">Subtotal</h6>
+                                <h6 class="text-muted">Sous-total</h6>
                             </td>
                             <td class="cart_total_amount">
                                 <h4 class="text-brand text-end">{{totalCheckout | number:'1.0-0'}} CFA</h4>
@@ -108,7 +108,7 @@
                     </tbody>
                 </table>
             </div>
-            <a href="#" class="btn mb-20 w-100" [routerLink]="['/shop-checkout']">Commander<i class="fi-rs-sign-out ml-15"></i></a>
+            <a  class="btn mb-20 w-100" [routerLink]="['/shop-checkout']">Commander<i class="fi-rs-sign-out ml-15"></i></a>
             <!-- <a href="#" class="btn mb-20 w-100">Commander sur whatsapp<i class="fi-rs-paper-plane ml-15"></i></a> -->
         </div>
     </div>
