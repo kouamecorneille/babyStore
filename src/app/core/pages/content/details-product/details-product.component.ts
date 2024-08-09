@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit, signal } from '@angular/core';
-import { Product } from '../../../interfaces/Iproduct';
+import { Product, productDefault } from '../../../interfaces/Iproduct';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import $ from 'jquery'
 import { CartService } from '../../../services/others/cart.service';
 import { EcommerceService } from '../../../services/others/ecommerce.service';
 import { Store } from '../../../interfaces/Ishop';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 export interface SliderImgaes{
   img:string,
 }
@@ -21,53 +21,9 @@ export class DetailsProductComponent implements  OnInit, OnDestroy {
 
   defaultImage!:string
   product!:Product
-  productDetails = signal<Product>({
-    id: '',
-    category: {
-      id: '',
-      name: '',
-      slug: '',
-      description: '',
-      image: '',
-      is_active: false
-    },
-    shop: {
-      id: '',
-      name: '',
-      phone_number_1: '',
-      phone_number_2: '',
-      description: '',
-      logo: '',
-      slug: '',
-      email: '',
-      location: '',
-      facebook_link: '',
-      whatsapp_link: '',
-      instagram_link: '',
-      twitter_link: '',
-      is_active: false,
-      can_evaluate: false,
-      date_added: '',
-      subscription: ''
-    },
-    name: '',
-    description: '',
-    price: '',
-    reduced_price: '',
-    image1: '',
-    image2: '',
-    image3: '',
-    image4: '',
-    image5: '',
-    quantity_in_stock: 0,
-    instock: false,
-    added_at: '',
-    average_rating: '',
-    total_ratings: 0,
-    slug: ''
-  });
+  productDetails = signal<Product>(productDefault);
 
-  slugProduct= signal<string | undefined>(undefined);
+  slugProduct = signal<string | undefined>(undefined);
   quantity:number=1
   similarProduct:Product[] = []
   routeSubscription: Subscription | null = null;
@@ -75,9 +31,15 @@ export class DetailsProductComponent implements  OnInit, OnDestroy {
   baseUrl:string='http://djassa2baby.pythonanywhere.com/'
   whatsappUrl:string=''
   arrayOfLoader = Array(4).fill(0);
+  private destroy$ = new Subject<void>();
 
 
-  constructor(private apiService: ApiService, private activatedRoute:ActivatedRoute, private cartService: CartService, private ecommerService:EcommerceService,private router: Router) {
+  constructor(
+     private apiService: ApiService,
+     private activatedRoute:ActivatedRoute,
+     private cartService: CartService,
+     private ecommerService:EcommerceService,
+     private router: Router) {
     // Injectez les dépendances via le constructeur
   }
 
@@ -89,7 +51,7 @@ export class DetailsProductComponent implements  OnInit, OnDestroy {
       this.getSimilarProduct();
     });
 
-    this.router.events.subscribe((event: any) => {
+    this.router.events.pipe(takeUntil(this.destroy$)).subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
         window.scrollTo(0, 0);
       }
@@ -99,6 +61,8 @@ export class DetailsProductComponent implements  OnInit, OnDestroy {
 
 
   ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
 		this.routeSubscription?.unsubscribe();
 	}
 
@@ -108,7 +72,6 @@ export class DetailsProductComponent implements  OnInit, OnDestroy {
     this.bannersConfigs = [];
     this.slugProduct.set(slug);
     this.getDetailsProduct();
-
 
 		this.router.navigate(['/details-product/' + this.slugProduct()])
 	}
@@ -157,7 +120,7 @@ export class DetailsProductComponent implements  OnInit, OnDestroy {
     const message = encodeURIComponent(text);
 
     window.open(`https://api.whatsapp.com/send?phone=+225${phoneNumber}&text=${message}`);
-}
+  }
 
 
 

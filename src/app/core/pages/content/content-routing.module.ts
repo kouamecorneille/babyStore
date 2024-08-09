@@ -148,7 +148,7 @@ const routes: Routes = [
 
 
 const scrollConfig: InMemoryScrollingOptions = {
-  scrollPositionRestoration: 'enabled',
+  scrollPositionRestoration: 'top',
   anchorScrolling: 'enabled',
 };
 
@@ -158,11 +158,11 @@ const inMemoryScrollingFeature: InMemoryScrollingFeature =
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers:[
-    provideRouter(
-      routes,
-      inMemoryScrollingFeature
-    ),
-  ]
+  // providers:[
+  //   provideRouter(
+  //     routes,
+  //     inMemoryScrollingFeature
+  //   ),
+  // ]
 })
 export class ContentRoutingModule { }
