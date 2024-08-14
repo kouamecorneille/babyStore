@@ -12,12 +12,12 @@ export class MainContentComponent implements OnInit {
 
   constructor(private router: Router, private viewportScroller: ViewportScroller) {
     // Disable automatic scroll restoration to avoid race conditions
-    this.viewportScroller.setHistoryScrollRestoration('manual');
+    this.viewportScroller.setHistoryScrollRestoration('auto');
   }
 
   ngOnInit() {
-    console.log("Scroll to position", "current.position");
-    this.handleScrollOnNavigation();
+
+    //this.handleScrollOnNavigation();
   }
 
   private handleScrollOnNavigation(): void {

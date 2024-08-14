@@ -207,6 +207,11 @@ export class EcommerceService {
 
   }
 
+  searchProduct(term:string){
+
+    return this.apiService.getItems(`products/search/?q=${term}`);
+  }
+
 
 
 }

@@ -30,109 +30,125 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: 'hot-deals',
-        pathMatch: 'full'
+        pathMatch: 'full',
+        data: { animation: 'HotDealsPage' }
       },
       {
         path: 'hot-deals',
         component: HotdealsComponent,
-        canActivate: [networkStatusGuard]
+        canActivate: [networkStatusGuard],
+        data: { animation: 'HotDealsPage' }
       },
       {
         path: 'register-store',
         component: RegisterStoreComponent,
-        canActivate: [networkStatusGuard]
+        canActivate: [networkStatusGuard],
+        data: { animation: 'RegisterStorePage' }
       },
       {
         path: 'shop',
         component: ShopComponent,
-        canActivate: [networkStatusGuard]
+        canActivate: [networkStatusGuard],
+        data: { animation: 'ShopPage' }
       },
       {
         path: 'details-product/:id',
         component: DetailsProductComponent,
-        canActivate: [networkStatusGuard]
+        canActivate: [networkStatusGuard],
+        data: { animation: 'DetailsProductPage' }
       },
       {
         path: 'store/:slug/details-product/:id',
         component: DetailsProductVendorComponent,
-        canActivate: [networkStatusGuard]
+        canActivate: [networkStatusGuard],
+        data: { animation: 'DetailsProductVendorPage' }
       },
-
       {
         path: 'about',
         component: AboutUsComponent,
-        canActivate: [networkStatusGuard]
+        canActivate: [networkStatusGuard],
+        data: { animation: 'AboutUsPage' }
       },
       {
         path: 'recommandations',
         component: ProductRecommandationsComponent,
-        canActivate: [networkStatusGuard]
+        canActivate: [networkStatusGuard],
+        data: { animation: 'ProductRecommandationsPage' }
       },
       {
         path: 'vendors',
         component: VendorComponent,
-        canActivate: [networkStatusGuard]
+        canActivate: [networkStatusGuard],
+        data: { animation: 'VendorPage' }
       },
       {
         path: 'vendors/guide',
         component: VendorGuideComponent,
-        canActivate: [networkStatusGuard]
+        canActivate: [networkStatusGuard],
+        data: { animation: 'VendorGuidePage' }
       },
       {
         path: 'vendors/details/:name',
         component: DetailsVendorComponent,
-        canActivate: [networkStatusGuard]
+        canActivate: [networkStatusGuard],
+        data: { animation: 'DetailsVendorPage' }
       },
       {
         path: 'categorie/:name/product',
         component: ProductPerCategoryComponent,
-        canActivate: [networkStatusGuard]
+        canActivate: [networkStatusGuard],
+        data: { animation: 'ProductPerCategoryPage' }
       },
       {
         path: 'store/:slug/categorie/:name',
         component: ProductPerCategoryVendorComponent,
-        canActivate: [networkStatusGuard]
+        canActivate: [networkStatusGuard],
+        data: { animation: 'ProductPerCategoryVendorPage' }
       },
       {
         path: 'cart',
         component: CartComponent,
-        // canActivate: [AuthGuard],
-        canActivate: [networkStatusGuard]
+        canActivate: [networkStatusGuard],
+        data: { animation: 'CartPage' }
       },
       {
         path: 'contact-us',
         component: ContactComponent,
-        canActivate: [networkStatusGuard]
+        canActivate: [networkStatusGuard],
+        data: { animation: 'ContactPage' }
       },
       {
         path: 'shop-checkout',
         component: ShopCheckoutComponent,
-        // canActivate: [AuthGuard],
-        canActivate: [networkStatusGuard]
-
+        canActivate: [networkStatusGuard],
+        data: { animation: 'ShopCheckoutPage' }
       },
       {
         path: 'shop-compare',
         component: ShopCompareComponent,
-        canActivate: [networkStatusGuard]
+        canActivate: [networkStatusGuard],
+        data: { animation: 'ShopComparePage' }
       },
       {
         path: 'shop-wishlist',
         component: ShopWishlistComponent,
-        canActivate: [networkStatusGuard]
+        canActivate: [networkStatusGuard],
+        data: { animation: 'ShopWishlistPage' }
       },
       {
         path: 'privacy-policy',
         component: PrivacyPolicyComponent,
-        canActivate: [networkStatusGuard]
+        canActivate: [networkStatusGuard],
+        data: { animation: 'PrivacyPolicyPage' }
       }
     ]
   }
 ];
 
 
+
 const scrollConfig: InMemoryScrollingOptions = {
-  scrollPositionRestoration: 'enabled',
+  scrollPositionRestoration: 'top',
   anchorScrolling: 'enabled',
 };
 
@@ -142,11 +158,11 @@ const inMemoryScrollingFeature: InMemoryScrollingFeature =
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers:[
-    provideRouter(
-      routes,
-      inMemoryScrollingFeature
-    ),
-  ]
+  // providers:[
+  //   provideRouter(
+  //     routes,
+  //     inMemoryScrollingFeature
+  //   ),
+  // ]
 })
 export class ContentRoutingModule { }
