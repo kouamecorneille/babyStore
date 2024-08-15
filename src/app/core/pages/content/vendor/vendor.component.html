@@ -8,10 +8,33 @@
                 <div class="col-lg-5 mx-auto">
                     <div class="sidebar-widget-2 widget_search mb-50">
                         <div class="search-form">
-                            <form action="#">
-                                <input type="text" placeholder="Rechercher une boutique ici.." [(ngModel)]="searchTerm" name="searchTerm">
-                                <button type="submit" [disabled]="searchTerm !=='' || loading"><i class="fi-rs-search"></i></button>
+                            <form>
+                                <input type="text"
+                                (input)="searchStore()"
+                                placeholder="Rechercher une boutique ici.."
+                                [(ngModel)]="searchTerm"
+                                name="searchTerm">
+                                <button type="submit"
+                                (click)="searchStore()"
+                                  [disabled]="searchTerm !=='' || loading"><i class="fi-rs-search"></i>
+                                </button>
                             </form>
+                            <div class="resultat-box card mt-2" *ngIf="searchTerm && searchVendors.value.length > 0">
+                              <h6 class="text-center mt-2">Résultat de votre recherche</h6>
+                              <ul>
+                                <li class="border mb-1" *ngFor="let item of searchVendors | async" [routerLink]="['/vendors/details/', item.slug]">
+                                  <div class="d-flex">
+                                    <img [src]="item.logo" height="40" width="40" [alt]="item.name" class="img-fluid me-3">
+                                    <div>
+                                      <h6 class="text-truncate mt-2">
+                                        {{ item.name.length > 20 ? (item.name.substring(0, 30) + '...') : item.name }}
+                                      </h6>
+                                      <!-- <p><span></span></p> -->
+                                    </div>
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

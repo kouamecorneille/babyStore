@@ -12,6 +12,7 @@ import { EcommerceService } from '../../../services/others/ecommerce.service';
 export class VendorComponent {
 
   listOfVendors = new BehaviorSubject<Store[]>([])
+  searchVendors = new BehaviorSubject<Store[]>([])
   listOfLoader = [0,1,2,3,5,6,7,8,9,10,11,12]
   searchTerm:string = '';
   loading:boolean = false
@@ -33,6 +34,24 @@ export class VendorComponent {
 
   }
 
+  searchStore(){
+
+    if(this.searchTerm && this.searchTerm.length >=4){
+
+      this.ecommerceService.searchStore(this.searchTerm).subscribe(
+        (response:Store[])=>{
+
+          if(response){
+
+            this.searchVendors.next(response);
+
+          }
+        }
+      )
+
+    }
+
+  }
 
   getListOfVendors(){
 

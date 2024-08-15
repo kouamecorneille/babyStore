@@ -99,6 +99,12 @@ export class EcommerceService {
 
   }
 
+    searchStore(value:string){
+
+      return this.apiService.getItems(`/shops/search/?q=${value}`)
+
+    }
+
   getVendorProductsCategory(category_id:string,shop_id:string) {
 
     this.apiService.getItems(`/products/shop/${shop_id}/category/${category_id}/`).subscribe(
