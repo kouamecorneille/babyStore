@@ -27,16 +27,24 @@ export class CartComponent {
 
    }
 
+   removeItem(id:string){
+
+    this.cartService.removeFromCart(id)
+   }
+
 
    addQuantity(obj:CartItem): void {
 
     obj.quantity +=1
+    this.cartService.updateCartItemQuantity(obj.product.id, obj.quantity);
 
   }
 
     reduceQuantity(obj:CartItem): void {
       if (obj.quantity > 1) { // Vérifiez si la quantité est supérieure à 1
         obj.quantity -= 1; // Réduisez la quantité seulement si elle est supérieure à 1
+        this.cartService.updateCartItemQuantity(obj.product.id, obj.quantity);
+
       }
     }
 

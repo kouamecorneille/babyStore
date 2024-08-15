@@ -69,9 +69,8 @@ export class EcommerceService {
       (response:Store[]) => {
 
         if(response){
-         setTimeout(()=>{
+
           this.listOfStores.next(response);
-         }, 1000)
 
         }
       },

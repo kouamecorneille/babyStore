@@ -52,6 +52,9 @@ import { CorePipesModule } from '../../helpers/pipes/pipes.module';
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { RegisterStoreComponent } from './register-store/register-store.component';
+import { SuccessOrdersComponent } from './success-orders/success-orders.component';
+import {NgxPrintModule} from 'ngx-print';
+
 @NgModule({
     declarations: [
         ErrorComponent,
@@ -79,7 +82,8 @@ import { RegisterStoreComponent } from './register-store/register-store.componen
         DetailsProductVendorComponent,
         ProductInfoComponent,
         TimestampFormatPipe, // Ajoutez le pipe aux déclarations
-        RegisterStoreComponent
+        RegisterStoreComponent,
+        SuccessOrdersComponent
     ],
     imports: [
         CommonModule,
@@ -93,6 +97,7 @@ import { RegisterStoreComponent } from './register-store/register-store.componen
         BannersComponent,
         SingleVendorComponent,
         SlidersComponent,
+        NgxPrintModule,
         DealsBreadcrumbComponent,
         SingleProductComponent,
         ArticlesPropulairesComponent,

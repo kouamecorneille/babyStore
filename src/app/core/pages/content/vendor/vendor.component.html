@@ -9,8 +9,8 @@
                     <div class="sidebar-widget-2 widget_search mb-50">
                         <div class="search-form">
                             <form action="#">
-                                <input type="text" placeholder="Rechercher une boutique ici..">
-                                <button type="submit"><i class="fi-rs-search"></i></button>
+                                <input type="text" placeholder="Rechercher une boutique ici.." [(ngModel)]="searchTerm" name="searchTerm">
+                                <button type="submit" [disabled]="searchTerm !=='' || loading"><i class="fi-rs-search"></i></button>
                             </form>
                         </div>
                     </div>
@@ -20,7 +20,7 @@
 
         <div class="row vendor-grid">
 
-          @if(listOfVendors.value.length > 0){
+          @if(ecommerceService.listOfStores.value.length > 0){
               <div class="col-lg-6 col-md-6 col-12 col-sm-6" *ngFor="let item of listOfVendors | async">
                 <app-single-vendor
                 [nameBoutique]="item.name"
@@ -106,23 +106,32 @@
         </div>
 
         <div class="pagination-area mt-20 mb-20">
-          <!-- <ngb-pagination class="ms-3" [collectionSize]="totalItems | async" [(page)]="page"
-          [pageSize]="pageSize |async" (pageChange)="onPageChange()"> </ngb-pagination> -->
+  <div *ngIf="paginatedVendors | async as vendors">
+    <div *ngFor="let vendor of vendors">
+      <!-- Display vendor details here -->
+    </div>
 
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-end">
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <a class="page-link" href="#" (click)="onPageChange(currentPage - 1)">
+            <i class="fi-rs-arrow-small-left"></i>
+          </a>
+        </li>
+        <li *ngFor="let page of [].constructor(totalItems / pageSize); let i = index"
+            class="page-item" [class.active]="i + 1 === currentPage">
+          <a class="page-link" href="javascript:void(0);" (click)="onPageChange(i + 1)">{{ i + 1 }}</a>
+        </li>
+        <li class="page-item"
+            [class.disabled]="currentPage === (totalItems / pageSize)">
+          <a class="page-link" href="javascript:void(0);" (click)="onPageChange(currentPage + 1)">
+            <i class="fi-rs-arrow-small-right"></i>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
 
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-end">
-                    <li class="page-item">
-                        <a class="page-link" href="#"><i class="fi-rs-arrow-small-left"></i></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#"><i class="fi-rs-arrow-small-right"></i></a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
     </div>
 </div>

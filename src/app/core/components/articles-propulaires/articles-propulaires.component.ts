@@ -18,6 +18,7 @@ export class ArticlesPropulairesComponent {
 
     @Input() title!:string
     @Input() categorys:ICategory[] =[];
+    @Input() produts !: Product[];
     productsCategory1!:Product[];
     productsCategory2!:Product[];
     productsCategory3!:Product[];

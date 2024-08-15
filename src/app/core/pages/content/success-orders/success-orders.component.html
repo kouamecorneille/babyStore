@@ -1,0 +1,243 @@
+<app-breadcrumb
+  [firstTitle]="'Accueil'"
+  [secondTitle]="'Commande'"
+  [firdTitle]="'Finalisation'"
+></app-breadcrumb>
+
+<div class="page-content invoice invoice-content invoice-6">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5">
+        <div>
+            <h5 class="mb-3">Merci pour votre commande, {{cartService.userInfo().full_name}} !</h5>
+            <p>Nous avons bien reçu votre commande et nous tenons à vous remercier pour votre confiance.</p>
+            <!-- <p>Votre commande #[Numéro de Commande] a été enregistrée avec succès et est actuellement en traitement.</p> -->
+            <!-- <p>Nous espérons que vous apprécierez vos achats ! Si vous avez des questions ou avez besoin d'assistance, n'hésitez pas à nous contacter.</p> -->
+        </div>
+        <img src="../../../../../assets/imgs/Ecommerce checkout laptop-amico.svg" alt="" class="img-fluid">
+
+    </div>
+      <div class="col-md-7">
+        <div class="invoice-inner">
+          <div class="invoice-info" id="print-section">
+            <div class="invoice-header">
+              <div class="invoice-icon">
+                <img
+                  src="assets/imgs/theme/icons/icon-invoice.svg"
+                  class="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div class="row align-items-center">
+                <div class="col-md-6">
+                  <div class="logo">
+                    <a href="index.html" class="mr-20"
+                      ><img src="assets/imgs/theme/logo.svg" alt="logo"
+                    /></a>
+                  </div>
+                </div>
+                <div class="col-md-6 text-end">
+                  <h2 class="mb-0">COMMANDE</h2>
+                </div>
+              </div>
+              <div class="row align-items-center">
+                <div class="col-md-6">
+                  <div class="text">
+                   <strong>Adresse : </strong> {{cartService.userInfo().delivery_address}}<br />
+                    <abbr title="Phone">Numéro:</abbr> {{cartService.userInfo().commune}}<br />
+                  </div>
+                </div>
+                <div class="col-md-6 text-end">
+                  <strong class="text-brand">{{cartService.userInfo().full_name}}</strong> <br />
+                  {{cartService.userInfo().delivery_address}}<br />
+                </div>
+              </div>
+              <div class="row mt-20">
+                <div class="col-12">
+                  <div class="hr mb-10"></div>
+                </div>
+                <div class="col-lg-4">
+                  <strong class="text-brand"> Commande N°:</strong> #789654
+                </div>
+                <div class="col-lg-4">
+                  <strong class="text-brand"> Date de commande :</strong> {{today | date:'longDate'}}
+                </div>
+                <div class="col-lg-4">
+                  <strong class="text-brand"> Methode de paiement:</strong>
+                  Paiement a la livraison
+                </div>
+                <div class="col-12">
+                  <div class="hr mt-10"></div>
+                </div>
+              </div>
+            </div>
+            <div class="invoice-center">
+              <div class="table-responsive">
+                <table class="table table-striped invoice-table">
+                  <thead class="bg-active">
+                    <tr>
+                      <th>Produit</th>
+                      <th class="text-center">Prix</th>
+                      <th class="text-center">Quantité</th>
+                      <th class="text-right">Montant</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of cartService.cartItemsSignalSummary()">
+                      <td>
+                        <div class="item-desc-1 d-flex">
+                          <img [src]="item.product.image1"
+                          alt="" height="50" width="50" class="img-fluid">
+                          <span class="mt-2">{{item.product.name.substring(0,25)}} ...</span>
+                        </div>
+                      </td>
+                      <td class="text-center">{{item.product.reduced_price !== '0' ? item.product.reduced_price : item.product.price |number:'1.0-0'}} </td>
+                      <td class="text-center">{{item.quantity}} </td>
+                      <td class="text-right">{{ Sum(item.product.reduced_price ? item.product.reduced_price: item.product.price, item.quantity) }}</td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="text-end f-w-600">Total général</td>
+                      <td class="text-right f-w-600">{{totalCheckout |number:'1.0-0'}} FCFA</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="invoice-bottom pb-80">
+              <div class="row">
+
+                <div class="text-end">
+                  <h6 class="mb-15">Montant total</h6>
+                  <h3 class="mt-0 mb-0 text-brand">{{totalCheckout |number:'1.0-0'}} FCFA</h3>
+                </div>
+              </div>
+              <div class="row text-center">
+                <div class="col-12">
+                  <div class="hr mt-30 mb-30"></div>
+                  <p class="mb-0 text-muted">
+                    <strong >Note:</strong> Cliquer sur le boutton << Imprimer le reçu >> pour télécharger le reçu de votre commande.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="invoice-btn-section d-flex justify-content-between align-items-center">
+            <a
+              [routerLink]="'/hot-deals'"
+              class="btn btn-lg btn-custom btn-print hover-up"
+            >
+              <img src="assets/imgs/theme/icons/icon-print.svg" alt="" /> Continuer mes achats
+            </a>
+            <button
+              class="btn btn-lg btn-custom btn-download hover-up"
+              [useExistingCss]="true"
+              printSectionId="print-section"
+              ngxPrint
+            >
+              <img src="assets/imgs/theme/icons/icon-download.svg" alt="" />
+              Imprimer le reçu
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="row">
+        <div class="col-md-5">
+            <div>
+                <h5 class="mb-3">Merci pour votre commande, {{cartService.userInfo().full_name}} !</h5>
+                <p>Nous avons bien reçu votre commande et nous tenons à vous remercier pour votre confiance.</p>
+                <p>Votre commande #[Numéro de Commande] a été enregistrée avec succès et est actuellement en traitement.</p>
+                <p>Nous espérons que vous apprécierez vos achats ! Si vous avez des questions ou avez besoin d'assistance, n'hésitez pas à nous contacter.</p>
+            </div>
+            <img src="../../../../../assets/imgs/Ecommerce checkout laptop-amico.svg" alt="" class="img-fluid">
+
+        </div>
+        <div class="col-md-7">
+            <div class="card">
+                <div class="card-body">
+                    <div class="invoice" >
+                        <div class="grid-body">
+                            <div id="print-section">
+                                <div class="invoice-title">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <h5>Commande <span class="small"> N° #1082</span></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <address>
+                                            <strong>Facturé à :</strong><br>
+                                            <strong>Nom complet</strong> : {{cartService.userInfo().full_name}}<br>
+                                            <strong>Adresse</strong> : {{cartService.userInfo().delivery_address}}<br>
+                                            <abbr title="Numéro"><strong>Numéro</strong> :</abbr>{{cartService.userInfo().commune}}
+                                        </address>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 mt-2 mb-3">
+                                        <strong>RÉSUMÉ DE LA COMMANDE</strong>
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr class="line">
+                                                    <td><strong>#</strong></td>
+                                                    <td class="text-center"><strong>PRODUIT</strong></td>
+                                                    <td class="text-center"><strong>PRIX</strong></td>
+                                                    <td class="text-right"><strong>QTE</strong></td>
+                                                    <td class="text-right"><strong>SOUS-TOTAL</strong></td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of cartService.cartItemsSignalSummary()">
+                                                    <td>
+                                                      <img [src]="item.product.image1" alt="item.product.image1" height="50" width="50">
+                                                    </td>
+                                                    <td><strong class="text-truncate">{{item.product.name.substring(0,15)}} ...</strong><br>
+                                                       <p [innerHTML]="item.product.description.substring(0,15)"></p>
+                                                    </td>
+                                                    <td class="text-center">{{item.product.reduced_price !== '0' ? item.product.reduced_price : item.product.price |number:'1.0-0'}} </td>
+                                                    <td class="text-center"> {{item.quantity}}</td>
+                                                    <td class="text-right">
+                                                      {{ Sum(item.product.reduced_price ? item.product.reduced_price: item.product.price, item.quantity) }}
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td colspan="3">
+                                                    </td>
+                                                    <td class="text-right"><strong>Total</strong></td>
+                                                    <td class="text-right"><strong>
+                                                      {{totalCheckout |number:'1.0-0'}}
+                                                    </strong></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="text-left identity">
+                                    <img src="http://djassa2baby.pythonanywhere.com/media/product_images/1_wJjfrah.jpg"
+                                        alt="" height="50" width="50" class="img-fluid">
+                                    <p>BabyShop<br><strong>Vous remercie pour votre achat.</strong></p>
+                                </div>
+                                <div class="text-right">
+                                    <button class="btn btn-primary" [useExistingCss]="true" printSectionId="print-section" ngxPrint>
+                                        Imprimer le reçu
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a [routerLink]="'/hot-deals'" class="btn btn-primary mt-4">Continuer mes achats</a>
+
+        </div>
+    </div> -->

@@ -21,6 +21,7 @@ import { networkStatusGuard } from '../../helpers/guards/network-status.guard';
 import { ProductPerCategoryVendorComponent } from './product-per-category-vendor/product-per-category-vendor.component';
 import { DetailsProductVendorComponent } from './details-product-vendor/details-product-vendor.component';
 import { RegisterStoreComponent } from './register-store/register-store.component';
+import { SuccessOrdersComponent } from './success-orders/success-orders.component';
 
 const routes: Routes = [
   {
@@ -140,6 +141,12 @@ const routes: Routes = [
         component: PrivacyPolicyComponent,
         canActivate: [networkStatusGuard],
         data: { animation: 'PrivacyPolicyPage' }
+      },
+      {
+        path: 'success-orders',
+        component: SuccessOrdersComponent,
+        canActivate: [networkStatusGuard],
+        data: { animation: 'successOrders' }
       }
     ]
   }

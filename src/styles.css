@@ -9,13 +9,6 @@
   margin: auto;
 }
 
-/* body .slick-prev,
-body .slick-next {
-  height: 45px;
-  width: 40px;
-  background: red !important;
-  z-index: 100;
-} */
 
 .slick-dots{
   justify-content: center;
@@ -67,6 +60,29 @@ body .slick-next {
   color: white!important;
 
 }
+.text-truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+
+.resultat-box ul {
+  padding: 15px 10px;
+}
+
+.resultat-box ul li{
+  list-style: none;
+  border-radius: 3px;
+  padding: 15px 10px;
+  cursor: pointer;
+}
+
+.resultat-box ul li:hover{
+  background: #e9f3ff;
+}
+
 
 .slick-prev {
   left: 20px!important;

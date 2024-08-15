@@ -4,12 +4,14 @@ import { CartItem } from '../../../interfaces/IcartItem';
 import { CartService } from '../../../services/others/cart.service';
 import { ApiService } from '../../../services/api.service';
 import { ToastrService } from 'ngx-toastr';
+import { OrderItem } from '../../../interfaces/IorderItem';
+import { Router } from '@angular/router';
 
-export interface Item{
-  product:string;
-  quantity:number;
-  price:number |string;
-  shop:string;
+export interface UserInfo{
+
+    full_name:string;
+    delivery_address:string;
+    commune:string;
 }
 
 @Component({
@@ -27,9 +29,15 @@ export class ShopCheckoutComponent {
   commune!:string
   note!:string
   loading:boolean = false
-  orderItems:Item[] = [];
+  orderItems:OrderItem[] = [];
 
-  constructor(private apiService:ApiService,private toastr: ToastrService) {
+  User : UserInfo = {
+    full_name:'',
+    delivery_address:'',
+    commune:''
+  }
+
+  constructor(private apiService:ApiService,private toastr: ToastrService, private router:Router) {
     if (typeof localStorage !== 'undefined') {
       // Load the cart from localStorage when initializing the service
       const storedCartItems = localStorage.getItem('cartItems');
@@ -77,10 +85,12 @@ export class ShopCheckoutComponent {
     this.cartItems.value.forEach((item) => {
 
       const dt ={
+
         quantity:item.quantity,
         product:item.product.id,
         price:item.product.price,
         shop:item.product.shop.id,
+
       }
 
       this.orderItems.push(dt)
@@ -96,22 +106,31 @@ export class ShopCheckoutComponent {
     this.parseProduct()
 
     const data ={
+
       full_name:this.full_name,
       delivery_address:this.delivery_address,
       commune:this.commune,
       note:this.note,
       items: this.orderItems,
       status:'pending'
+
     }
+
+    this.User.full_name = data.full_name
+    this.User.commune = data.commune
+    this.User.delivery_address = data.delivery_address
 
     this.apiService.postOrder(data, 'anonymous-orders').subscribe(
 
       (response) => {
 
         if(response){
-
+          this.cartService.cartItemsSignalSummary.set(this.cartItems.value)
+          this.cartService.userInfo.set(this.User)
+          this.cartService.ressetCart()
           this.loading = false;
           this.toastr.success('Votre commande a été prise en compte !', 'Succès !', { timeOut: 3000 });
+          this.router.navigate(['/success-orders']);
 
         }
       },

@@ -16,27 +16,27 @@ const routes: Routes = [
       {
         path:'',
         component:HomeComponent,
-        // canActivate:[AuthGuard],
+        canActivate:[AuthGuard],
       },
       {
         path:'orders',
         component:OdersComponent,
-        // canActivate:[AuthGuard],
+        canActivate:[AuthGuard],
       },
       {
         path:'track-orders',
         component:TrackOrdersComponent,
-        // canActivate:[AuthGuard],
+        canActivate:[AuthGuard],
       },
       {
         path:'account-detail',
         component:AccountComponent,
-        // canActivate:[AuthGuard],
+        canActivate:[AuthGuard],
       },
       {
         path:'password-change',
         component:PasswordChangeComponent,
-        // canActivate:[AuthGuard],
+        canActivate:[AuthGuard],
       },
 
     ]

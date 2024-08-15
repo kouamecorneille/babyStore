@@ -1,165 +1,182 @@
 <app-breadcrumb
   [firstTitle]="'Accueil'"
   [secondTitle]="'Boutiques'"
-  [firdTitle]="storeName"
+  [firdTitle]="vendorDetails.name"
 ></app-breadcrumb>
 <div class="container mb-30">
   @if(vendorDetails && ecommerceService.listOfVendorProducts){
 
-      <div *ngIf="vendorDetails; else loading">
-        <app-banner-vendors
-          [logo]="vendorDetails.logo"
-          [shopName]="vendorDetails.name"
-          [date_aded]="vendorDetails.date_added"
-          [adresse]="vendorDetails.location"
-          [number]="vendorDetails.phone_number_1"
-          [description]="vendorDetails.description"
-        >
-        </app-banner-vendors>
+  <div *ngIf="vendorDetails; else loading">
+    <app-banner-vendors
+      [logo]="vendorDetails.logo"
+      [shopName]="vendorDetails.name"
+      [date_aded]="vendorDetails.date_added"
+      [adresse]="vendorDetails.location"
+      [number]="vendorDetails.phone_number_1"
+      [description]="vendorDetails.description"
+    >
+    </app-banner-vendors>
+  </div>
+  <ng-template #loading>
+    <div class="item mt-30">
+      <ngx-skeleton-loader
+        count="3"
+        animation="progress"
+        [theme]="{
+          height: '100px'
+        }"
+      ></ngx-skeleton-loader>
+    </div>
+  </ng-template>
+  <div class="container mb-30">
+    <div class="archive-header-2 text-center pt-10 pb-20">
+      <div class="row">
+        <div class="col-lg-5 mx-auto">
+          <div class="sidebar-widget-2 widget_search mb-50">
+            <div class="search-form">
+              <form>
+                <input
+                  type="text"
+                  placeholder="Rechercher vos articles ici ..."
+                  [(ngModel)]="searchString"
+                  name="searchString"
+                  (input)="searchItem()"
+                />
+                <button type="submit" [disabled]="!searchString" (click)="searchItem()">
+                  <i class="fi-rs-search"></i>
+                </button>
+              </form>
+              <div class="resultat-box card mt-2" *ngIf="searchString && searchProducts.value.length > 0">
+                <h6 class="text-center mt-2">Résultat de votre recherche</h6>
+                <ul>
+                  <li class="border mb-1" *ngFor="let item of searchProducts | async" [routerLink]="['/details-product', item.slug]">
+                    <div class="d-flex">
+                      <img [src]="item.image1" height="40" width="40" [alt]="item.name" class="img-fluid me-3">
+                      <div>
+                        <h6 class="text-truncate">
+                          {{ item.name.length > 25 ? (item.name.substring(0, 25) + '...') : item.name }}
+                        </h6>
+                        <p><span>{{ parseIntValue(item.reduced_price ? item.reduced_price : item.price ) | number:'1.0-0' }}</span> FCFA</p>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <ng-template #loading>
-        <div class="item mt-30">
-          <ngx-skeleton-loader
-            count="3"
-            animation="progress"
-            [theme]="{
-              height: '100px'
-            }"
-          ></ngx-skeleton-loader>
-        </div>
-      </ng-template>
-
-      <div class="container mb-30">
-        <div class="archive-header-2 text-center pt-10 pb-20">
-          <div class="row">
-            <div class="col-lg-5 mx-auto">
-              <div class="sidebar-widget-2 widget_search mb-50">
-                <div class="search-form">
-                  <form>
-                    <input
-                      type="text"
-                      placeholder="Rechercher vos articles ici ..."
-                    />
-                    <button type="submit"><i class="fi-rs-search"></i></button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row flex-row-reverse">
-          <div class="col-lg-1-5 primary-sidebar sticky-sidebar">
-            <!-- <div class="banner-img mb-30">
-                  <img src="assets/imgs/Thrift shop-bro.svg" alt="" class="img-fluid">
-              </div> -->
-            <div class="sidebar-widget widget-category-2 mb-30">
-              <h5 class="section-title style-1 mb-30">Categories</h5>
-              <ul>
-                @if(listOfData.value.length > 0){
-                <li
-                  *ngFor="let item of listOfData | async"
-                  role="button"
-                  (click)="chooseCategory(item)"
-                  [ngClass]="{ selected: item.id === selectedCategory }"
-                >
-                  <a href="javascript:void(0);">
-                    <img [src]="item.image" alt="" />{{ item.name }}</a
-                  >
-                  <!-- <span class="count">30</span> [routerLink]="['/store', vendorDetails.slug , 'categorie', item.slug]" -->
-                </li>
-                <li>
-                  <a role="button">
-                    <div class="more_categories">
-                      <span class="icon mb-2"></span>
-                      <span class="heading-sm-1 mb-2">Affichez plus...</span>
-                    </div>
-                  </a>
-                  <!-- <span class="count">30</span> -->
-                </li>
-                }@else{
-                <li>
-                  <a class="category-loader ml-40">
-                    <div class="loader3">
-                      <div class="bar1"></div>
-                      <div class="bar2"></div>
-                      <div class="bar3"></div>
-                      <div class="bar4"></div>
-                      <div class="bar5"></div>
-                      <div class="bar6"></div>
-                      <div class="bar7"></div>
-                      <div class="bar8"></div>
-                      <div class="bar9"></div>
-                      <div class="bar10"></div>
-                      <div class="bar11"></div>
-                      <div class="bar12"></div>
-                    </div>
-                  </a>
-                </li>
-                }
-              </ul>
-            </div>
-
-            <!-- Product sidebar Widget -->
-            @if(ecommerceService.newProducts.value.length >0){
-            <div
-              class="sidebar-widget product-sidebar mb-30 p-30 bg-grey border-radius-10"
+    </div>
+    <div class="row flex-row-reverse">
+      <div class="col-lg-1-5 primary-sidebar sticky-sidebar">
+        <div class="sidebar-widget widget-category-2 mb-30">
+          <h5 class="section-title style-1 mb-30">Categories</h5>
+          <ul>
+            @if(listOfData.value.length > 0){
+            <li
+              *ngFor="let item of listOfData | async"
+              role="button"
+              (click)="chooseCategory(item)"
+              [ngClass]="{ selected: item.id === selectedCategory }"
             >
-              <h5 class="section-title style-1 mb-30">Nouveaux articles</h5>
-              <div
-                class="single-post clearfix"
-                *ngFor="let item of ecommerceService.newProducts | async"
+              <a href="javascript:void(0);">
+                <img [src]="item.image" alt="" />{{ item.name }}</a
               >
-                <div class="image">
-                  <img [src]="item.image1" alt="#" />
+              <!-- <span class="count">30</span> [routerLink]="['/store', vendorDetails.slug , 'categorie', item.slug]" -->
+            </li>
+            <li>
+              <a role="button">
+                <div class="more_categories">
+                  <span class="icon mb-2"></span>
+                  <span class="heading-sm-1 mb-2">Affichez plus...</span>
                 </div>
-                <div class="content pt-10">
-                  <h5>
-                    <a
-                      [routerLink]="[
-                        '/store',
-                        vendorDetails.slug,
-                        'details-product',
-                        item.slug
-                      ]"
-                      >{{ item.name.substring(0, 15) }} ...</a
-                    >
-                  </h5>
-                  <p class="price mb-0 mt-5">
-                    {{ item.reduced_price | number : "1.0-0" }} CFA
-                  </p>
-                  <div class="product-rate">
-                    <div class="product-rating" style="width: 90%"></div>
-                  </div>
+              </a>
+              <!-- <span class="count">30</span> -->
+            </li>
+            }@else{
+            <li>
+              <a class="category-loader ml-40">
+                <div class="loader3">
+                  <div class="bar1"></div>
+                  <div class="bar2"></div>
+                  <div class="bar3"></div>
+                  <div class="bar4"></div>
+                  <div class="bar5"></div>
+                  <div class="bar6"></div>
+                  <div class="bar7"></div>
+                  <div class="bar8"></div>
+                  <div class="bar9"></div>
+                  <div class="bar10"></div>
+                  <div class="bar11"></div>
+                  <div class="bar12"></div>
                 </div>
-              </div>
-            </div>
+              </a>
+            </li>
             }
+          </ul>
+        </div>
 
-            <div class="banner-img wow fadeIn mb-lg-0 animated d-lg-block d-none">
-              <img src="assets/imgs/banner/banner-11.png" alt="" />
-              <div class="banner-text">
-                <span>Oganic</span>
-                <h4>
-                  Save 17% <br />
-                  on <span class="text-brand">Oganic</span><br />
-                  Juice
-                </h4>
+        <!-- Product sidebar Widget -->
+        @if(ecommerceService.newProducts.value.length >0){
+        <div
+          class="sidebar-widget product-sidebar mb-30 p-30 bg-grey border-radius-10"
+        >
+          <h5 class="section-title style-1 mb-30">Nouveaux articles</h5>
+          <div
+            class="single-post clearfix"
+            *ngFor="let item of ecommerceService.newProducts | async"
+          >
+            <div class="image">
+              <img [src]="item.image1" alt="#" />
+            </div>
+            <div class="content pt-10">
+              <h5>
+                <a
+                  [routerLink]="[
+                    '/store',
+                    vendorDetails.slug,
+                    'details-product',
+                    item.slug
+                  ]"
+                  >{{ item.name.substring(0, 15) }} ...</a
+                >
+              </h5>
+              <p class="price mb-0 mt-5">
+                {{ item.reduced_price | number : "1.0-0" }} CFA
+              </p>
+              <div class="product-rate">
+                <div class="product-rating" style="width: 90%"></div>
               </div>
             </div>
           </div>
-          <div class="col-lg-4-5">
-            @if(ecommerceService.listOfVendorProducts.value.length > 0){
+        </div>
+        }
 
-            <div class="row product-grid">
-              <div class="row product-grid">
-                <div
-                  class="col-lg-3 col-md-4 col-12 col-sm-6"
-                  *ngFor="let item of ecommerceService.listOfVendorProducts | async"
-                >
-                  <app-single-product [product]="item"></app-single-product>
-                </div>
-              </div>
-              <!-- <div
+        <div class="banner-img wow fadeIn mb-lg-0 animated d-lg-block d-none">
+          <img src="assets/imgs/banner/banner-11.png" alt="" />
+          <div class="banner-text">
+            <span>Oganic</span>
+            <h4>
+              Save 17% <br />
+              on <span class="text-brand">Oganic</span><br />
+              Juice
+            </h4>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4-5">
+        @if(ecommerceService.listOfVendorProducts.value.length > 0){
+
+        <div class="row product-grid">
+          <div class="row product-grid">
+            <div
+              class="col-lg-3 col-md-4 col-12 col-sm-6"
+              *ngFor="let item of ecommerceService.listOfVendorProducts | async"
+            >
+              <app-single-product [product]="item"></app-single-product>
+            </div>
+          </div>
+          <!-- <div
                 class="col-lg-1-5 col-md-4 col-12 col-sm-6"
                 *ngFor="let item of ecommerceService.listOfVendorProducts | async"
               >
@@ -274,232 +291,232 @@
                   </div>
                 </div>
               </div> -->
-            </div>
+        </div>
 
-            }@else{
-            <div class="row product-grid">
-              <!--end product card-->
-              <div
-                class="col-lg-1-5 col-md-4 col-12 col-sm-6"
-                *ngFor="let item of listOfLoader"
-              >
-                <div class="product-cart-wrap mb-30">
-                  <div class="fb-item m-2">
-                    <div class="first-section-wrapper">
-                      <div class="gravatar">
-                        <ngx-skeleton-loader
-                          appearance="circle"
-                          [theme]="{ width: '80px', height: '80px' }"
-                        >
-                        </ngx-skeleton-loader>
-                      </div>
-                      <div class="gravatar-title">
-                        <div>
-                          <ngx-skeleton-loader
-                            [theme]="{
-                              width: '200px',
-                              'border-radius': '0',
-                              height: '15px',
-                              'margin-bottom': '10px'
-                            }"
-                          ></ngx-skeleton-loader>
-                        </div>
-                        <div>
-                          <ngx-skeleton-loader
-                            [theme]="{
-                              width: '170px',
-                              'border-radius': '0',
-                              height: '15px'
-                            }"
-                          >
-                          </ngx-skeleton-loader>
-                        </div>
-                      </div>
+        }@else{
+        <div class="row product-grid">
+          <!--end product card-->
+          <div
+            class="col-lg-1-5 col-md-4 col-12 col-sm-6"
+            *ngFor="let item of listOfLoader"
+          >
+            <div class="product-cart-wrap mb-30">
+              <div class="fb-item m-2">
+                <div class="first-section-wrapper">
+                  <div class="gravatar">
+                    <ngx-skeleton-loader
+                      appearance="circle"
+                      [theme]="{ width: '80px', height: '80px' }"
+                    >
+                    </ngx-skeleton-loader>
+                  </div>
+                  <div class="gravatar-title">
+                    <div>
+                      <ngx-skeleton-loader
+                        [theme]="{
+                          width: '200px',
+                          'border-radius': '0',
+                          height: '15px',
+                          'margin-bottom': '10px'
+                        }"
+                      ></ngx-skeleton-loader>
                     </div>
-                    <div class="second-section-wrapper">
-                      <div class="wrapper">
-                        <ngx-skeleton-loader
-                          [theme]="{
-                            width: '80%',
-                            'border-radius': '0',
-                            height: '15px',
-                            'margin-bottom': '10px'
-                          }"
-                        ></ngx-skeleton-loader>
-                      </div>
-                      <div class="wrapper">
-                        <ngx-skeleton-loader
-                          [theme]="{
-                            width: '90%',
-                            'border-radius': '0',
-                            height: '15px',
-                            'margin-bottom': '10px'
-                          }"
-                        ></ngx-skeleton-loader>
-                      </div>
-                      <div class="wrapper">
-                        <ngx-skeleton-loader
-                          [theme]="{
-                            width: '60%',
-                            'border-radius': '0',
-                            height: '15px',
-                            'margin-bottom': '10px'
-                          }"
-                        ></ngx-skeleton-loader>
-                      </div>
+                    <div>
+                      <ngx-skeleton-loader
+                        [theme]="{
+                          width: '170px',
+                          'border-radius': '0',
+                          height: '15px'
+                        }"
+                      >
+                      </ngx-skeleton-loader>
                     </div>
+                  </div>
+                </div>
+                <div class="second-section-wrapper">
+                  <div class="wrapper">
+                    <ngx-skeleton-loader
+                      [theme]="{
+                        width: '80%',
+                        'border-radius': '0',
+                        height: '15px',
+                        'margin-bottom': '10px'
+                      }"
+                    ></ngx-skeleton-loader>
+                  </div>
+                  <div class="wrapper">
+                    <ngx-skeleton-loader
+                      [theme]="{
+                        width: '90%',
+                        'border-radius': '0',
+                        height: '15px',
+                        'margin-bottom': '10px'
+                      }"
+                    ></ngx-skeleton-loader>
+                  </div>
+                  <div class="wrapper">
+                    <ngx-skeleton-loader
+                      [theme]="{
+                        width: '60%',
+                        'border-radius': '0',
+                        height: '15px',
+                        'margin-bottom': '10px'
+                      }"
+                    ></ngx-skeleton-loader>
                   </div>
                 </div>
               </div>
             </div>
-            }
           </div>
         </div>
+        }
       </div>
-      <app-top-selling></app-top-selling>
+    </div>
+  </div>
+  <app-top-selling></app-top-selling>
   }@else{
-    <div class="row mt-30">
-      <div class="col-lg-12 col-md-6 col-12 col-sm-6 mt-10 mb-10">
-        <div class="product-cart-wrap mb-30">
-          <div class="fb-item m-5">
-            <div class="first-section-wrapper">
-              <div class="gravatar">
+  <div class="row mt-30">
+    <div class="col-lg-12 col-md-6 col-12 col-sm-6 mt-10 mb-10">
+      <div class="product-cart-wrap mb-30">
+        <div class="fb-item m-5">
+          <div class="first-section-wrapper">
+            <div class="gravatar">
+              <ngx-skeleton-loader
+                appearance="circle"
+                [theme]="{ width: '80px', height: '80px' }"
+              >
+              </ngx-skeleton-loader>
+            </div>
+            <div class="gravatar-title">
+              <div>
                 <ngx-skeleton-loader
-                  appearance="circle"
-                  [theme]="{ width: '80px', height: '80px' }"
+                  [theme]="{
+                    width: '200px',
+                    'border-radius': '0',
+                    height: '15px',
+                    'margin-bottom': '10px'
+                  }"
+                ></ngx-skeleton-loader>
+              </div>
+              <div>
+                <ngx-skeleton-loader
+                  [theme]="{
+                    width: '170px',
+                    'border-radius': '0',
+                    height: '15px'
+                  }"
                 >
                 </ngx-skeleton-loader>
-              </div>
-              <div class="gravatar-title">
-                <div>
-                  <ngx-skeleton-loader
-                    [theme]="{
-                      width: '200px',
-                      'border-radius': '0',
-                      height: '15px',
-                      'margin-bottom': '10px'
-                    }"
-                  ></ngx-skeleton-loader>
-                </div>
-                <div>
-                  <ngx-skeleton-loader
-                    [theme]="{
-                      width: '170px',
-                      'border-radius': '0',
-                      height: '15px'
-                    }"
-                  >
-                  </ngx-skeleton-loader>
-                </div>
-              </div>
-            </div>
-            <div class="second-section-wrapper">
-              <div class="wrapper">
-                <ngx-skeleton-loader
-                  [theme]="{
-                    width: '80%',
-                    'border-radius': '0',
-                    height: '15px',
-                    'margin-bottom': '10px'
-                  }"
-                ></ngx-skeleton-loader>
-              </div>
-              <div class="wrapper">
-                <ngx-skeleton-loader
-                  [theme]="{
-                    width: '90%',
-                    'border-radius': '0',
-                    height: '15px',
-                    'margin-bottom': '10px'
-                  }"
-                ></ngx-skeleton-loader>
-              </div>
-              <div class="wrapper">
-                <ngx-skeleton-loader
-                  [theme]="{
-                    width: '60%',
-                    'border-radius': '0',
-                    height: '15px',
-                    'margin-bottom': '10px'
-                  }"
-                ></ngx-skeleton-loader>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div
-        class="col-lg-1-5 col-md-4 col-12 col-sm-6"
-        *ngFor="let item of listOfLoader"
-      >
-        <div class="product-cart-wrap mb-30">
-          <div class="fb-item m-2">
-            <div class="first-section-wrapper">
-              <div class="gravatar">
-                <ngx-skeleton-loader
-                  appearance="circle"
-                  [theme]="{ width: '80px', height: '80px' }"
-                >
-                </ngx-skeleton-loader>
-              </div>
-              <div class="gravatar-title">
-                <div>
-                  <ngx-skeleton-loader
-                    [theme]="{
-                      width: '200px',
-                      'border-radius': '0',
-                      height: '15px',
-                      'margin-bottom': '10px'
-                    }"
-                  ></ngx-skeleton-loader>
-                </div>
-                <div>
-                  <ngx-skeleton-loader
-                    [theme]="{
-                      width: '170px',
-                      'border-radius': '0',
-                      height: '15px'
-                    }"
-                  >
-                  </ngx-skeleton-loader>
-                </div>
-              </div>
+          <div class="second-section-wrapper">
+            <div class="wrapper">
+              <ngx-skeleton-loader
+                [theme]="{
+                  width: '80%',
+                  'border-radius': '0',
+                  height: '15px',
+                  'margin-bottom': '10px'
+                }"
+              ></ngx-skeleton-loader>
             </div>
-            <div class="second-section-wrapper">
-              <div class="wrapper">
-                <ngx-skeleton-loader
-                  [theme]="{
-                    width: '80%',
-                    'border-radius': '0',
-                    height: '15px',
-                    'margin-bottom': '10px'
-                  }"
-                ></ngx-skeleton-loader>
-              </div>
-              <div class="wrapper">
-                <ngx-skeleton-loader
-                  [theme]="{
-                    width: '90%',
-                    'border-radius': '0',
-                    height: '15px',
-                    'margin-bottom': '10px'
-                  }"
-                ></ngx-skeleton-loader>
-              </div>
-              <div class="wrapper">
-                <ngx-skeleton-loader
-                  [theme]="{
-                    width: '60%',
-                    'border-radius': '0',
-                    height: '15px',
-                    'margin-bottom': '10px'
-                  }"
-                ></ngx-skeleton-loader>
-              </div>
+            <div class="wrapper">
+              <ngx-skeleton-loader
+                [theme]="{
+                  width: '90%',
+                  'border-radius': '0',
+                  height: '15px',
+                  'margin-bottom': '10px'
+                }"
+              ></ngx-skeleton-loader>
+            </div>
+            <div class="wrapper">
+              <ngx-skeleton-loader
+                [theme]="{
+                  width: '60%',
+                  'border-radius': '0',
+                  height: '15px',
+                  'margin-bottom': '10px'
+                }"
+              ></ngx-skeleton-loader>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <div
+      class="col-lg-1-5 col-md-4 col-12 col-sm-6"
+      *ngFor="let item of listOfLoader"
+    >
+      <div class="product-cart-wrap mb-30">
+        <div class="fb-item m-2">
+          <div class="first-section-wrapper">
+            <div class="gravatar">
+              <ngx-skeleton-loader
+                appearance="circle"
+                [theme]="{ width: '80px', height: '80px' }"
+              >
+              </ngx-skeleton-loader>
+            </div>
+            <div class="gravatar-title">
+              <div>
+                <ngx-skeleton-loader
+                  [theme]="{
+                    width: '200px',
+                    'border-radius': '0',
+                    height: '15px',
+                    'margin-bottom': '10px'
+                  }"
+                ></ngx-skeleton-loader>
+              </div>
+              <div>
+                <ngx-skeleton-loader
+                  [theme]="{
+                    width: '170px',
+                    'border-radius': '0',
+                    height: '15px'
+                  }"
+                >
+                </ngx-skeleton-loader>
+              </div>
+            </div>
+          </div>
+          <div class="second-section-wrapper">
+            <div class="wrapper">
+              <ngx-skeleton-loader
+                [theme]="{
+                  width: '80%',
+                  'border-radius': '0',
+                  height: '15px',
+                  'margin-bottom': '10px'
+                }"
+              ></ngx-skeleton-loader>
+            </div>
+            <div class="wrapper">
+              <ngx-skeleton-loader
+                [theme]="{
+                  width: '90%',
+                  'border-radius': '0',
+                  height: '15px',
+                  'margin-bottom': '10px'
+                }"
+              ></ngx-skeleton-loader>
+            </div>
+            <div class="wrapper">
+              <ngx-skeleton-loader
+                [theme]="{
+                  width: '60%',
+                  'border-radius': '0',
+                  height: '15px',
+                  'margin-bottom': '10px'
+                }"
+              ></ngx-skeleton-loader>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   }
 </div>

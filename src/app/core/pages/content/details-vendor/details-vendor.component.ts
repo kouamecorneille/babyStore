@@ -23,6 +23,9 @@ export class DetailsVendorComponent {
   baseUrl:string='http://djassa2baby.pythonanywhere.com/'
   selectedCategory!:string;
   isSelectedCategory:boolean=false
+  searchString:string ='';
+  searchProducts = new BehaviorSubject<Product[]>([])
+
 
   constructor(
     private apiService: ApiService,
@@ -36,6 +39,38 @@ export class DetailsVendorComponent {
     this.getStoreDetails();
     this.getCategory();
   }
+
+  parseIntValue(value:string):number{
+
+    return parseInt(value);
+  }
+
+  searchItem() {
+    if (this.searchString && this.searchString.length >= 4) {
+      this.ecommerceService.searchProduct(this.searchString).subscribe(
+        (response: any) => {
+          if (response) {
+            console.log('Response:', response);
+            console.log('Vendor ID:', this.vendorDetails.id);
+
+            const storeProducts = response.filter((item:any) => {
+              console.log('Item Shop ID:', item.shop); // Debug: check the shop id of each item
+              return item.shop === this.vendorDetails.id;
+            });
+
+            console.log('Filtered Store Products:', storeProducts);
+            this.searchProducts.next(storeProducts);
+          }
+        },
+        (err: any) => {
+          console.error('Error during product search:', err);
+        }
+      );
+    }
+  }
+
+
+
 
   chooseCategory(item:ICategory){
 
@@ -59,6 +94,7 @@ export class DetailsVendorComponent {
       this.ecommerceService.storeDetails.subscribe(
         (data) => {
           this.vendorDetails = data;
+          // console.log("vendorDetails :", data)
           this.getVendorProducts();
         }
       );

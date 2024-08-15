@@ -8,6 +8,14 @@
   overflow: hidden;
 }
 
+.text-truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+
 .loader1:after {
   content: "";
   position: absolute;
