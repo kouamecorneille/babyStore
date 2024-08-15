@@ -29,20 +29,37 @@ export class AppComponent {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         // Action à exécuter une fois que la navigation est terminée
-        //this.viewScroller.scrollToPosition([0, 0]);
-        //window.scrollTo({ top: 0, behavior: 'smooth' });
+        this.viewScroller.scrollToPosition([0, 0]);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     });
 
     if (this.swUpdate.isEnabled) {
+      this.swUpdate.versionUpdates.subscribe(() => {
+        const updateApplied = localStorage.getItem('updateApplied');
 
-      this.swUpdate.versionUpdates.subscribe(()=>{
-          if(confirm("New version available. Load New Version?")) {
+        if (!updateApplied) {
+          if (confirm("Nouvelle version disponible. Charger la nouvelle version ?")) {
+            // Marquez que la mise à jour a été appliquée
+            localStorage.setItem('updateApplied', 'true');
+
+            // Activer immédiatement le nouveau service worker
+            this.swUpdate.activateUpdate().then(() => {
+              // Nettoyer les caches pour ne conserver que la nouvelle version
+              if ('caches' in window) {
+                caches.keys().then((keyList) => {
+                  return Promise.all(keyList.map((key) => caches.delete(key)));
+                });
+              }
+
+              // Recharger la page pour appliquer la nouvelle version
               window.location.reload();
+            });
           }
         }
-      )
-  }
+      });
+    }
+
   }
 
   prepareRoute(outlet: RouterOutlet) {
