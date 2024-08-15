@@ -8,6 +8,8 @@ import  $ from 'jquery';
 import { CartService } from '../../../services/others/cart.service';
 import { Product } from '../../../interfaces/Iproduct';
 import { EcommerceService } from '../../../services/others/ecommerce.service';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
+
 interface CartItem {
   quantity: number;
   product: Product;
@@ -17,7 +19,7 @@ interface CartItem {
 @Component({
   selector: 'app-head',
   standalone: true,
-  imports: [RouterModule,MobileMenuComponent,HeaderBottomComponent,HeaderActionRightComponent, CommonModule],
+  imports: [RouterModule,MobileMenuComponent,LoadingBarRouterModule,HeaderBottomComponent,HeaderActionRightComponent, CommonModule],
   templateUrl: './head.component.html',
   styleUrl: './head.component.css',
   // host:{ngSkipHydration:'true'}
@@ -80,7 +82,7 @@ export class HeadComponent {
   deleteItem(id:string){
 
     this.cartService.removeFromCart(id)
-    
+
   }
 
 
