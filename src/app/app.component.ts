@@ -6,6 +6,7 @@ import { PullToRefreshComponent } from './core/pages/content/pull-to-refresh/pul
 import { registerLocaleData, ViewportScroller } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { fadeInAnimation } from './core/router-animation/router-animation';
+import { SwUpdate } from '@angular/service-worker';
 // Register French locale data
 registerLocaleData(localeFr);
 
@@ -20,7 +21,7 @@ registerLocaleData(localeFr);
 export class AppComponent {
   title = 'babyStore';
 
-  constructor(private router: Router,private viewScroller: ViewportScroller) {
+  constructor(private router: Router,private viewScroller: ViewportScroller,private swUpdate: SwUpdate) {
 
   }
 
@@ -32,6 +33,16 @@ export class AppComponent {
         //window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     });
+
+    if (this.swUpdate.isEnabled) {
+
+      this.swUpdate.versionUpdates.subscribe(()=>{
+          if(confirm("New version available. Load New Version?")) {
+              window.location.reload();
+          }
+        }
+      )
+  }
   }
 
   prepareRoute(outlet: RouterOutlet) {
