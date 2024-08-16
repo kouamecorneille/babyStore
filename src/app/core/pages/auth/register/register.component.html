@@ -2,7 +2,374 @@
 
 <div class="page-content pt-50 pb-50" restoreScrollPosition>
     <div class="container">
-        <div class="row">
+      <div class="row justify-content-center py-5">
+        <div class="col-xl-6 col-lg-8">
+          <div class="auth-card card">
+            <div class="auth-card__header">
+              <div class="d-flex flex-column flex-md-row align-items-start gap-3">
+                <div class="auth-card__header-icon bg-white p-3 rounded">
+                  <svg
+                    class="icon text-primary svg-icon-ti-ti-user-plus"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                    <path d="M16 19h6"></path>
+                    <path d="M19 16v6"></path>
+                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="auth-card__header-title fs-4 mb-1">
+                    Créer un compte
+                  </h3>
+                  <p class="auth-card__header-description text-muted mb-20">
+                    Vos données personnelles seront utilisées pour améliorer votre
+                    expérience sur ce site, et pour gérer l'accès à votre compte.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="auth-card__body">
+              <form
+                [formGroup]="RegisterForm"
+                icon="ti ti-user-plus"
+                heading="Créer un compte"
+              >
+
+                <div class="mb-3 position-relative">
+                  <label for="name" class="form-label">Nom</label>
+                  <div class="position-relative">
+                    <span class="auth-input-icon input-group-text"
+                      ><svg
+                        class="icon svg-icon-ti-ti-user"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                        <path
+                          d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"
+                        ></path></svg></span
+                    >
+                    <input
+                      class="form-control ps-5"
+                      placeholder="Nom"
+                      formControlName="nom"
+                      placeholder="Nom"
+                      [ngClass]="{'border-danger': RegisterForm.controls?.['nom']?.invalid && (RegisterForm.controls?.['nom']?.dirty || RegisterForm.controls?.['nom']?.touched) }"
+                      type="text"
+                      id="name"
+                    />
+                    <small class="text-danger" *ngIf="RegisterForm?.get('nom')?.hasError('required') && RegisterForm?.get('nom')?.touched">
+                      Le nom est un champ requis.
+                    </small>
+                  </div>
+                </div>
+                <div class="mb-3 position-relative">
+                  <label for="name" class="form-label">Prénoms </label>
+                  <div class="position-relative">
+                    <span class="auth-input-icon input-group-text"
+                      ><svg
+                        class="icon svg-icon-ti-ti-user"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                        <path
+                          d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"
+                        ></path></svg></span
+                    >
+                    <input
+                      class="form-control ps-5"
+                      placeholder="Prénoms"
+                      formControlName="prenoms"
+                      placeholder="Prénoms"
+                      [ngClass]="{'border-danger': RegisterForm.controls?.['prenoms']?.invalid && (RegisterForm.controls?.['prenoms']?.dirty || RegisterForm.controls?.['prenoms']?.touched) }"
+                      type="text"
+                      id="name"
+                    />
+                    <small class="text-danger" *ngIf="RegisterForm?.get('prenoms')?.hasError('required') && RegisterForm?.get('prenoms')?.touched">
+                      Le prénoms est un champ requis.
+                    </small>
+                  </div>
+                </div>
+                <div class="mb-3 position-relative">
+                  <label for="email" class="form-label">Adresse email </label>
+                  <div class="position-relative">
+                    <span class="auth-input-icon input-group-text"
+                      ><svg
+                        class="icon svg-icon-ti-ti-mail"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path
+                          d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"
+                        ></path>
+                        <path d="M3 7l9 6l9 -6"></path></svg></span
+                    ><input
+                      class="form-control ps-5"
+                      data-counter="60"
+                      placeholder="Votre email"
+                      formControlName="email"
+                      [ngClass]="{'border-danger': RegisterForm.controls?.['email']?.invalid && (RegisterForm.controls?.['email']?.dirty || RegisterForm.controls?.['email']?.touched) }"
+                      autocomplete="email"
+                      name="email"
+                      type="email"
+                      id="email"
+                    />
+                    <small
+                          class="text-danger"
+                          *ngIf="
+                            RegisterForm?.get('email')?.hasError('required') &&
+                            RegisterForm?.get('email')?.touched
+                          "
+                        >
+                          L'email est un champ requis.
+                        </small>
+                        <small
+                          class="text-danger"
+                          *ngIf="RegisterForm?.get('email')?.hasError('email')"
+                        >
+                          L'email entré n'est pas valide.
+                        </small>
+                  </div>
+                </div>
+                <div class="mb-3 position-relative">
+                  <label for="phone" class="form-label">Numéro de téléphone</label>
+                  <div class="position-relative">
+                    <span class="auth-input-icon input-group-text"
+                      ><svg
+                        class="icon svg-icon-ti-ti-phone"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path
+                          d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"
+                        ></path></svg></span
+                    ><input
+                      class="form-control ps-5 js-phone-number-mask form-control"
+                      data-counter="250"
+                      placeholder="Numéro de téléphone"
+                      autocomplete="tel"
+                      formControlName="numero"
+                      [ngClass]="{'border-danger': RegisterForm.controls?.['numero']?.invalid && (RegisterForm.controls?.['numero']?.dirty || RegisterForm.controls?.['numero']?.touched) }"
+
+                      type="text"
+                      id="phone"
+                    />
+                    <small
+                          class="text-danger"
+                          *ngIf="
+                            RegisterForm?.get('numero')?.hasError('required') &&
+                            RegisterForm?.get('numero')?.touched
+                          "
+                        >
+                          Le numéro mobile est requis.
+                        </small>
+                        <small
+                        class="text-danger"
+                        *ngIf="
+                          RegisterForm?.get('phone_number_1')?.hasError('minlength')
+                        "
+                      >
+                        Le numéro doit comporter au moins 10 caractères.
+                    </small>
+                  </div>
+                </div>
+                <div class="mb-3 position-relative">
+                  <label for="password" class="form-label">Mot de passe</label>
+                  <div class="position-relative">
+                    <span class="auth-input-icon input-group-text"
+                      ><svg
+                        class="icon svg-icon-ti-ti-lock"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path
+                          d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z"
+                        ></path>
+                        <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0"></path>
+                        <path d="M8 11v-4a4 4 0 1 1 8 0v4"></path></svg></span
+                    ><input
+                      type="password"
+                      name="password"
+                      formControlName="password"
+                      class="form-control ps-5"
+                      data-counter="250"
+                      placeholder="Mot de passe"
+                      [ngClass]="{'border-danger': RegisterForm.controls?.['password']?.invalid && (RegisterForm.controls?.['password']?.dirty || RegisterForm.controls?.['password']?.touched) }"
+                    />
+                    <small
+                          class="text-danger"
+                          *ngIf="
+                            RegisterForm?.get('password')?.hasError('required') &&
+                            RegisterForm?.get('password')?.touched
+                          "
+                        >
+                          Le mot de passe est un champ requis.
+                        </small>
+                        <small
+                          class="text-danger"
+                          *ngIf="
+                            RegisterForm?.get('password')?.hasError('minlength')
+                          "
+                        >
+                          Le mot de passe doit comporter au moins 6 caractères.
+                        </small>
+                  </div>
+                </div>
+                <div class="mb-3 position-relative">
+                  <label for="password_confirmation" class="form-label"
+                    >Confirmation du mot de passe</label
+                  >
+                  <div class="position-relative">
+                    <span class="auth-input-icon input-group-text"
+                      ><svg
+                        class="icon svg-icon-ti-ti-lock"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path
+                          d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z"
+                        ></path>
+                        <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0"></path>
+                        <path d="M8 11v-4a4 4 0 1 1 8 0v4"></path></svg></span
+                    ><input
+                      type="password"
+                      formControlName="confirmPassword"
+                      class="form-control ps-5"
+                      [ngClass]="{'border-danger': RegisterForm.controls?.['confirmPassword']?.invalid && (RegisterForm.controls?.['confirmPassword']?.dirty || RegisterForm.controls?.['confirmPassword']?.touched) }"
+                      data-counter="250"
+                      placeholder="Confirmer votre mot de passe"
+                      id="password_confirmation"
+                    />
+
+                    <small
+                    class="text-danger"
+                    *ngIf="
+                      RegisterForm?.get('confirmPassword')?.hasError(
+                        'required'
+                      ) && RegisterForm?.get('confirmPassword')?.touched
+                    "
+                  >
+                    La confirmation du mot de passe est un champ requis.
+                  </small>
+                  <small
+                    class="text-danger"
+                    *ngIf="
+                      RegisterForm?.get('confirmPassword')?.hasError(
+                        'minlength'
+                      )
+                    "
+                  >
+                    La confirmation du mot de passe doit comporter au moins 6 caractères.
+                  </small>
+
+                  <small
+                    class="text-danger"
+                    *ngIf="
+                      RegisterForm.hasError('match')
+                    "
+                  >
+                    Les mots de passe ne correspondent pas.
+                  </small>
+
+                  </div>
+                </div>
+                <div class="login_footer form-group mb-20">
+                  <div class="chek-form">
+                      <div class="custome-checkbox">
+                          <input class="form-check-input" type="checkbox" formControlName="acceptTerms"  id="exampleCheckbox12" value="">
+                          <label
+                          class="form-check-label text-muted ms-1"
+                          for="exampleCheckbox12"
+                        >
+                          J'accepte les <a [routerLink]="['/privacy-policy']">Conditions d'utilisation</a> et la
+                          <a [routerLink]="['/privacy-policy']">Politique de confidentialité</a>
+                        </label>
+                          <small class="text-danger" *ngIf="RegisterForm?.get('acceptTerms')?.hasError('requiredTrue')">
+                            Vous devez accepter nos conditions et terms.
+                          </small>
+                      </div>
+                  </div>
+              </div>
+
+                <div class="mb-3">
+                  <button type="submit"
+                  [disabled]="RegisterForm.invalid || loader"
+                  (click)="onSubmit()"
+                  class="btn btn-primary d-block w-100">
+                  {{loader ? "Traitement en cours..." : "Créer un compte"}}
+                  </button>
+                </div>
+                <div class="text-center">
+                  <p>
+                    Vous avez déjà un compte ?
+                    <a routerLink="/auth/login" >Connexion</a>
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+        <!-- <div class="row">
             <div class="col-xl-8 col-lg-10 col-md-12 m-auto">
                 <div class="row">
                     <div class="col-lg-6 col-md-8">
@@ -61,21 +428,7 @@
                                           La confirmation du passe doit comporter au moins 6 caractères.
                                         </small>
                                     </div>
-                                    <!-- <div class="login_footer form-group">
-                                        <div class="chek-form">
-                                            <input type="text" formControlName="securityCode" placeholder="Code de securite *" [ngClass]="{'border-danger': RegisterForm.controls?.['securityCode']?.invalid && (RegisterForm.controls?.['securityCode']?.dirty || RegisterForm.controls?.['securityCode']?.touched) }">
-                                            <small class="text-danger" *ngIf="RegisterForm?.get('securityCode')?.hasError('required') && RegisterForm?.get('securityCode')?.touched">
-                                              La code de sécurité est un champ requis.
-                                            </small>
-                                        </div>
-                                        <span class="security-code">
-                                            <b class="text-new m-1">{{securitycode[0]}}</b>
-                                            <b class="text-hot m-1">{{securitycode[1]}}</b>
-                                            <b class="text-sale m-1">{{securitycode[2]}}</b>
-                                            <b class="text-best m-1">{{securitycode[3]}}</b>
-                                        </span>
 
-                                    </div> -->
                                     <div class="payment_option mb-10">
                                       <div class="custome-radio" *ngFor="let item of listOfRoles; let i = index">
                                           <input class="form-check-input" type="radio" [id]="'role_' + i" formControlName="role" [value]="item.id">
@@ -129,6 +482,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>

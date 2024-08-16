@@ -61,7 +61,7 @@
                 >
 
                   <div class="mb-3 position-relative">
-                    <label for="email" class="form-label">Numéro de téléphone</label>
+                    <label for="email" class="form-label">Numéro de téléphone <span class="text-danger">*</span></label>
                     <div class="position-relative">
                       <span class="auth-input-icon input-group-text"
                         ><svg
@@ -84,7 +84,9 @@
                       ><input
                         class="form-control ps-5"
                         data-counter="60"
-                        placeholder="Numéro de téléphone *"
+                        placeholder="Numéro de téléphone"
+                        maxlength="10"
+                        [ngClass]="{'border-danger': LoginForm?.controls?.['numero']?.invalid && (LoginForm?.controls?.['numero']?.dirty || LoginForm?.controls?.['numero']?.touched) }"
                         type="tel"
                         (keypress)="keyPress($event)"
                         formControlName="numero"
@@ -99,7 +101,7 @@
                     </div>
                   </div>
                   <div class="mb-3 position-relative">
-                    <label for="password" class="form-label">Mot de passe </label>
+                    <label for="password" class="form-label">Mot de passe <span class="text-danger">*</span></label>
                     <div class="position-relative">
                       <span class="auth-input-icon input-group-text"
                         ><svg
@@ -128,7 +130,7 @@
                         type="password"
                         class="form-control ps-5"
                         formControlName="password"
-                        placeholder="Mot de passe *"
+                        placeholder="Mot de passe"
                         minlength="6"
                         [ngClass]="{'border-danger': LoginForm?.controls?.['password']?.invalid && (LoginForm?.controls?.['password']?.dirty || LoginForm?.controls?.['password']?.touched) }"
                       />
