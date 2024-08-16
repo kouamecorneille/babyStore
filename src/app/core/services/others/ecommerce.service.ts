@@ -70,7 +70,9 @@ export class EcommerceService {
 
         if(response){
 
+         setTimeout(() => {
           this.listOfStores.next(response);
+         }, 1000);
 
         }
       },
