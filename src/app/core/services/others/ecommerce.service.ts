@@ -12,6 +12,7 @@ import { ICategory } from '../../interfaces/Icategory';
 export class EcommerceService {
 
   listOfProduct = new BehaviorSubject<Product[]>([]);
+  listOfCategories = new BehaviorSubject<ICategory[]>([]);
   listOfProducts = new BehaviorSubject<Product[]>([]);
   listOfVendorProducts = new BehaviorSubject<Product[]>([]);
   listOfVendorProductsCategory = new BehaviorSubject<Product[]>([]);
@@ -46,7 +47,9 @@ export class EcommerceService {
   storeDetails = new BehaviorSubject<Store>(this.initialStore);
   listOfProductByCategory = new BehaviorSubject<Product[]>([]);
   listOfCategory = new BehaviorSubject<ICategory[]>([]);
-  constructor(private apiService:ApiService) { }
+  constructor(private apiService:ApiService) {
+
+  }
 
   getAllProducts() {
 
@@ -175,6 +178,7 @@ export class EcommerceService {
       (response: ICategory[]) => {  // Utilisation de subscribe pour s'abonner à la réponse
         // Mettre à jour la première partie de la liste de données avec les 7 premiers éléments
         this.listOfCategory.next(response);
+        this.listOfCategories.next(response);
         // Affichage de la valeur actuelle de listOfData dans la console
       }
     );

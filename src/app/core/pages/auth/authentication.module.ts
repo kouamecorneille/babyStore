@@ -11,6 +11,8 @@ import { HeadComponent } from '../../shared/header/head/head.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { MainComponent } from './main/main.component';
 import { LoginComponent } from './login/login.component';
+import { SendMailMessageComponent } from './send-mail-message/send-mail-message.component';
+import { PasswordRessetConfirmComponent } from './password-resset-confirm/password-resset-confirm.component';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { LoginComponent } from './login/login.component';
     RegisterComponent,
     ForgotPasswordComponent,
     RegisterBoutiqueComponent,
-    MainComponent
+    MainComponent,
+    SendMailMessageComponent,
+    PasswordRessetConfirmComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +32,6 @@ import { LoginComponent } from './login/login.component';
     ReactiveFormsModule,
     HeadComponent,
     FooterComponent,
-    BreadcrumbComponent
   ]
 })
 export class AuthenticationModule { }

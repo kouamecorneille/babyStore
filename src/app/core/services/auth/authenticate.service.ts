@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, signal } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Token } from '@angular/compiler';
@@ -12,6 +12,7 @@ import { CrytodataService } from '../crytodata.service';
 export class AuthenticateService {
 
   isAuthenticate:boolean = false
+  userEmailReinitialized = signal<string>('');
   constructor(private apiService:ApiService, @Inject(DOCUMENT) private document: Document, private crypt:CrytodataService) { }
 
 

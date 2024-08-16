@@ -1,0 +1,81 @@
+<app-breadcrumb
+  [firstTitle]="'Accueil'"
+  [secondTitle]="'Compte'"
+  [firdTitle]="'Mot de passe oublie'"
+></app-breadcrumb>
+<div class="page-content pt-50 pb-50">
+  <div class="container">
+    <div class="row justify-content-center py-5">
+      <div class="col-xl-6 col-lg-8">
+        <div class="auth-card card">
+          <div class="auth-card__header">
+            <div class="d-flex flex-column flex-md-row align-items-start gap-3">
+              <div class="auth-card__header-icon bg-white p-3 rounded">
+                <svg
+                  class="icon text-primary svg-icon-ti-ti-lock-question"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path
+                    d="M15 21h-8a2 2 0 0 1 -2 -2v-6a2 2 0 0 1 2 -2h10c.265 0 .518 .052 .75 .145"
+                  ></path>
+                  <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0"></path>
+                  <path d="M8 11v-4a4 4 0 1 1 8 0v4"></path>
+                  <path d="M19 22v.01"></path>
+                  <path
+                    d="M19 19a2.003 2.003 0 0 0 .914 -3.782a1.98 1.98 0 0 0 -2.414 .483"
+                  ></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="auth-card__header-title fs-4 mb-1 mt-2">
+                  Vérifiez votre boîte de réception
+                </h3>
+
+              </div>
+            </div>
+          </div>
+          <div class="auth-card__body">
+            <div class="content">
+              <p>
+                Nous vous avons envoyé un lien de réinitialisation de mot de passe à l'adresse email que vous avez fournie.
+                Veuillez vérifier votre boîte de réception et suivre les instructions pour réinitialiser votre mot de passe.
+              </p>
+
+              <h5 class="mb-3">Pas de mail reçu ?</h5>
+              <ul>
+                <li class="mb-2">
+                  <strong>Vérifiez vos dossiers de spam ou de courriers indésirables :</strong> Il est possible que notre email ait été filtré.
+                </li>
+                <li class="mb-2">
+                  <strong>Assurez-vous que vous avez entré la bonne adresse email :</strong> Si vous avez fait une erreur, vous pouvez
+                  <a href="#">réessayer</a> avec la bonne adresse.
+                </li>
+                <li class="mb-2">
+                  <strong>Patientez quelques minutes : </strong> Le traitement des emails peut parfois prendre un peu de temps.
+                </li>
+              </ul>
+              <p>
+                Si vous ne recevez toujours pas d'email, veuillez <a href="javascript:void(0);">cliquez sur le boutton</a> pour renvoyer le mail.
+              </p>
+            </div>
+            <div class="d-grid mt-20">
+              <button class="btn btn-primary btn-auth-submit"
+                type="submit">
+                Renvoyer le lien de réinitialisation
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

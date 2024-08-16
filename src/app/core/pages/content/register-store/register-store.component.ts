@@ -32,6 +32,7 @@ export class RegisterStoreComponent {
 
   RegisterForm:FormGroup;
   loader:boolean = false
+  selectedFile: File | null = null;
 
   constructor(private fb:FormBuilder){
 
@@ -53,6 +54,15 @@ export class RegisterStoreComponent {
     })
 
   }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      console.log('Selected file:', this.selectedFile);
+    }
+  }
+
 
   onSubmit(){
 

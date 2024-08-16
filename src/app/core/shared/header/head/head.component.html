@@ -1,18 +1,3 @@
-<!-- <div class="loader3" *ngIf="ecomService.isRefreshing()">
-    <div class="bar1"></div>
-    <div class="bar2"></div>
-    <div class="bar3"></div>
-    <div class="bar4"></div>
-    <div class="bar5"></div>
-    <div class="bar6"></div>
-    <div class="bar7"></div>
-    <div class="bar8"></div>
-    <div class="bar9"></div>
-    <div class="bar10"></div>
-    <div class="bar11"></div>
-    <div class="bar12"></div>
-</div> -->
-<ngx-loading-bar></ngx-loading-bar>
 <header class="header-area header-style-1 header-height-1">
     <div class="mobile-promotion">
         <span>Profiter, <strong>de nos</strong> articles <strong> a moindre</strong> côut</span>
@@ -23,8 +8,8 @@
                 <div class="col-xl-3 col-lg-4">
                     <div class="header-info">
                         <ul>
-                            <li><a href="page-about.htlm">Sobre Nosotros</a></li>
-                            <li><a href="page-account.html">Mi Cuenta</a></li>
+                            <li><a [routerLink]="['/about']">Qui sommes-nous ?</a></li>
+                            <li><a href="javascript:void(0);">Mon compte</a></li>
                         </ul>
                     </div>
                 </div>
@@ -40,7 +25,7 @@
                 <div class="col-xl-3 col-lg-4">
                     <div class="header-info header-info-right">
                         <ul>
-                            <li>Necesita Ayuda? Llamenos: <strong class="text-brand"> 092616265</strong></li>
+                            <li>Besoin d'aide appeler le : <strong class="text-brand"> +225 0747361791</strong></li>
                         </ul>
                     </div>
                 </div>
@@ -58,20 +43,23 @@
                 <div class="header-right">
                     <div class="search-style-2">
                         <form>
-                            <!-- <select class="select-active">
-                                <option>Categories</option>
-                                <option>Milks and Dairies</option>
-                                <option>Wines & Alcohol</option>
-                                <option>Clothing & Beauty</option>
-                                <option>Pet Foods & Toy</option>
-                                <option>Fast food</option>
-                                <option>Baking material</option>
-                                <option>Vegetables</option>
-                                <option>Fresh Seafood</option>
-                                <option>Noodles & Rice</option>
-                                <option>Ice cream</option>
-                            </select> -->
-                            <input type="text" placeholder="Search for items..." />
+                          <div class="custom-select-wrapper">
+                            <div class="custom-select" (click)="toggleDropdown()" [class.open]="isOpen">
+                              <div class="custom-select-trigger">
+                                <img *ngIf="selectedCategory" [src]="selectedCategory?.image" [alt]="selectedCategory?.name" height="20" width="20"  class="img-fluid me-2" >
+                                <span>{{ selectedCategory?.name || 'Tout les catégories' }}</span>
+                              </div>
+                              <div class="custom-options mt-2">
+                                <div class="custom-option"
+                                     *ngFor="let item of this.ecomService.listOfCategories | async"
+                                     (click)="selectCategory(item)">
+                                  <img [src]="item.image" [alt]="item.name" class="img-fluid" height="20" width="20">
+                                  <span>{{item.name}}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <input type="text" placeholder="Rechercher des articles ici..." />
                         </form>
                     </div>
                     <!-- <app-header-action-right/> -->
@@ -97,7 +85,7 @@
                                                 <a><img alt="Nest" [src]="item.product.image1"/></a>
                                             </div>
                                             <div class="shopping-cart-title">
-                                                <h4><a [routerLink]="['/details-product', item.product.id]">
+                                                <h4><a [routerLink]="['/details-product', item.product.slug]">
                                                     {{item.product.name.substring(0,10)}} ...
                                                  </a></h4>
                                                 <h4><span>{{item.quantity}} × </span>{{ (item.product.reduced_price && item.product.reduced_price.trim() !== '' ? item.product.reduced_price : item.product.price) | number: '1.0-0' }}</h4>

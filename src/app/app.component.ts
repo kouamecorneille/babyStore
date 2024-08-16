@@ -7,13 +7,27 @@ import { registerLocaleData, ViewportScroller } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { fadeInAnimation } from './core/router-animation/router-animation';
 import { SwUpdate } from '@angular/service-worker';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+// // for Router import:
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
+// // for Core import:
+import { LoadingBarModule } from '@ngx-loading-bar/core';
 // Register French locale data
 registerLocaleData(localeFr);
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, LoaderComponent,ToastrModule, PullToRefreshComponent],
+  imports: [
+    RouterOutlet,
+    LoaderComponent,
+    ToastrModule,
+    //     // for Router use:
+    LoadingBarRouterModule,//
+    // for HttpClient use:
+    LoadingBarHttpClientModule,
+    PullToRefreshComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   animations: [fadeInAnimation] // Déclarez l'animation ici

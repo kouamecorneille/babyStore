@@ -32,6 +32,8 @@ export class HeadComponent {
   totalItemsWhishList:number = 0;
   cartItemsSignal = signal<CartItem[]>([]);
   ecomService = inject(EcommerceService)
+  selectedCategory: any;
+  isOpen = false;
 
 
   baseUrl:string='http://djassa2baby.pythonanywhere.com/'
@@ -45,6 +47,9 @@ export class HeadComponent {
 
 
   ngOnInit(): void {
+
+    this.ecomService.getCategory()
+    console.log("listOfCategories :",this.ecomService.listOfCategories)
 
     this.cartService.totalItems.subscribe((data)=>{
       this.totalItems = data  //recuperer le nombres d'articles dans  le panier
@@ -68,6 +73,16 @@ export class HeadComponent {
     this.ecomService.searchVisible.set(false)
   }
 
+
+
+  toggleDropdown() {
+    this.isOpen = !this.isOpen;
+  }
+
+  selectCategory(item: any) {
+    this.selectedCategory = item;
+    this.isOpen = false;  // Close the dropdown
+  }
 
 
   ngAfterViewInit(): void {

@@ -6,6 +6,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 
 import {RegisterBoutiqueComponent} from './register-boutique/register-boutique.component'
 import { MainComponent } from './main/main.component';
+import { SendMailMessageComponent } from './send-mail-message/send-mail-message.component';
+import { PasswordRessetConfirmComponent } from './password-resset-confirm/password-resset-confirm.component';
 
 const routes: Routes = [
   {
@@ -32,10 +34,19 @@ const routes: Routes = [
       {
         path:"register-boutique",
         component:RegisterBoutiqueComponent
+      },
+      {
+        path:"email-success-message",
+        component:SendMailMessageComponent
+      },
+      {
+        path: "reset-password/:uid/:token",
+        component: PasswordRessetConfirmComponent,
       }
+
     ]
   },
- 
+
 ];
 
 @NgModule({
