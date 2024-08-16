@@ -12,6 +12,11 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 // // for Core import:
 import { LoadingBarModule } from '@ngx-loading-bar/core';
+// Step 1: Add the following line...
+import { register } from 'swiper/element/bundle';
+
+// Step 2: Add the following line...
+register();
 // Register French locale data
 registerLocaleData(localeFr);
 
@@ -22,10 +27,12 @@ registerLocaleData(localeFr);
     RouterOutlet,
     LoaderComponent,
     ToastrModule,
+
     //     // for Router use:
     LoadingBarRouterModule,//
     // for HttpClient use:
     LoadingBarHttpClientModule,
+    LoadingBarModule,
     PullToRefreshComponent
   ],
   templateUrl: './app.component.html',

@@ -43,7 +43,7 @@ export class ShopComponent {
 
   loading: boolean=false;
 
-  constructor(private apiService:ApiService, private cartService: CartService, private ecomService:EcommerceService) {
+  constructor(private cartService: CartService, private ecomService:EcommerceService) {
 
   }
 
@@ -55,6 +55,27 @@ export class ShopComponent {
     this.getListOfVendors()
 
   }
+
+  removeSlide() {
+    this.slides.length = this.slides.length - 1;
+  }
+
+  slickInit(e:any) {
+    console.log('slick initialized');
+  }
+
+  breakpoint(e:any) {
+    console.log('breakpoint');
+  }
+
+  afterChange(e:any) {
+    console.log('afterChange');
+  }
+
+  beforeChange(e:any) {
+    console.log('beforeChange');
+  }
+
   getListOfVendors(){
 
 
@@ -85,6 +106,27 @@ export class ShopComponent {
     }
 
   }
+
+  slideConfig = {
+    "arrows":true,
+    "draggable": true,
+    "dots": false,
+    "slidesToShow": 4,
+    "slidesToScroll": 4,
+    "loop": true,
+    "fade": true,
+    "autoplay": true,
+    "prevArrow": '<button type="button" class="slick-prev"><i class="fi-rs-arrow-small-left"></i></button>',
+    "nextArrow": '<button type="button" class="slick-next"><i class="fi-rs-arrow-small-right"></i></button>'
+  };
+
+  slides = [
+    {img: "http://placehold.it/350x150/000000"},
+    {img: "http://placehold.it/350x150/111111"},
+    {img: "http://placehold.it/350x150/333333"},
+    {img: "http://placehold.it/350x150/666666"}
+  ];
+
 
 
   showMoreCategory(){

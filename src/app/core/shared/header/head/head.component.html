@@ -49,7 +49,7 @@
                                 <img *ngIf="selectedCategory" [src]="selectedCategory?.image" [alt]="selectedCategory?.name" height="20" width="20"  class="img-fluid me-2" >
                                 <span>{{ selectedCategory?.name || 'Tout les catégories' }}</span>
                               </div>
-                              <div class="custom-options mt-2">
+                              <div class="custom-options">
                                 <div class="custom-option"
                                      *ngFor="let item of this.ecomService.listOfCategories | async"
                                      (click)="selectCategory(item)">

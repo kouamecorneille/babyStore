@@ -1,623 +1,2510 @@
-<app-deals-breadcrumb [title]="'Nos articles'" [hasCategorie]="true"></app-deals-breadcrumb>
+<app-deals-breadcrumb
+  [title]="'Nos articles'"
+  [hasCategorie]="true"
+></app-deals-breadcrumb>
 <div class="container mb-30">
   <div class="row">
     <div class="col-lg-12">
-      <a class="shop-filter-toogle" href="javascript:void(0);" (click)="activeFilter()">
-          <span class="fi-rs-filter mr-5"></span>
-          Filtre des produits
-          <i class="fi-rs-angle-small-down angle-up" *ngIf="!activedFilter()"></i>
-          <i class="fi-rs-angle-small-up angle-up" *ngIf="activedFilter()"></i>
+      <a
+        class="shop-filter-toogle"
+        href="javascript:void(0);"
+        (click)="activeFilter()"
+      >
+        <span class="fi-rs-filter mr-5"></span>
+        Filtre des produits
+        <i class="fi-rs-angle-small-down angle-up" *ngIf="!activedFilter()"></i>
+        <i class="fi-rs-angle-small-up angle-up" *ngIf="activedFilter()"></i>
       </a>
       <div class="shop-product-fillter-header" *ngIf="activedFilter()">
-          <div class="row">
-              <div class="col-xl-4 col-lg-6 col-md-6 mb-lg-0 mb-md-2 mb-sm-2">
-                  <div class="card">
-                      <h5 class="mb-30">Par Categories</h5>
-                      <div class="categories-dropdown-wrap font-heading">
-                          <ul>
-                              <li *ngFor="let item of listOfData2 | async;" role="button" (click)="chooseCategory(item)"  [ngClass]="{'selected': item.id === selectedCategory}">
-                                  <a href="javascript:void(0);">
-                                    <img [src]="item.image" alt="">
-                                    {{item.name}}
-                                  </a>
-                              </li>
-                              <li>
-                                <a role="button" (click)="showMoreCategory()" >
-                                  <div class="more_categories">
-                                    <span class="icon mb-2"></span>
-                                    <span class="heading-sm-1 mb-2">Affichez plus...</span></div>
-                                </a>
-                                  <!-- <span class="count">30</span> -->
-                              </li>
-                          </ul>
+        <div class="row">
+          <div class="col-xl-4 col-lg-6 col-md-6 mb-lg-0 mb-md-2 mb-sm-2">
+            <div class="card">
+              <h5 class="mb-30">Par Categories</h5>
+              <div class="categories-dropdown-wrap font-heading">
+                <ul>
+                  <li
+                    *ngFor="let item of listOfData2 | async"
+                    role="button"
+                    (click)="chooseCategory(item)"
+                    [ngClass]="{ selected: item.id === selectedCategory }"
+                  >
+                    <a href="javascript:void(0);">
+                      <img [src]="item.image" alt="" />
+                      {{ item.name }}
+                    </a>
+                  </li>
+                  <li>
+                    <a role="button" (click)="showMoreCategory()">
+                      <div class="more_categories">
+                        <span class="icon mb-2"></span>
+                        <span class="heading-sm-1 mb-2">Affichez plus...</span>
                       </div>
-                  </div>
+                    </a>
+                    <!-- <span class="count">30</span> -->
+                  </li>
+                </ul>
               </div>
-              <div class="col-xl-4 col-lg-6 col-md-6 mb-lg-0 mb-md-2 mb-sm-2">
-                  <div class="card">
-                      <h5 class="mb-30">Par boutiques</h5>
-                      <div class="d-flex">
-                          <div class="mr-80">
-                             <div class="categories-dropdown-wrap font-heading">
-                              <ul>
-                                @if(listOfStores.value.length > 0){
-                                  <li *ngFor="let item of listOfStores | async" class="d-flex">
-                                    <a role="button" href="javascript:void(0);">
-                                      <input class="form-check-input" type="checkbox" name="checkbox" [id]="item.id" [value]="item.id">
-                                    <span class="m-2"> {{item.name}}</span>
-                                      </a>
-                                  </li>
-                                  <li>
-                                    <a role="button" (click)="showMoreStores()">
-                                      <div class="more_categories">
-                                        <span class="icon mb-2"></span>
-                                        <span class="heading-sm-1 mb-2">Affichez plus...</span></div>
-                                    </a>
-                                      <!-- <span class="count">30</span> -->
-                                  </li>
-                                }@else{
-                                  <li >
-                                    <a class="category-loader ml-40">
-                                      <div class="loader3">
-                                        <div class="bar1"></div>
-                                        <div class="bar2"></div>
-                                        <div class="bar3"></div>
-                                        <div class="bar4"></div>
-                                        <div class="bar5"></div>
-                                        <div class="bar6"></div>
-                                        <div class="bar7"></div>
-                                        <div class="bar8"></div>
-                                        <div class="bar9"></div>
-                                        <div class="bar10"></div>
-                                        <div class="bar11"></div>
-                                        <div class="bar12"></div>
-                                    </div>
-                                    </a>
-                                  </li>
-                                }
-
-                            </ul>
-                          </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-xl-4 col-lg-6 col-md-6 mb-lg-0 mb-md-5 mb-sm-5">
-                  <div class="card">
-                      <h5 class="mb-10">Par prix</h5>
-                      <div class="sidebar-widget price_range range">
-                          <div class="custome-checkbox">
-                            <ngx-slider
-                              [(value)]="sliderValue"
-                              [(highValue)]="highValue"
-                              [options]="sliderOptions">
-                            </ngx-slider>
-                          </div>
-
-                          <div class="mt-10">
-                            <button type="submit">Rechercher</button>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-      <div class="col-12">
-          <div class="row product-grid">
-            <div class="archive-header-2 text-center">
-              <div class="row">
-                  <div class="col-lg-5 mx-auto">
-                      <div class="sidebar-widget-2 widget_search mb-50">
-                          <div class="search-form">
-                            <form>
-                              <input
-                                type="text"
-                                placeholder="Rechercher vos articles ici ..."
-                                [(ngModel)]="searchString"
-                                name="searchString"
-                                (input)="searchItem()"
-                              />
-                              <button type="submit" [disabled]="!searchString" (click)="searchItem()">
-                                <i class="fi-rs-search"></i>
-                              </button>
-                            </form>
-                              <div class="resultat-box card mt-2" *ngIf="searchString && searchProducts.value.length > 0">
-                                <h6 class="text-center mt-2">Résultat de votre recherche</h6>
-                                <ul>
-                                  <li class="border mb-1" *ngFor="let item of searchProducts | async" [routerLink]="['/details-product', item.slug]">
-                                    <div class="d-flex">
-                                      <img [src]="item.image1" height="40" width="40" [alt]="item.name" class="img-fluid me-3">
-                                      <div>
-                                        <h6 class="text-truncate">
-                                          {{ item.name.length > 20 ? (item.name.substring(0, 20) + '...') : item.name }}
-                                        </h6>
-                                        <p><span>{{ item.reduced_price ? item.reduced_price : item.price | number:'1.0-0' }}</span> FCFA</p>
-                                      </div>
-                                    </div>
-                                  </li>
-                                </ul>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-            @if(ecommerceService.listOfProducts.value.length > 0){
-              <!-- <div class="row product-grid">
-                <div class="col-lg-3 col-md-4 col-12 col-sm-6" *ngFor="let item of ecommerceService.listOfProducts |async">
-                    <app-single-product [product]="item"></app-single-product>
-                </div>
-              </div> -->
-              <div class="col-lg-1-5 col-md-4 col-12 col-sm-6" *ngFor="let item of ecommerceService.listOfProducts |async">
-                <div class="product-cart-wrap mb-30">
-                    <div class="product-img-action-wrap">
-                        <div class="product-img product-img-zoom">
-                            <a [routerLink]="['/details-product', item.slug]">
-                                <img class="default-img" [src]="item.image1" alt="">
-                                <img class="hover-img" [src]="item.image2" alt="">
-                            </a>
-                        </div>
-                        <div class="product-action-1">
-                            <a aria-label="Add To Wishlist" class="action-btn" (click)="addToWhishList(item)"><i class="fi-rs-heart"></i></a>
-                            <a aria-label="Quick view" class="action-btn" [routerLink]="['/details-product', item.slug]"><i class="fi-rs-eye"></i></a>
-                            <a aria-label="Achéter" class="action-btn" (click)="addTocart(item)"><i class="fi-rs-shopping-cart"></i></a>
-                        </div>
-                    </div>
-                    <div class="product-content-wrap">
-                        <div class="product-category">
-                            <a  [routerLink]="['/details-product', item.slug]">
-                              {{item.category.name}}
-                            </a>
-                        </div>
-                        <h2><a [routerLink]="['/details-product', item.slug]">
-                          {{item.name.substring(0, 17)}} ...
-                        </a></h2>
-                        <div class="product-rate-cover">
-                            <div class="product-rate d-inline-block">
-                                <div class="product-rating" style="width: 90%"></div>
-                            </div>
-                            <span class="font-small ml-5 text-muted"> (4.0)</span>
-                        </div>
-                        <div>
-                            <span class="font-small text-muted">Par <a [routerLink]="['/vendors/details', item.shop.slug]">{{item.shop.name}}</a></span>
-                        </div>
-                        <div class="product-card-bottom">
-                            <div class="product-price">
-                                <span>{{item.reduced_price | number:'1.0-0'}} CFA</span>
-                            </div>
-                            <div class="add-cart">
-                                <a class="add" [routerLink]="['/details-product', item.slug]"><i class="fi-rs-shopping-cart mr-5"></i>Voir+ </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-
-            }@else{
-
-                <!--end product card-->
-                <div class="col-lg-1-5 col-md-4 col-12 col-sm-6" *ngFor="let item of listOfLoader">
-                    <div class="product-cart-wrap mb-30">
-                      <div class="fb-item m-2">
-                        <div class="first-section-wrapper">
-                          <div class="gravatar">
-                            <ngx-skeleton-loader
-                              appearance="circle"
-                              [theme]="{ width: '80px', height: '80px' }"
+          </div>
+          <div class="col-xl-4 col-lg-6 col-md-6 mb-lg-0 mb-md-2 mb-sm-2">
+            <div class="card">
+              <h5 class="mb-30">Par boutiques</h5>
+              <div class="d-flex">
+                <div class="mr-80">
+                  <div class="categories-dropdown-wrap font-heading">
+                    <ul>
+                      @if(listOfStores.value.length > 0){
+                      <li
+                        *ngFor="let item of listOfStores | async"
+                        class="d-flex"
+                      >
+                        <a role="button" href="javascript:void(0);">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            name="checkbox"
+                            [id]="item.id"
+                            [value]="item.id"
+                          />
+                          <span class="m-2"> {{ item.name }}</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a role="button" (click)="showMoreStores()">
+                          <div class="more_categories">
+                            <span class="icon mb-2"></span>
+                            <span class="heading-sm-1 mb-2"
+                              >Affichez plus...</span
                             >
-                            </ngx-skeleton-loader>
                           </div>
-                          <div class="gravatar-title">
-                            <div>
-                              <ngx-skeleton-loader
-                                [theme]="{
-                                  width: '200px',
-                                  'border-radius': '0',
-                                  height: '15px',
-                                  'margin-bottom': '10px'
-                                }"
-                              ></ngx-skeleton-loader>
-                            </div>
-                            <div>
-                              <ngx-skeleton-loader
-                                [theme]="{ width: '170px', 'border-radius': '0', height: '15px' }"
-                              >
-                              </ngx-skeleton-loader>
-                            </div>
+                        </a>
+                        <!-- <span class="count">30</span> -->
+                      </li>
+                      }@else{
+                      <li>
+                        <a class="category-loader ml-40">
+                          <div class="loader3">
+                            <div class="bar1"></div>
+                            <div class="bar2"></div>
+                            <div class="bar3"></div>
+                            <div class="bar4"></div>
+                            <div class="bar5"></div>
+                            <div class="bar6"></div>
+                            <div class="bar7"></div>
+                            <div class="bar8"></div>
+                            <div class="bar9"></div>
+                            <div class="bar10"></div>
+                            <div class="bar11"></div>
+                            <div class="bar12"></div>
                           </div>
-                        </div>
-                        <div class="second-section-wrapper">
-                          <div class="wrapper">
-                            <ngx-skeleton-loader
-                              [theme]="{
-                                width: '80%',
-                                'border-radius': '0',
-                                height: '15px',
-                                'margin-bottom': '10px'
-                              }"
-                            ></ngx-skeleton-loader>
-                          </div>
-                          <div class="wrapper">
-                            <ngx-skeleton-loader
-                              [theme]="{
-                                width: '90%',
-                                'border-radius': '0',
-                                height: '15px',
-                                'margin-bottom': '10px'
-                              }"
-                            ></ngx-skeleton-loader>
-                          </div>
-                          <div class="wrapper">
-                            <ngx-skeleton-loader
-                              [theme]="{
-                                width: '60%',
-                                'border-radius': '0',
-                                height: '15px',
-                                'margin-bottom': '10px'
-                              }"
-                            ></ngx-skeleton-loader>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                        </a>
+                      </li>
+                      }
+                    </ul>
+                  </div>
                 </div>
-            }
-              <!--end product card-->
-          </div>
-          <!--product grid-->
-          <div class="pagination-area mt-20 mb-20">
-              <nav aria-label="Page navigation example">
-                  <ul class="pagination justify-content-start">
-                      <li class="page-item">
-                          <a class="page-link" href="#"><i class="fi-rs-arrow-small-left"></i></a>
-                      </li>
-                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                      <li class="page-item"><a class="page-link dot" href="#">...</a></li>
-                      <li class="page-item"><a class="page-link" href="#">6</a></li>
-                      <li class="page-item">
-                          <a class="page-link" href="#"><i class="fi-rs-arrow-small-right"></i></a>
-                      </li>
-                  </ul>
-              </nav>
-          </div>
-
-          <!-- deals  -->
-
-
-          <!-- deals 2 -->
-
-          <section class="section-padding pb-5">
-              <div class="section-title">
-                  <h3 class="">Deals du jour</h3>
-                  <a class="show-all" href="/shop-grid-right">
-                      Tout les deals
-                      <i class="fi-rs-angle-right"></i>
-                  </a>
               </div>
-              <div class="row">
-                  <div class="col-xl-3 col-lg-4 col-md-6" *ngFor="let item of listOfDataDeals |async">
-                      <div class="product-cart-wrap style-2">
-                          <div class="product-img-action-wrap">
-                              <div class="product-img">
-                                  <a [routerLink]="['/details-product', item.slug]">
-                                      <img [src]="item.image1" alt="">
-                                  </a>
-                              </div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-6 col-md-6 mb-lg-0 mb-md-5 mb-sm-5">
+            <div class="card">
+              <h5 class="mb-10">Par prix</h5>
+              <div class="sidebar-widget price_range range">
+                <div class="custome-checkbox">
+                  <ngx-slider
+                    [(value)]="sliderValue"
+                    [(highValue)]="highValue"
+                    [options]="sliderOptions"
+                  >
+                  </ngx-slider>
+                </div>
+
+                <div class="mt-10">
+                  <button type="submit">Rechercher</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="row product-grid">
+        <div class="archive-header-2 text-center">
+          <div class="row">
+            <div class="col-lg-5 mx-auto">
+              <div class="sidebar-widget-2 widget_search mb-50">
+                <div class="search-form">
+                  <form>
+                    <input
+                      type="text"
+                      placeholder="Rechercher vos articles ici ..."
+                      [(ngModel)]="searchString"
+                      name="searchString"
+                      (input)="searchItem()"
+                    />
+                    <button
+                      type="submit"
+                      [disabled]="!searchString"
+                      (click)="searchItem()"
+                    >
+                      <i class="fi-rs-search"></i>
+                    </button>
+                  </form>
+                  <div
+                    class="resultat-box card mt-2"
+                    *ngIf="searchString && searchProducts.value.length > 0"
+                  >
+                    <h6 class="text-center mt-2">
+                      Résultat de votre recherche
+                    </h6>
+                    <ul>
+                      <li
+                        class="border mb-1"
+                        *ngFor="let item of searchProducts | async"
+                        [routerLink]="['/details-product', item.slug]"
+                      >
+                        <div class="d-flex">
+                          <img
+                            [src]="item.image1"
+                            height="40"
+                            width="40"
+                            [alt]="item.name"
+                            class="img-fluid me-3"
+                          />
+                          <div>
+                            <h6 class="text-truncate">
+                              {{
+                                item.name.length > 20
+                                  ? item.name.substring(0, 20) + "..."
+                                  : item.name
+                              }}
+                            </h6>
+                            <p>
+                              <span>{{
+                                item.reduced_price
+                                  ? item.reduced_price
+                                  : (item.price | number : "1.0-0")
+                              }}</span>
+                              FCFA
+                            </p>
                           </div>
-                          <div class="product-content-wrap">
-                              <!-- <div class="deals-countdown-wrap">
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        @if(ecommerceService.listOfProducts.value.length > 0){
+
+        <div
+          class="col-lg-1-5 col-md-4 col-12 col-sm-6"
+          *ngFor="let item of ecommerceService.listOfProducts | async"
+        >
+          <div class="product-cart-wrap mb-30">
+            <div class="product-img-action-wrap">
+              <div class="product-img product-img-zoom">
+                <a [routerLink]="['/details-product', item.slug]">
+                  <img class="default-img" [src]="item.image1" alt="" />
+                  <img class="hover-img" [src]="item.image2" alt="" />
+                </a>
+              </div>
+              <div class="product-action-1">
+                <a
+                  aria-label="Add To Wishlist"
+                  class="action-btn"
+                  (click)="addToWhishList(item)"
+                  ><i class="fi-rs-heart"></i
+                ></a>
+                <a
+                  aria-label="Quick view"
+                  class="action-btn"
+                  [routerLink]="['/details-product', item.slug]"
+                  ><i class="fi-rs-eye"></i
+                ></a>
+                <a
+                  aria-label="Achéter"
+                  class="action-btn"
+                  (click)="addTocart(item)"
+                  ><i class="fi-rs-shopping-cart"></i
+                ></a>
+              </div>
+            </div>
+            <div class="product-content-wrap">
+              <div class="product-category">
+                <a [routerLink]="['/details-product', item.slug]">
+                  {{ item.category.name }}
+                </a>
+              </div>
+              <h2>
+                <a [routerLink]="['/details-product', item.slug]">
+                  {{ item.name.substring(0, 17) }} ...
+                </a>
+              </h2>
+              <div class="product-rate-cover">
+                <div class="product-rate d-inline-block">
+                  <div class="product-rating" style="width: 90%"></div>
+                </div>
+                <span class="font-small ml-5 text-muted"> (4.0)</span>
+              </div>
+              <div>
+                <span class="font-small text-muted"
+                  >Par
+                  <a [routerLink]="['/vendors/details', item.shop.slug]">{{
+                    item.shop.name
+                  }}</a></span
+                >
+              </div>
+              <div class="product-card-bottom">
+                <div class="product-price">
+                  <span>{{ item.reduced_price | number : "1.0-0" }} CFA</span>
+                </div>
+                <div class="add-cart">
+                  <a class="add" [routerLink]="['/details-product', item.slug]"
+                    ><i class="fi-rs-shopping-cart mr-5"></i>Voir+
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        }@else{
+
+        <!--end product card-->
+        <div
+          class="col-lg-1-5 col-md-4 col-12 col-sm-6"
+          *ngFor="let item of listOfLoader"
+        >
+          <div class="product-cart-wrap mb-30">
+            <div class="fb-item m-2">
+              <div class="first-section-wrapper">
+                <div class="gravatar">
+                  <ngx-skeleton-loader
+                    appearance="circle"
+                    [theme]="{ width: '80px', height: '80px' }"
+                  >
+                  </ngx-skeleton-loader>
+                </div>
+                <div class="gravatar-title">
+                  <div>
+                    <ngx-skeleton-loader
+                      [theme]="{
+                        width: '200px',
+                        'border-radius': '0',
+                        height: '15px',
+                        'margin-bottom': '10px'
+                      }"
+                    ></ngx-skeleton-loader>
+                  </div>
+                  <div>
+                    <ngx-skeleton-loader
+                      [theme]="{
+                        width: '170px',
+                        'border-radius': '0',
+                        height: '15px'
+                      }"
+                    >
+                    </ngx-skeleton-loader>
+                  </div>
+                </div>
+              </div>
+              <div class="second-section-wrapper">
+                <div class="wrapper">
+                  <ngx-skeleton-loader
+                    [theme]="{
+                      width: '80%',
+                      'border-radius': '0',
+                      height: '15px',
+                      'margin-bottom': '10px'
+                    }"
+                  ></ngx-skeleton-loader>
+                </div>
+                <div class="wrapper">
+                  <ngx-skeleton-loader
+                    [theme]="{
+                      width: '90%',
+                      'border-radius': '0',
+                      height: '15px',
+                      'margin-bottom': '10px'
+                    }"
+                  ></ngx-skeleton-loader>
+                </div>
+                <div class="wrapper">
+                  <ngx-skeleton-loader
+                    [theme]="{
+                      width: '60%',
+                      'border-radius': '0',
+                      height: '15px',
+                      'margin-bottom': '10px'
+                    }"
+                  ></ngx-skeleton-loader>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        }
+        <!--end product card-->
+      </div>
+      <!--product grid-->
+      <div class="pagination-area mt-20 mb-20 text-end">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-start">
+            <li class="page-item">
+              <a class="page-link" href="#"
+                ><i class="fi-rs-arrow-small-left"></i
+              ></a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item active">
+              <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+            <li class="page-item"><a class="page-link" href="#">6</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#"
+                ><i class="fi-rs-arrow-small-right"></i
+              ></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div>
+        <section class="section-padding pb-5 section-flash-sale-products">
+          <div class="container">
+            <div
+              class="section-title wow animate__ animate__fadeIn animated"
+              style="visibility: visible; animation-name: fadeIn"
+            >
+              <h3>Meilleures ventes du jour</h3>
+            </div>
+            <div class="row">
+              <div
+                class="col-xl-3 d-none d-xl-flex wow animate__ animate__fadeIn animated"
+                style="visibility: visible; animation-name: fadeIn"
+              >
+                <div class="banner-img style-2 page_speed_1848364424">
+                  <div class="banner-text">
+                    <h2 class="mb-100">Bring nature into your home</h2>
+                    <a
+                      href="https://nest.botble.com/ads-click/IZ6WU8KUALYG"
+                      class="btn btn-xs"
+                      >Acheter maintenant <i class="fi-rs-arrow-small-right"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="col-xl-9 col-md-12 wow animate__ animate__fadeIn animated"
+                data-wow-delay=".4s"
+                style="
+                  visibility: visible;
+                  animation-delay: 0.4s;
+                  animation-name: fadeIn;
+                "
+              >
+                <div class="tab-content">
+                  <div
+                    class="tab-pane fade show active"
+                    role="tabpanel"
+                    aria-labelledby="tab-one-1"
+                  >
+
+                    <ngx-slick-carousel class="carousel"
+                        #slickModal="slick-carousel"
+                        [config]="slideConfig"
+                        (init)="slickInit($event)"
+                        (breakpoint)="breakpoint($event)"
+                        (afterChange)="afterChange($event)"
+                        (beforeChange)="beforeChange($event)">
+                        <div class="row product-grid">
+                          @for (item of (ecommerceService.listOfProducts | async | slice:0:8); track item.id) {
+                              <div
+                                 ngxSlickItem class="col-lg-3 col-md-4 col-12 col-sm-6"
+                                >
+                                  <app-single-product [product]="item"></app-single-product>
+                              </div>
+                          }
+                        </div>
+
+                    </ngx-slick-carousel>
+                    <!--
+                      <div
+                        class="carousel-4-columns carousel-arrow-center slick-initialized slick-slider"
+                        id="carousel-4-columns-flash-sale-2121234033"
+                      >
+                        <div class="slick-list draggable">
+                          <div
+                            class="slick-track"
+                            style="
+                              opacity: 1;
+                              width: 4832px;
+                              transform: translate3d(-1812px, 0px, 0px);
+                            "
+                          >
+                            <div
+                              class="product-cart-wrap slick-slide slick-cloned"
+                              data-slick-index="-4"
+                              id=""
+                              aria-hidden="true"
+                              style="width: 278px"
+                              tabindex="-1"
+                            >
+                              <div class="product-img-action-wrap">
+                                <div class="product-img product-img-zoom">
+                                  <a
+                                    href="https://nest.botble.com/products/all-natural-italian-style-chicken-meatballs"
+                                    tabindex="-1"
+                                    ><img
+                                      class="default-img"
+                                      src="https://nest.botble.com/storage/products/2-400x400.jpg"
+                                      alt="All Natural Italian-Style Chicken Meatballs" /><img
+                                      class="hover-img"
+                                      src="https://nest.botble.com/storage/products/2-1-400x400.jpg"
+                                      alt="All Natural Italian-Style Chicken Meatballs"
+                                  /></a>
+                                </div>
+                                <div class="product-action-1">
+                                  <a
+                                    aria-label="Quick View"
+                                    href="#"
+                                    class="action-btn hover-up js-quick-view-button"
+                                    data-url="https://nest.botble.com/ajax/quick-view/2"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-eye"></i></a
+                                  ><a
+                                    aria-label="Add To Wishlist"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-wishlist-button"
+                                    data-url="https://nest.botble.com/wishlist/2"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-heart"></i></a
+                                  ><a
+                                    aria-label="Add To Compare"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-compare-button"
+                                    data-url="https://nest.botble.com/compare/2"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-shuffle"></i
+                                  ></a>
+                                </div>
+                                <div
+                                  class="product-badges product-badges-position product-badges-mrg"
+                                >
+                                  <span class="hot">-78%</span>
+                                </div>
+                              </div>
+                              <div class="product-content-wrap">
+                                <div class="product-category">
+                                  <a
+                                    href="https://nest.botble.com/product-categories/pet-foods"
+                                    tabindex="-1"
+                                    >Pet Foods</a
+                                  >
+                                </div>
+                                <h2 class="text-truncate">
+                                  <a
+                                    href="https://nest.botble.com/products/all-natural-italian-style-chicken-meatballs"
+                                    title="All Natural Italian-Style Chicken Meatballs"
+                                    tabindex="-1"
+                                    >All Natural Italian-Style Chicken
+                                    Meatballs</a
+                                  >
+                                </h2>
+                                <div class="product-rate d-inline-block">
+                                  <div
+                                    class="product-rating page_speed_1763523481"
+                                  ></div>
+                                </div>
+                                <div class="product-price mt-10">
+                                  <span>$353.34</span
+                                  ><span class="old-price">$1,638.00</span>
+                                </div>
+                                <div class="sold mt-15 mb-15">
+                                  <div class="progress mb-5">
+                                    <div
+                                      role="progressbar"
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                      class="progress-bar page_speed_1494901173"
+                                    ></div>
+                                  </div>
+                                  <span class="font-xs text-heading"
+                                    >Sold: 4</span
+                                  >
+                                </div>
+                                <a
+                                  aria-label="Add To Cart"
+                                  class="action-btn add-to-cart-button btn w-100 hover-up"
+                                  data-id="2"
+                                  data-url="https://nest.botble.com/ajax/cart"
+                                  href="#"
+                                  tabindex="-1"
+                                  ><i class="fi-rs-shopping-cart mr-5"></i>Add
+                                  To Cart
+                                </a>
+                              </div>
+                            </div>
+                            <div
+                              class="product-cart-wrap slick-slide slick-cloned"
+                              data-slick-index="-3"
+                              id=""
+                              aria-hidden="true"
+                              style="width: 278px"
+                              tabindex="-1"
+                            >
+                              <div class="product-img-action-wrap">
+                                <div class="product-img product-img-zoom">
+                                  <a
+                                    href="https://nest.botble.com/products/angies-boomchickapop-sweet-salty-kettle-corn"
+                                    tabindex="-1"
+                                    ><img
+                                      class="default-img"
+                                      src="https://nest.botble.com/storage/products/3-400x400.jpg"
+                                      alt="Angie’s Boomchickapop Sweet &amp; Salty Kettle Corn" /><img
+                                      class="hover-img"
+                                      src="https://nest.botble.com/storage/products/3-1-400x400.jpg"
+                                      alt="Angie’s Boomchickapop Sweet &amp; Salty Kettle Corn"
+                                  /></a>
+                                </div>
+                                <div class="product-action-1">
+                                  <a
+                                    aria-label="Quick View"
+                                    href="#"
+                                    class="action-btn hover-up js-quick-view-button"
+                                    data-url="https://nest.botble.com/ajax/quick-view/3"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-eye"></i></a
+                                  ><a
+                                    aria-label="Add To Wishlist"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-wishlist-button"
+                                    data-url="https://nest.botble.com/wishlist/3"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-heart"></i></a
+                                  ><a
+                                    aria-label="Add To Compare"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-compare-button"
+                                    data-url="https://nest.botble.com/compare/3"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-shuffle"></i
+                                  ></a>
+                                </div>
+                                <div
+                                  class="product-badges product-badges-position product-badges-mrg"
+                                >
+                                  <span class="page_speed_662845582">New</span>
+                                </div>
+                              </div>
+                              <div class="product-content-wrap">
+                                <div class="product-category">
+                                  <a
+                                    href="https://nest.botble.com/product-categories/coffee-teas"
+                                    tabindex="-1"
+                                    >Coffee &amp; Teas</a
+                                  >
+                                </div>
+                                <h2 class="text-truncate">
+                                  <a
+                                    href="https://nest.botble.com/products/angies-boomchickapop-sweet-salty-kettle-corn"
+                                    title="Angie’s Boomchickapop Sweet &amp; Salty Kettle Corn"
+                                    tabindex="-1"
+                                    >Angie’s Boomchickapop Sweet &amp; Salty
+                                    Kettle Corn</a
+                                  >
+                                </h2>
+                                <div class="product-rate d-inline-block">
+                                  <div
+                                    class="product-rating page_speed_595366292"
+                                  ></div>
+                                </div>
+                                <div class="product-price mt-10">
+                                  <span>$188.65</span
+                                  ><span class="old-price">$2,282.00</span>
+                                </div>
+                                <div class="sold mt-15 mb-15">
+                                  <div class="progress mb-5">
+                                    <div
+                                      role="progressbar"
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                      class="progress-bar page_speed_431928254"
+                                    ></div>
+                                  </div>
+                                  <span class="font-xs text-heading"
+                                    >Sold: 2</span
+                                  >
+                                </div>
+                                <a
+                                  aria-label="Add To Cart"
+                                  class="action-btn add-to-cart-button btn w-100 hover-up"
+                                  data-id="3"
+                                  data-url="https://nest.botble.com/ajax/cart"
+                                  href="#"
+                                  tabindex="-1"
+                                  ><i class="fi-rs-shopping-cart mr-5"></i>Add
+                                  To Cart
+                                </a>
+                              </div>
+                            </div>
+                            <div
+                              class="product-cart-wrap slick-slide slick-cloned"
+                              data-slick-index="-2"
+                              id=""
+                              aria-hidden="true"
+                              style="width: 278px"
+                              tabindex="-1"
+                            >
+                              <div class="product-img-action-wrap">
+                                <div class="product-img product-img-zoom">
+                                  <a
+                                    href="https://nest.botble.com/products/foster-farms-takeout-crispy-classic-digital"
+                                    tabindex="-1"
+                                    ><img
+                                      class="default-img"
+                                      src="https://nest.botble.com/storage/products/4-400x400.jpg"
+                                      alt="Foster Farms Takeout Crispy Classic (Digital)" /><img
+                                      class="hover-img"
+                                      src="https://nest.botble.com/storage/products/4-1-400x400.jpg"
+                                      alt="Foster Farms Takeout Crispy Classic (Digital)"
+                                  /></a>
+                                </div>
+                                <div class="product-action-1">
+                                  <a
+                                    aria-label="Quick View"
+                                    href="#"
+                                    class="action-btn hover-up js-quick-view-button"
+                                    data-url="https://nest.botble.com/ajax/quick-view/4"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-eye"></i></a
+                                  ><a
+                                    aria-label="Add To Wishlist"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-wishlist-button"
+                                    data-url="https://nest.botble.com/wishlist/4"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-heart"></i></a
+                                  ><a
+                                    aria-label="Add To Compare"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-compare-button"
+                                    data-url="https://nest.botble.com/compare/4"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-shuffle"></i
+                                  ></a>
+                                </div>
+                                <div
+                                  class="product-badges product-badges-position product-badges-mrg"
+                                >
+                                  <span class="hot">-94%</span>
+                                </div>
+                              </div>
+                              <div class="product-content-wrap">
+                                <div class="product-category">
+                                  <a
+                                    href="https://nest.botble.com/product-categories/bread-and-juice"
+                                    tabindex="-1"
+                                    >Bread and Juice</a
+                                  >
+                                </div>
+                                <h2 class="text-truncate">
+                                  <a
+                                    href="https://nest.botble.com/products/foster-farms-takeout-crispy-classic-digital"
+                                    title="Foster Farms Takeout Crispy Classic (Digital)"
+                                    tabindex="-1"
+                                    >Foster Farms Takeout Crispy Classic
+                                    (Digital)</a
+                                  >
+                                </h2>
+                                <div class="product-rate d-inline-block">
+                                  <div
+                                    class="product-rating page_speed_526389107"
+                                  ></div>
+                                </div>
+                                <div class="product-price mt-10">
+                                  <span>$99.45</span
+                                  ><span class="old-price">$1,874.00</span>
+                                </div>
+                                <div class="sold mt-15 mb-15">
+                                  <div class="progress mb-5">
+                                    <div
+                                      role="progressbar"
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                      class="progress-bar page_speed_1949856790"
+                                    ></div>
+                                  </div>
+                                  <span class="font-xs text-heading"
+                                    >Sold: 3</span
+                                  >
+                                </div>
+                                <a
+                                  aria-label="Add To Cart"
+                                  class="action-btn add-to-cart-button btn w-100 hover-up"
+                                  data-id="4"
+                                  data-url="https://nest.botble.com/ajax/cart"
+                                  href="#"
+                                  tabindex="-1"
+                                  ><i class="fi-rs-shopping-cart mr-5"></i>Add
+                                  To Cart
+                                </a>
+                              </div>
+                            </div>
+                            <div
+                              class="product-cart-wrap slick-slide slick-cloned"
+                              data-slick-index="-1"
+                              id=""
+                              aria-hidden="true"
+                              style="width: 278px"
+                              tabindex="-1"
+                            >
+                              <div class="product-img-action-wrap">
+                                <div class="product-img product-img-zoom">
+                                  <a
+                                    href="https://nest.botble.com/products/blue-diamond-almonds-lightly"
+                                    tabindex="-1"
+                                    ><img
+                                      class="default-img"
+                                      src="https://nest.botble.com/storage/products/5-400x400.jpg"
+                                      alt="Blue Diamond Almonds Lightly" /><img
+                                      class="hover-img"
+                                      src="https://nest.botble.com/storage/products/5-1-400x400.jpg"
+                                      alt="Blue Diamond Almonds Lightly"
+                                  /></a>
+                                </div>
+                                <div class="product-action-1">
+                                  <a
+                                    aria-label="Quick View"
+                                    href="#"
+                                    class="action-btn hover-up js-quick-view-button"
+                                    data-url="https://nest.botble.com/ajax/quick-view/5"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-eye"></i></a
+                                  ><a
+                                    aria-label="Add To Wishlist"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-wishlist-button"
+                                    data-url="https://nest.botble.com/wishlist/5"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-heart"></i></a
+                                  ><a
+                                    aria-label="Add To Compare"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-compare-button"
+                                    data-url="https://nest.botble.com/compare/5"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-shuffle"></i
+                                  ></a>
+                                </div>
+                                <div
+                                  class="product-badges product-badges-position product-badges-mrg"
+                                >
+                                  <span class="hot">-55%</span>
+                                </div>
+                              </div>
+                              <div class="product-content-wrap">
+                                <div class="product-category">
+                                  <a
+                                    href="https://nest.botble.com/product-categories/diet-foods"
+                                    tabindex="-1"
+                                    >Diet Foods</a
+                                  >
+                                </div>
+                                <h2 class="text-truncate">
+                                  <a
+                                    href="https://nest.botble.com/products/blue-diamond-almonds-lightly"
+                                    title="Blue Diamond Almonds Lightly"
+                                    tabindex="-1"
+                                    >Blue Diamond Almonds Lightly</a
+                                  >
+                                </h2>
+                                <div class="product-rate d-inline-block">
+                                  <div
+                                    class="product-rating page_speed_1720471738"
+                                  ></div>
+                                </div>
+                                <div class="product-price mt-10">
+                                  <span>$186.88</span
+                                  ><span class="old-price">$417.00</span>
+                                </div>
+                                <div class="sold mt-15 mb-15">
+                                  <div class="progress mb-5">
+                                    <div
+                                      role="progressbar"
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                      class="progress-bar page_speed_6562009"
+                                    ></div>
+                                  </div>
+                                  <span class="font-xs text-heading"
+                                    >Sold: 2</span
+                                  >
+                                </div>
+                                <a
+                                  aria-label="Add To Cart"
+                                  class="action-btn add-to-cart-button btn w-100 hover-up"
+                                  data-id="5"
+                                  data-url="https://nest.botble.com/ajax/cart"
+                                  href="#"
+                                  tabindex="-1"
+                                  ><i class="fi-rs-shopping-cart mr-5"></i>Add
+                                  To Cart
+                                </a>
+                              </div>
+                            </div>
+                            <div
+                              class="product-cart-wrap slick-slide"
+                              data-slick-index="0"
+                              aria-hidden="true"
+                              style="width: 278px"
+                              tabindex="-1"
+                            >
+                              <div class="product-img-action-wrap">
+                                <div class="product-img product-img-zoom">
+                                  <a
+                                    href="https://nest.botble.com/products/haagen-dazs-caramel-cone-ice-cream"
+                                    tabindex="-1"
+                                    ><img
+                                      class="default-img"
+                                      src="https://nest.botble.com/storage/products/10-400x400.jpg"
+                                      alt="Haagen-Dazs Caramel Cone Ice Cream" /><img
+                                      class="hover-img"
+                                      src="https://nest.botble.com/storage/products/10-1-400x400.jpg"
+                                      alt="Haagen-Dazs Caramel Cone Ice Cream"
+                                  /></a>
+                                </div>
+                                <div class="product-action-1">
+                                  <a
+                                    aria-label="Quick View"
+                                    href="#"
+                                    class="action-btn hover-up js-quick-view-button"
+                                    data-url="https://nest.botble.com/ajax/quick-view/10"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-eye"></i></a
+                                  ><a
+                                    aria-label="Add To Wishlist"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-wishlist-button"
+                                    data-url="https://nest.botble.com/wishlist/10"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-heart"></i></a
+                                  ><a
+                                    aria-label="Add To Compare"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-compare-button"
+                                    data-url="https://nest.botble.com/compare/10"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-shuffle"></i
+                                  ></a>
+                                </div>
+                                <div
+                                  class="product-badges product-badges-position product-badges-mrg"
+                                >
+                                  <span class="hot">-67%</span>
+                                </div>
+                              </div>
+                              <div class="product-content-wrap">
+                                <div class="product-category">
+                                  <a
+                                    href="https://nest.botble.com/product-categories/bread-and-juice"
+                                    tabindex="-1"
+                                    >Bread and Juice</a
+                                  >
+                                </div>
+                                <h2 class="text-truncate">
+                                  <a
+                                    href="https://nest.botble.com/products/haagen-dazs-caramel-cone-ice-cream"
+                                    title="Haagen-Dazs Caramel Cone Ice Cream"
+                                    tabindex="-1"
+                                    >Haagen-Dazs Caramel Cone Ice Cream</a
+                                  >
+                                </h2>
+                                <div class="product-rate d-inline-block">
+                                  <div
+                                    class="product-rating page_speed_1539816761"
+                                  ></div>
+                                </div>
+                                <div class="product-price mt-10">
+                                  <span>$185.46</span
+                                  ><span class="old-price">$562.00</span>
+                                </div>
+                                <div class="sold mt-15 mb-15">
+                                  <div class="progress mb-5">
+                                    <div
+                                      role="progressbar"
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                      class="progress-bar page_speed_1949856790"
+                                    ></div>
+                                  </div>
+                                  <span class="font-xs text-heading"
+                                    >Sold: 4</span
+                                  >
+                                </div>
+                                <a
+                                  aria-label="Add To Cart"
+                                  class="action-btn add-to-cart-button btn w-100 hover-up"
+                                  data-id="10"
+                                  data-url="https://nest.botble.com/ajax/cart"
+                                  href="#"
+                                  tabindex="-1"
+                                  ><i class="fi-rs-shopping-cart mr-5"></i>Add
+                                  To Cart
+                                </a>
+                              </div>
+                            </div>
+                            <div
+                              class="product-cart-wrap slick-slide"
+                              data-slick-index="1"
+                              aria-hidden="true"
+                              style="width: 278px"
+                              tabindex="-1"
+                            >
+                              <div class="product-img-action-wrap">
+                                <div class="product-img product-img-zoom">
+                                  <a
+                                    href="https://nest.botble.com/products/seeds-of-change-organic-quinoe"
+                                    tabindex="-1"
+                                    ><img
+                                      class="default-img"
+                                      src="https://nest.botble.com/storage/products/1-400x400.jpg"
+                                      alt="Seeds of Change Organic Quinoe" /><img
+                                      class="hover-img"
+                                      src="https://nest.botble.com/storage/products/1-1-400x400.jpg"
+                                      alt="Seeds of Change Organic Quinoe"
+                                  /></a>
+                                </div>
+                                <div class="product-action-1">
+                                  <a
+                                    aria-label="Quick View"
+                                    href="#"
+                                    class="action-btn hover-up js-quick-view-button"
+                                    data-url="https://nest.botble.com/ajax/quick-view/1"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-eye"></i></a
+                                  ><a
+                                    aria-label="Add To Wishlist"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-wishlist-button"
+                                    data-url="https://nest.botble.com/wishlist/1"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-heart"></i></a
+                                  ><a
+                                    aria-label="Add To Compare"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-compare-button"
+                                    data-url="https://nest.botble.com/compare/1"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-shuffle"></i
+                                  ></a>
+                                </div>
+                                <div
+                                  class="product-badges product-badges-position product-badges-mrg"
+                                >
+                                  <span class="hot">-66%</span>
+                                </div>
+                              </div>
+                              <div class="product-content-wrap">
+                                <div class="product-category">
+                                  <a
+                                    href="https://nest.botble.com/product-categories/coffee-teas"
+                                    tabindex="-1"
+                                    >Coffee &amp; Teas</a
+                                  >
+                                </div>
+                                <h2 class="text-truncate">
+                                  <a
+                                    href="https://nest.botble.com/products/seeds-of-change-organic-quinoe"
+                                    title="Seeds of Change Organic Quinoe"
+                                    tabindex="-1"
+                                    >Seeds of Change Organic Quinoe</a
+                                  >
+                                </h2>
+                                <div class="product-rate d-inline-block">
+                                  <div
+                                    class="product-rating page_speed_1575896360"
+                                  ></div>
+                                </div>
+                                <div class="product-price mt-10">
+                                  <span>$776.56</span
+                                  ><span class="old-price">$2,284.00</span>
+                                </div>
+                                <div class="sold mt-15 mb-15">
+                                  <div class="progress mb-5">
+                                    <div
+                                      role="progressbar"
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                      class="progress-bar page_speed_1250590552"
+                                    ></div>
+                                  </div>
+                                  <span class="font-xs text-heading"
+                                    >Sold: 3</span
+                                  >
+                                </div>
+                                <a
+                                  aria-label="Add To Cart"
+                                  class="action-btn add-to-cart-button btn w-100 hover-up"
+                                  data-id="1"
+                                  data-url="https://nest.botble.com/ajax/cart"
+                                  href="#"
+                                  tabindex="-1"
+                                  ><i class="fi-rs-shopping-cart mr-5"></i>Add
+                                  To Cart
+                                </a>
+                              </div>
+                            </div>
+                            <div
+                              class="product-cart-wrap slick-slide slick-current slick-active"
+                              data-slick-index="2"
+                              aria-hidden="false"
+                              style="width: 278px"
+                              tabindex="0"
+                            >
+                              <div class="product-img-action-wrap">
+                                <div class="product-img product-img-zoom">
+                                  <a
+                                    href="https://nest.botble.com/products/all-natural-italian-style-chicken-meatballs"
+                                    tabindex="0"
+                                    ><img
+                                      class="default-img"
+                                      src="https://nest.botble.com/storage/products/2-400x400.jpg"
+                                      alt="All Natural Italian-Style Chicken Meatballs" /><img
+                                      class="hover-img"
+                                      src="https://nest.botble.com/storage/products/2-1-400x400.jpg"
+                                      alt="All Natural Italian-Style Chicken Meatballs"
+                                  /></a>
+                                </div>
+                                <div class="product-action-1">
+                                  <a
+                                    aria-label="Quick View"
+                                    href="#"
+                                    class="action-btn hover-up js-quick-view-button"
+                                    data-url="https://nest.botble.com/ajax/quick-view/2"
+                                    tabindex="0"
+                                    ><i class="fi-rs-eye"></i></a
+                                  ><a
+                                    aria-label="Add To Wishlist"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-wishlist-button"
+                                    data-url="https://nest.botble.com/wishlist/2"
+                                    tabindex="0"
+                                    ><i class="fi-rs-heart"></i></a
+                                  ><a
+                                    aria-label="Add To Compare"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-compare-button"
+                                    data-url="https://nest.botble.com/compare/2"
+                                    tabindex="0"
+                                    ><i class="fi-rs-shuffle"></i
+                                  ></a>
+                                </div>
+                                <div
+                                  class="product-badges product-badges-position product-badges-mrg"
+                                >
+                                  <span class="hot">-78%</span>
+                                </div>
+                              </div>
+                              <div class="product-content-wrap">
+                                <div class="product-category">
+                                  <a
+                                    href="https://nest.botble.com/product-categories/pet-foods"
+                                    tabindex="0"
+                                    >Pet Foods</a
+                                  >
+                                </div>
+                                <h2 class="text-truncate">
+                                  <a
+                                    href="https://nest.botble.com/products/all-natural-italian-style-chicken-meatballs"
+                                    title="All Natural Italian-Style Chicken Meatballs"
+                                    tabindex="0"
+                                    >All Natural Italian-Style Chicken
+                                    Meatballs</a
+                                  >
+                                </h2>
+                                <div class="product-rate d-inline-block">
+                                  <div
+                                    class="product-rating page_speed_1763523481"
+                                  ></div>
+                                </div>
+                                <div class="product-price mt-10">
+                                  <span>$353.34</span
+                                  ><span class="old-price">$1,638.00</span>
+                                </div>
+                                <div class="sold mt-15 mb-15">
+                                  <div class="progress mb-5">
+                                    <div
+                                      role="progressbar"
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                      class="progress-bar page_speed_1494901173"
+                                    ></div>
+                                  </div>
+                                  <span class="font-xs text-heading"
+                                    >Sold: 4</span
+                                  >
+                                </div>
+                                <a
+                                  aria-label="Add To Cart"
+                                  class="action-btn add-to-cart-button btn w-100 hover-up"
+                                  data-id="2"
+                                  data-url="https://nest.botble.com/ajax/cart"
+                                  href="#"
+                                  tabindex="0"
+                                  ><i class="fi-rs-shopping-cart mr-5"></i>Add
+                                  To Cart
+                                </a>
+                              </div>
+                            </div>
+                            <div
+                              class="product-cart-wrap slick-slide slick-active"
+                              data-slick-index="3"
+                              aria-hidden="false"
+                              style="width: 278px"
+                              tabindex="0"
+                            >
+                              <div class="product-img-action-wrap">
+                                <div class="product-img product-img-zoom">
+                                  <a
+                                    href="https://nest.botble.com/products/angies-boomchickapop-sweet-salty-kettle-corn"
+                                    tabindex="0"
+                                    ><img
+                                      class="default-img"
+                                      src="https://nest.botble.com/storage/products/3-400x400.jpg"
+                                      alt="Angie’s Boomchickapop Sweet &amp; Salty Kettle Corn" /><img
+                                      class="hover-img"
+                                      src="https://nest.botble.com/storage/products/3-1-400x400.jpg"
+                                      alt="Angie’s Boomchickapop Sweet &amp; Salty Kettle Corn"
+                                  /></a>
+                                </div>
+                                <div class="product-action-1">
+                                  <a
+                                    aria-label="Quick View"
+                                    href="#"
+                                    class="action-btn hover-up js-quick-view-button"
+                                    data-url="https://nest.botble.com/ajax/quick-view/3"
+                                    tabindex="0"
+                                    ><i class="fi-rs-eye"></i></a
+                                  ><a
+                                    aria-label="Add To Wishlist"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-wishlist-button"
+                                    data-url="https://nest.botble.com/wishlist/3"
+                                    tabindex="0"
+                                    ><i class="fi-rs-heart"></i></a
+                                  ><a
+                                    aria-label="Add To Compare"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-compare-button"
+                                    data-url="https://nest.botble.com/compare/3"
+                                    tabindex="0"
+                                    ><i class="fi-rs-shuffle"></i
+                                  ></a>
+                                </div>
+                                <div
+                                  class="product-badges product-badges-position product-badges-mrg"
+                                >
+                                  <span class="page_speed_662845582">New</span>
+                                </div>
+                              </div>
+                              <div class="product-content-wrap">
+                                <div class="product-category">
+                                  <a
+                                    href="https://nest.botble.com/product-categories/coffee-teas"
+                                    tabindex="0"
+                                    >Coffee &amp; Teas</a
+                                  >
+                                </div>
+                                <h2 class="text-truncate">
+                                  <a
+                                    href="https://nest.botble.com/products/angies-boomchickapop-sweet-salty-kettle-corn"
+                                    title="Angie’s Boomchickapop Sweet &amp; Salty Kettle Corn"
+                                    tabindex="0"
+                                    >Angie’s Boomchickapop Sweet &amp; Salty
+                                    Kettle Corn</a
+                                  >
+                                </h2>
+                                <div class="product-rate d-inline-block">
+                                  <div
+                                    class="product-rating page_speed_595366292"
+                                  ></div>
+                                </div>
+                                <div class="product-price mt-10">
+                                  <span>$188.65</span
+                                  ><span class="old-price">$2,282.00</span>
+                                </div>
+                                <div class="sold mt-15 mb-15">
+                                  <div class="progress mb-5">
+                                    <div
+                                      role="progressbar"
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                      class="progress-bar page_speed_431928254"
+                                    ></div>
+                                  </div>
+                                  <span class="font-xs text-heading"
+                                    >Sold: 2</span
+                                  >
+                                </div>
+                                <a
+                                  aria-label="Add To Cart"
+                                  class="action-btn add-to-cart-button btn w-100 hover-up"
+                                  data-id="3"
+                                  data-url="https://nest.botble.com/ajax/cart"
+                                  href="#"
+                                  tabindex="0"
+                                  ><i class="fi-rs-shopping-cart mr-5"></i>Add
+                                  To Cart
+                                </a>
+                              </div>
+                            </div>
+                            <div
+                              class="product-cart-wrap slick-slide slick-active"
+                              data-slick-index="4"
+                              aria-hidden="false"
+                              style="width: 278px"
+                              tabindex="0"
+                            >
+                              <div class="product-img-action-wrap">
+                                <div class="product-img product-img-zoom">
+                                  <a
+                                    href="https://nest.botble.com/products/foster-farms-takeout-crispy-classic-digital"
+                                    tabindex="0"
+                                    ><img
+                                      class="default-img"
+                                      src="https://nest.botble.com/storage/products/4-400x400.jpg"
+                                      alt="Foster Farms Takeout Crispy Classic (Digital)" /><img
+                                      class="hover-img"
+                                      src="https://nest.botble.com/storage/products/4-1-400x400.jpg"
+                                      alt="Foster Farms Takeout Crispy Classic (Digital)"
+                                  /></a>
+                                </div>
+                                <div class="product-action-1">
+                                  <a
+                                    aria-label="Quick View"
+                                    href="#"
+                                    class="action-btn hover-up js-quick-view-button"
+                                    data-url="https://nest.botble.com/ajax/quick-view/4"
+                                    tabindex="0"
+                                    ><i class="fi-rs-eye"></i></a
+                                  ><a
+                                    aria-label="Add To Wishlist"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-wishlist-button"
+                                    data-url="https://nest.botble.com/wishlist/4"
+                                    tabindex="0"
+                                    ><i class="fi-rs-heart"></i></a
+                                  ><a
+                                    aria-label="Add To Compare"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-compare-button"
+                                    data-url="https://nest.botble.com/compare/4"
+                                    tabindex="0"
+                                    ><i class="fi-rs-shuffle"></i
+                                  ></a>
+                                </div>
+                                <div
+                                  class="product-badges product-badges-position product-badges-mrg"
+                                >
+                                  <span class="hot">-94%</span>
+                                </div>
+                              </div>
+                              <div class="product-content-wrap">
+                                <div class="product-category">
+                                  <a
+                                    href="https://nest.botble.com/product-categories/bread-and-juice"
+                                    tabindex="0"
+                                    >Bread and Juice</a
+                                  >
+                                </div>
+                                <h2 class="text-truncate">
+                                  <a
+                                    href="https://nest.botble.com/products/foster-farms-takeout-crispy-classic-digital"
+                                    title="Foster Farms Takeout Crispy Classic (Digital)"
+                                    tabindex="0"
+                                    >Foster Farms Takeout Crispy Classic
+                                    (Digital)</a
+                                  >
+                                </h2>
+                                <div class="product-rate d-inline-block">
+                                  <div
+                                    class="product-rating page_speed_526389107"
+                                  ></div>
+                                </div>
+                                <div class="product-price mt-10">
+                                  <span>$99.45</span
+                                  ><span class="old-price">$1,874.00</span>
+                                </div>
+                                <div class="sold mt-15 mb-15">
+                                  <div class="progress mb-5">
+                                    <div
+                                      role="progressbar"
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                      class="progress-bar page_speed_1949856790"
+                                    ></div>
+                                  </div>
+                                  <span class="font-xs text-heading"
+                                    >Sold: 3</span
+                                  >
+                                </div>
+                                <a
+                                  aria-label="Add To Cart"
+                                  class="action-btn add-to-cart-button btn w-100 hover-up"
+                                  data-id="4"
+                                  data-url="https://nest.botble.com/ajax/cart"
+                                  href="#"
+                                  tabindex="0"
+                                  ><i class="fi-rs-shopping-cart mr-5"></i>Add
+                                  To Cart
+                                </a>
+                              </div>
+                            </div>
+                            <div
+                              class="product-cart-wrap slick-slide slick-active"
+                              data-slick-index="5"
+                              aria-hidden="false"
+                              style="width: 278px"
+                              tabindex="0"
+                            >
+                              <div class="product-img-action-wrap">
+                                <div class="product-img product-img-zoom">
+                                  <a
+                                    href="https://nest.botble.com/products/blue-diamond-almonds-lightly"
+                                    tabindex="0"
+                                    ><img
+                                      class="default-img"
+                                      src="https://nest.botble.com/storage/products/5-400x400.jpg"
+                                      alt="Blue Diamond Almonds Lightly" /><img
+                                      class="hover-img"
+                                      src="https://nest.botble.com/storage/products/5-1-400x400.jpg"
+                                      alt="Blue Diamond Almonds Lightly"
+                                  /></a>
+                                </div>
+                                <div class="product-action-1">
+                                  <a
+                                    aria-label="Quick View"
+                                    href="#"
+                                    class="action-btn hover-up js-quick-view-button"
+                                    data-url="https://nest.botble.com/ajax/quick-view/5"
+                                    tabindex="0"
+                                    ><i class="fi-rs-eye"></i></a
+                                  ><a
+                                    aria-label="Add To Wishlist"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-wishlist-button"
+                                    data-url="https://nest.botble.com/wishlist/5"
+                                    tabindex="0"
+                                    ><i class="fi-rs-heart"></i></a
+                                  ><a
+                                    aria-label="Add To Compare"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-compare-button"
+                                    data-url="https://nest.botble.com/compare/5"
+                                    tabindex="0"
+                                    ><i class="fi-rs-shuffle"></i
+                                  ></a>
+                                </div>
+                                <div
+                                  class="product-badges product-badges-position product-badges-mrg"
+                                >
+                                  <span class="hot">-55%</span>
+                                </div>
+                              </div>
+                              <div class="product-content-wrap">
+                                <div class="product-category">
+                                  <a
+                                    href="https://nest.botble.com/product-categories/diet-foods"
+                                    tabindex="0"
+                                    >Diet Foods</a
+                                  >
+                                </div>
+                                <h2 class="text-truncate">
+                                  <a
+                                    href="https://nest.botble.com/products/blue-diamond-almonds-lightly"
+                                    title="Blue Diamond Almonds Lightly"
+                                    tabindex="0"
+                                    >Blue Diamond Almonds Lightly</a
+                                  >
+                                </h2>
+                                <div class="product-rate d-inline-block">
+                                  <div
+                                    class="product-rating page_speed_1720471738"
+                                  ></div>
+                                </div>
+                                <div class="product-price mt-10">
+                                  <span>$186.88</span
+                                  ><span class="old-price">$417.00</span>
+                                </div>
+                                <div class="sold mt-15 mb-15">
+                                  <div class="progress mb-5">
+                                    <div
+                                      role="progressbar"
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                      class="progress-bar page_speed_6562009"
+                                    ></div>
+                                  </div>
+                                  <span class="font-xs text-heading"
+                                    >Sold: 2</span
+                                  >
+                                </div>
+                                <a
+                                  aria-label="Add To Cart"
+                                  class="action-btn add-to-cart-button btn w-100 hover-up"
+                                  data-id="5"
+                                  data-url="https://nest.botble.com/ajax/cart"
+                                  href="#"
+                                  tabindex="0"
+                                  ><i class="fi-rs-shopping-cart mr-5"></i>Add
+                                  To Cart
+                                </a>
+                              </div>
+                            </div>
+                            <div
+                              class="product-cart-wrap slick-slide slick-cloned"
+                              data-slick-index="6"
+                              id=""
+                              aria-hidden="true"
+                              style="width: 278px"
+                              tabindex="-1"
+                            >
+                              <div class="product-img-action-wrap">
+                                <div class="product-img product-img-zoom">
+                                  <a
+                                    href="https://nest.botble.com/products/haagen-dazs-caramel-cone-ice-cream"
+                                    tabindex="-1"
+                                    ><img
+                                      class="default-img"
+                                      src="https://nest.botble.com/storage/products/10-400x400.jpg"
+                                      alt="Haagen-Dazs Caramel Cone Ice Cream" /><img
+                                      class="hover-img"
+                                      src="https://nest.botble.com/storage/products/10-1-400x400.jpg"
+                                      alt="Haagen-Dazs Caramel Cone Ice Cream"
+                                  /></a>
+                                </div>
+                                <div class="product-action-1">
+                                  <a
+                                    aria-label="Quick View"
+                                    href="#"
+                                    class="action-btn hover-up js-quick-view-button"
+                                    data-url="https://nest.botble.com/ajax/quick-view/10"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-eye"></i></a
+                                  ><a
+                                    aria-label="Add To Wishlist"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-wishlist-button"
+                                    data-url="https://nest.botble.com/wishlist/10"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-heart"></i></a
+                                  ><a
+                                    aria-label="Add To Compare"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-compare-button"
+                                    data-url="https://nest.botble.com/compare/10"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-shuffle"></i
+                                  ></a>
+                                </div>
+                                <div
+                                  class="product-badges product-badges-position product-badges-mrg"
+                                >
+                                  <span class="hot">-67%</span>
+                                </div>
+                              </div>
+                              <div class="product-content-wrap">
+                                <div class="product-category">
+                                  <a
+                                    href="https://nest.botble.com/product-categories/bread-and-juice"
+                                    tabindex="-1"
+                                    >Bread and Juice</a
+                                  >
+                                </div>
+                                <h2 class="text-truncate">
+                                  <a
+                                    href="https://nest.botble.com/products/haagen-dazs-caramel-cone-ice-cream"
+                                    title="Haagen-Dazs Caramel Cone Ice Cream"
+                                    tabindex="-1"
+                                    >Haagen-Dazs Caramel Cone Ice Cream</a
+                                  >
+                                </h2>
+                                <div class="product-rate d-inline-block">
+                                  <div
+                                    class="product-rating page_speed_1539816761"
+                                  ></div>
+                                </div>
+                                <div class="product-price mt-10">
+                                  <span>$185.46</span
+                                  ><span class="old-price">$562.00</span>
+                                </div>
+                                <div class="sold mt-15 mb-15">
+                                  <div class="progress mb-5">
+                                    <div
+                                      role="progressbar"
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                      class="progress-bar page_speed_1949856790"
+                                    ></div>
+                                  </div>
+                                  <span class="font-xs text-heading"
+                                    >Sold: 4</span
+                                  >
+                                </div>
+                                <a
+                                  aria-label="Add To Cart"
+                                  class="action-btn add-to-cart-button btn w-100 hover-up"
+                                  data-id="10"
+                                  data-url="https://nest.botble.com/ajax/cart"
+                                  href="#"
+                                  tabindex="-1"
+                                  ><i class="fi-rs-shopping-cart mr-5"></i>Add
+                                  To Cart
+                                </a>
+                              </div>
+                            </div>
+                            <div
+                              class="product-cart-wrap slick-slide slick-cloned"
+                              data-slick-index="7"
+                              id=""
+                              aria-hidden="true"
+                              style="width: 278px"
+                              tabindex="-1"
+                            >
+                              <div class="product-img-action-wrap">
+                                <div class="product-img product-img-zoom">
+                                  <a
+                                    href="https://nest.botble.com/products/seeds-of-change-organic-quinoe"
+                                    tabindex="-1"
+                                    ><img
+                                      class="default-img"
+                                      src="https://nest.botble.com/storage/products/1-400x400.jpg"
+                                      alt="Seeds of Change Organic Quinoe" /><img
+                                      class="hover-img"
+                                      src="https://nest.botble.com/storage/products/1-1-400x400.jpg"
+                                      alt="Seeds of Change Organic Quinoe"
+                                  /></a>
+                                </div>
+                                <div class="product-action-1">
+                                  <a
+                                    aria-label="Quick View"
+                                    href="#"
+                                    class="action-btn hover-up js-quick-view-button"
+                                    data-url="https://nest.botble.com/ajax/quick-view/1"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-eye"></i></a
+                                  ><a
+                                    aria-label="Add To Wishlist"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-wishlist-button"
+                                    data-url="https://nest.botble.com/wishlist/1"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-heart"></i></a
+                                  ><a
+                                    aria-label="Add To Compare"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-compare-button"
+                                    data-url="https://nest.botble.com/compare/1"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-shuffle"></i
+                                  ></a>
+                                </div>
+                                <div
+                                  class="product-badges product-badges-position product-badges-mrg"
+                                >
+                                  <span class="hot">-66%</span>
+                                </div>
+                              </div>
+                              <div class="product-content-wrap">
+                                <div class="product-category">
+                                  <a
+                                    href="https://nest.botble.com/product-categories/coffee-teas"
+                                    tabindex="-1"
+                                    >Coffee &amp; Teas</a
+                                  >
+                                </div>
+                                <h2 class="text-truncate">
+                                  <a
+                                    href="https://nest.botble.com/products/seeds-of-change-organic-quinoe"
+                                    title="Seeds of Change Organic Quinoe"
+                                    tabindex="-1"
+                                    >Seeds of Change Organic Quinoe</a
+                                  >
+                                </h2>
+                                <div class="product-rate d-inline-block">
+                                  <div
+                                    class="product-rating page_speed_1575896360"
+                                  ></div>
+                                </div>
+                                <div class="product-price mt-10">
+                                  <span>$776.56</span
+                                  ><span class="old-price">$2,284.00</span>
+                                </div>
+                                <div class="sold mt-15 mb-15">
+                                  <div class="progress mb-5">
+                                    <div
+                                      role="progressbar"
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                      class="progress-bar page_speed_1250590552"
+                                    ></div>
+                                  </div>
+                                  <span class="font-xs text-heading"
+                                    >Sold: 3</span
+                                  >
+                                </div>
+                                <a
+                                  aria-label="Add To Cart"
+                                  class="action-btn add-to-cart-button btn w-100 hover-up"
+                                  data-id="1"
+                                  data-url="https://nest.botble.com/ajax/cart"
+                                  href="#"
+                                  tabindex="-1"
+                                  ><i class="fi-rs-shopping-cart mr-5"></i>Add
+                                  To Cart
+                                </a>
+                              </div>
+                            </div>
+                            <div
+                              class="product-cart-wrap slick-slide slick-cloned"
+                              data-slick-index="8"
+                              id=""
+                              aria-hidden="true"
+                              style="width: 278px"
+                              tabindex="-1"
+                            >
+                              <div class="product-img-action-wrap">
+                                <div class="product-img product-img-zoom">
+                                  <a
+                                    href="https://nest.botble.com/products/all-natural-italian-style-chicken-meatballs"
+                                    tabindex="-1"
+                                    ><img
+                                      class="default-img"
+                                      src="https://nest.botble.com/storage/products/2-400x400.jpg"
+                                      alt="All Natural Italian-Style Chicken Meatballs" /><img
+                                      class="hover-img"
+                                      src="https://nest.botble.com/storage/products/2-1-400x400.jpg"
+                                      alt="All Natural Italian-Style Chicken Meatballs"
+                                  /></a>
+                                </div>
+                                <div class="product-action-1">
+                                  <a
+                                    aria-label="Quick View"
+                                    href="#"
+                                    class="action-btn hover-up js-quick-view-button"
+                                    data-url="https://nest.botble.com/ajax/quick-view/2"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-eye"></i></a
+                                  ><a
+                                    aria-label="Add To Wishlist"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-wishlist-button"
+                                    data-url="https://nest.botble.com/wishlist/2"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-heart"></i></a
+                                  ><a
+                                    aria-label="Add To Compare"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-compare-button"
+                                    data-url="https://nest.botble.com/compare/2"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-shuffle"></i
+                                  ></a>
+                                </div>
+                                <div
+                                  class="product-badges product-badges-position product-badges-mrg"
+                                >
+                                  <span class="hot">-78%</span>
+                                </div>
+                              </div>
+                              <div class="product-content-wrap">
+                                <div class="product-category">
+                                  <a
+                                    href="https://nest.botble.com/product-categories/pet-foods"
+                                    tabindex="-1"
+                                    >Pet Foods</a
+                                  >
+                                </div>
+                                <h2 class="text-truncate">
+                                  <a
+                                    href="https://nest.botble.com/products/all-natural-italian-style-chicken-meatballs"
+                                    title="All Natural Italian-Style Chicken Meatballs"
+                                    tabindex="-1"
+                                    >All Natural Italian-Style Chicken
+                                    Meatballs</a
+                                  >
+                                </h2>
+                                <div class="product-rate d-inline-block">
+                                  <div
+                                    class="product-rating page_speed_1763523481"
+                                  ></div>
+                                </div>
+                                <div class="product-price mt-10">
+                                  <span>$353.34</span
+                                  ><span class="old-price">$1,638.00</span>
+                                </div>
+                                <div class="sold mt-15 mb-15">
+                                  <div class="progress mb-5">
+                                    <div
+                                      role="progressbar"
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                      class="progress-bar page_speed_1494901173"
+                                    ></div>
+                                  </div>
+                                  <span class="font-xs text-heading"
+                                    >Sold: 4</span
+                                  >
+                                </div>
+                                <a
+                                  aria-label="Add To Cart"
+                                  class="action-btn add-to-cart-button btn w-100 hover-up"
+                                  data-id="2"
+                                  data-url="https://nest.botble.com/ajax/cart"
+                                  href="#"
+                                  tabindex="-1"
+                                  ><i class="fi-rs-shopping-cart mr-5"></i>Add
+                                  To Cart
+                                </a>
+                              </div>
+                            </div>
+                            <div
+                              class="product-cart-wrap slick-slide slick-cloned"
+                              data-slick-index="9"
+                              id=""
+                              aria-hidden="true"
+                              style="width: 278px"
+                              tabindex="-1"
+                            >
+                              <div class="product-img-action-wrap">
+                                <div class="product-img product-img-zoom">
+                                  <a
+                                    href="https://nest.botble.com/products/angies-boomchickapop-sweet-salty-kettle-corn"
+                                    tabindex="-1"
+                                    ><img
+                                      class="default-img"
+                                      src="https://nest.botble.com/storage/products/3-400x400.jpg"
+                                      alt="Angie’s Boomchickapop Sweet &amp; Salty Kettle Corn" /><img
+                                      class="hover-img"
+                                      src="https://nest.botble.com/storage/products/3-1-400x400.jpg"
+                                      alt="Angie’s Boomchickapop Sweet &amp; Salty Kettle Corn"
+                                  /></a>
+                                </div>
+                                <div class="product-action-1">
+                                  <a
+                                    aria-label="Quick View"
+                                    href="#"
+                                    class="action-btn hover-up js-quick-view-button"
+                                    data-url="https://nest.botble.com/ajax/quick-view/3"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-eye"></i></a
+                                  ><a
+                                    aria-label="Add To Wishlist"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-wishlist-button"
+                                    data-url="https://nest.botble.com/wishlist/3"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-heart"></i></a
+                                  ><a
+                                    aria-label="Add To Compare"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-compare-button"
+                                    data-url="https://nest.botble.com/compare/3"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-shuffle"></i
+                                  ></a>
+                                </div>
+                                <div
+                                  class="product-badges product-badges-position product-badges-mrg"
+                                >
+                                  <span class="page_speed_662845582">New</span>
+                                </div>
+                              </div>
+                              <div class="product-content-wrap">
+                                <div class="product-category">
+                                  <a
+                                    href="https://nest.botble.com/product-categories/coffee-teas"
+                                    tabindex="-1"
+                                    >Coffee &amp; Teas</a
+                                  >
+                                </div>
+                                <h2 class="text-truncate">
+                                  <a
+                                    href="https://nest.botble.com/products/angies-boomchickapop-sweet-salty-kettle-corn"
+                                    title="Angie’s Boomchickapop Sweet &amp; Salty Kettle Corn"
+                                    tabindex="-1"
+                                    >Angie’s Boomchickapop Sweet &amp; Salty
+                                    Kettle Corn</a
+                                  >
+                                </h2>
+                                <div class="product-rate d-inline-block">
+                                  <div
+                                    class="product-rating page_speed_595366292"
+                                  ></div>
+                                </div>
+                                <div class="product-price mt-10">
+                                  <span>$188.65</span
+                                  ><span class="old-price">$2,282.00</span>
+                                </div>
+                                <div class="sold mt-15 mb-15">
+                                  <div class="progress mb-5">
+                                    <div
+                                      role="progressbar"
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                      class="progress-bar page_speed_431928254"
+                                    ></div>
+                                  </div>
+                                  <span class="font-xs text-heading"
+                                    >Sold: 2</span
+                                  >
+                                </div>
+                                <a
+                                  aria-label="Add To Cart"
+                                  class="action-btn add-to-cart-button btn w-100 hover-up"
+                                  data-id="3"
+                                  data-url="https://nest.botble.com/ajax/cart"
+                                  href="#"
+                                  tabindex="-1"
+                                  ><i class="fi-rs-shopping-cart mr-5"></i>Add
+                                  To Cart
+                                </a>
+                              </div>
+                            </div>
+                            <div
+                              class="product-cart-wrap slick-slide slick-cloned"
+                              data-slick-index="10"
+                              id=""
+                              aria-hidden="true"
+                              style="width: 278px"
+                              tabindex="-1"
+                            >
+                              <div class="product-img-action-wrap">
+                                <div class="product-img product-img-zoom">
+                                  <a
+                                    href="https://nest.botble.com/products/foster-farms-takeout-crispy-classic-digital"
+                                    tabindex="-1"
+                                    ><img
+                                      class="default-img"
+                                      src="https://nest.botble.com/storage/products/4-400x400.jpg"
+                                      alt="Foster Farms Takeout Crispy Classic (Digital)" /><img
+                                      class="hover-img"
+                                      src="https://nest.botble.com/storage/products/4-1-400x400.jpg"
+                                      alt="Foster Farms Takeout Crispy Classic (Digital)"
+                                  /></a>
+                                </div>
+                                <div class="product-action-1">
+                                  <a
+                                    aria-label="Quick View"
+                                    href="#"
+                                    class="action-btn hover-up js-quick-view-button"
+                                    data-url="https://nest.botble.com/ajax/quick-view/4"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-eye"></i></a
+                                  ><a
+                                    aria-label="Add To Wishlist"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-wishlist-button"
+                                    data-url="https://nest.botble.com/wishlist/4"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-heart"></i></a
+                                  ><a
+                                    aria-label="Add To Compare"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-compare-button"
+                                    data-url="https://nest.botble.com/compare/4"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-shuffle"></i
+                                  ></a>
+                                </div>
+                                <div
+                                  class="product-badges product-badges-position product-badges-mrg"
+                                >
+                                  <span class="hot">-94%</span>
+                                </div>
+                              </div>
+                              <div class="product-content-wrap">
+                                <div class="product-category">
+                                  <a
+                                    href="https://nest.botble.com/product-categories/bread-and-juice"
+                                    tabindex="-1"
+                                    >Bread and Juice</a
+                                  >
+                                </div>
+                                <h2 class="text-truncate">
+                                  <a
+                                    href="https://nest.botble.com/products/foster-farms-takeout-crispy-classic-digital"
+                                    title="Foster Farms Takeout Crispy Classic (Digital)"
+                                    tabindex="-1"
+                                    >Foster Farms Takeout Crispy Classic
+                                    (Digital)</a
+                                  >
+                                </h2>
+                                <div class="product-rate d-inline-block">
+                                  <div
+                                    class="product-rating page_speed_526389107"
+                                  ></div>
+                                </div>
+                                <div class="product-price mt-10">
+                                  <span>$99.45</span
+                                  ><span class="old-price">$1,874.00</span>
+                                </div>
+                                <div class="sold mt-15 mb-15">
+                                  <div class="progress mb-5">
+                                    <div
+                                      role="progressbar"
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                      class="progress-bar page_speed_1949856790"
+                                    ></div>
+                                  </div>
+                                  <span class="font-xs text-heading"
+                                    >Sold: 3</span
+                                  >
+                                </div>
+                                <a
+                                  aria-label="Add To Cart"
+                                  class="action-btn add-to-cart-button btn w-100 hover-up"
+                                  data-id="4"
+                                  data-url="https://nest.botble.com/ajax/cart"
+                                  href="#"
+                                  tabindex="-1"
+                                  ><i class="fi-rs-shopping-cart mr-5"></i>Add
+                                  To Cart
+                                </a>
+                              </div>
+                            </div>
+                            <div
+                              class="product-cart-wrap slick-slide slick-cloned"
+                              data-slick-index="11"
+                              id=""
+                              aria-hidden="true"
+                              style="width: 278px"
+                              tabindex="-1"
+                            >
+                              <div class="product-img-action-wrap">
+                                <div class="product-img product-img-zoom">
+                                  <a
+                                    href="https://nest.botble.com/products/blue-diamond-almonds-lightly"
+                                    tabindex="-1"
+                                    ><img
+                                      class="default-img"
+                                      src="https://nest.botble.com/storage/products/5-400x400.jpg"
+                                      alt="Blue Diamond Almonds Lightly" /><img
+                                      class="hover-img"
+                                      src="https://nest.botble.com/storage/products/5-1-400x400.jpg"
+                                      alt="Blue Diamond Almonds Lightly"
+                                  /></a>
+                                </div>
+                                <div class="product-action-1">
+                                  <a
+                                    aria-label="Quick View"
+                                    href="#"
+                                    class="action-btn hover-up js-quick-view-button"
+                                    data-url="https://nest.botble.com/ajax/quick-view/5"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-eye"></i></a
+                                  ><a
+                                    aria-label="Add To Wishlist"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-wishlist-button"
+                                    data-url="https://nest.botble.com/wishlist/5"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-heart"></i></a
+                                  ><a
+                                    aria-label="Add To Compare"
+                                    href="#"
+                                    class="action-btn hover-up js-add-to-compare-button"
+                                    data-url="https://nest.botble.com/compare/5"
+                                    tabindex="-1"
+                                    ><i class="fi-rs-shuffle"></i
+                                  ></a>
+                                </div>
+                                <div
+                                  class="product-badges product-badges-position product-badges-mrg"
+                                >
+                                  <span class="hot">-55%</span>
+                                </div>
+                              </div>
+                              <div class="product-content-wrap">
+                                <div class="product-category">
+                                  <a
+                                    href="https://nest.botble.com/product-categories/diet-foods"
+                                    tabindex="-1"
+                                    >Diet Foods</a
+                                  >
+                                </div>
+                                <h2 class="text-truncate">
+                                  <a
+                                    href="https://nest.botble.com/products/blue-diamond-almonds-lightly"
+                                    title="Blue Diamond Almonds Lightly"
+                                    tabindex="-1"
+                                    >Blue Diamond Almonds Lightly</a
+                                  >
+                                </h2>
+                                <div class="product-rate d-inline-block">
+                                  <div
+                                    class="product-rating page_speed_1720471738"
+                                  ></div>
+                                </div>
+                                <div class="product-price mt-10">
+                                  <span>$186.88</span
+                                  ><span class="old-price">$417.00</span>
+                                </div>
+                                <div class="sold mt-15 mb-15">
+                                  <div class="progress mb-5">
+                                    <div
+                                      role="progressbar"
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                      class="progress-bar page_speed_6562009"
+                                    ></div>
+                                  </div>
+                                  <span class="font-xs text-heading"
+                                    >Sold: 2</span
+                                  >
+                                </div>
+                                <a
+                                  aria-label="Add To Cart"
+                                  class="action-btn add-to-cart-button btn w-100 hover-up"
+                                  data-id="5"
+                                  data-url="https://nest.botble.com/ajax/cart"
+                                  href="#"
+                                  tabindex="-1"
+                                  ><i class="fi-rs-shopping-cart mr-5"></i>Add
+                                  To Cart
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div> -->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- deals -->
+
+      <!-- deals 2 -->
+
+      <section class="section-padding pb-5">
+        <div class="section-title">
+          <h3 class="">Deals du jour</h3>
+          <a class="show-all" href="/shop-grid-right">
+            Tout les deals
+            <i class="fi-rs-angle-right"></i>
+          </a>
+        </div>
+        <div class="row">
+          <div
+            class="col-xl-3 col-lg-4 col-md-6"
+            *ngFor="let item of listOfDataDeals | async"
+          >
+            <div class="product-cart-wrap style-2">
+              <div class="product-img-action-wrap">
+                <div class="product-img">
+                  <a [routerLink]="['/details-product', item.slug]">
+                    <img [src]="item.image1" alt="" />
+                  </a>
+                </div>
+              </div>
+              <div class="product-content-wrap">
+                <!-- <div class="deals-countdown-wrap">
                                   <div class="deals-countdown" data-countdown="2025/03/25 00:00:00">
                                     <span class="countdown-section"><span class="countdown-amount hover-up">307</span><span class="countdown-period"> days </span></span><span class="countdown-section"><span class="countdown-amount hover-up">06</span><span class="countdown-period"> hours </span></span><span class="countdown-section"><span class="countdown-amount hover-up">56</span><span class="countdown-period"> mins </span></span><span class="countdown-section"><span class="countdown-amount hover-up">22</span><span class="countdown-period"> sec </span></span></div>
                               </div> -->
-                              <div class="deals-content">
-                                  <h2><a [routerLink]="['/details-product', item.slug]">
-                                    {{item.name.substring(0, 25)}} ...
-                                  </a></h2>
-                                  <div class="product-rate-cover">
-                                      <div class="product-rate d-inline-block">
-                                          <div class="product-rating" style="width: 90%"></div>
-                                      </div>
-                                      <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                  </div>
-                                  <div>
-                                      <span class="font-small text-muted">By
-                                        <a [routerLink]="['/vendors/details', item.shop.slug]"> {{item.shop.name}}</a>
-                                      </span>
-                                  </div>
-                                  <div class="product-card-bottom">
-                                      <div class="product-price">
-                                          <span>{{item.reduced_price |number:'1.0-0'}} CFA</span>
-                                          <!-- <span class="old-price">$33.8</span> -->
-                                      </div>
-                                      <div class="add-cart">
-                                          <a class="add" [routerLink]="['/details-product', item.slug]">
-                                            <i class="fi-rs-shopping-cart mr-5"></i>
-                                            Voir+
-                                          </a>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
+                <div class="deals-content">
+                  <h2>
+                    <a [routerLink]="['/details-product', item.slug]">
+                      {{ item.name.substring(0, 25) }} ...
+                    </a>
+                  </h2>
+                  <div class="product-rate-cover">
+                    <div class="product-rate d-inline-block">
+                      <div class="product-rating" style="width: 90%"></div>
+                    </div>
+                    <span class="font-small ml-5 text-muted"> (4.0)</span>
                   </div>
-
-              </div>
-          </section>
-          <!--End Deals-->
-
-          <section class="section-padding mb-30">
-            <div class="container">
-              <div class="row">
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-sm-5 mb-md-0 wow animate__animated animate__fadeInUp"  data-wow-delay="0">
-                  <h4 class="section-title style-1 mb-30  animated animated">Mieux vendu</h4>
-                  <div class="product-list-small  animated animated">
-                    <article class="row align-items-center hover-up">
-                      <figure class="col-md-4 mb-0">
-                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-1.jpg" alt="" /></a>
-                      </figure>
-                      <div class="col-md-8 mb-0">
-                        <h6>
-                          <a href="shop-product-right.html">Nestle Original Coffee-Mate Coffee Creamer</a>
-                        </h6>
-                        <div class="product-rate-cover">
-                          <div class="product-rate d-inline-block">
-                            <div class="product-rating" style="width: 90%"></div>
-                          </div>
-                          <span class="font-small ml-5 text-muted"> (4.0)</span>
-                        </div>
-                        <div class="product-price">
-                          <span>$32.85</span>
-                          <span class="old-price">$33.8</span>
-                        </div>
-                      </div>
-                    </article>
-                    <article class="row align-items-center hover-up">
-                      <figure class="col-md-4 mb-0">
-                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-2.jpg" alt="" /></a>
-                      </figure>
-                      <div class="col-md-8 mb-0">
-                        <h6>
-                          <a href="shop-product-right.html">Nestle Original Coffee-Mate Coffee Creamer</a>
-                        </h6>
-                        <div class="product-rate-cover">
-                          <div class="product-rate d-inline-block">
-                            <div class="product-rating" style="width: 90%"></div>
-                          </div>
-                          <span class="font-small ml-5 text-muted"> (4.0)</span>
-                        </div>
-                        <div class="product-price">
-                          <span>$32.85</span>
-                          <span class="old-price">$33.8</span>
-                        </div>
-                      </div>
-                    </article>
-                    <article class="row align-items-center hover-up">
-                      <figure class="col-md-4 mb-0">
-                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-3.jpg" alt="" /></a>
-                      </figure>
-                      <div class="col-md-8 mb-0">
-                        <h6>
-                          <a href="shop-product-right.html">Nestle Original Coffee-Mate Coffee Creamer</a>
-                        </h6>
-                        <div class="product-rate-cover">
-                          <div class="product-rate d-inline-block">
-                            <div class="product-rating" style="width: 90%"></div>
-                          </div>
-                          <span class="font-small ml-5 text-muted"> (4.0)</span>
-                        </div>
-                        <div class="product-price">
-                          <span>$32.85</span>
-                          <span class="old-price">$33.8</span>
-                        </div>
-                      </div>
-                    </article>
+                  <div>
+                    <span class="font-small text-muted"
+                      >By
+                      <a [routerLink]="['/vendors/details', item.shop.slug]">
+                        {{ item.shop.name }}</a
+                      >
+                    </span>
                   </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-md-0 wow animate__animated animate__fadeInUp"  data-wow-delay=".1s">
-                  <h4 class="section-title style-1 mb-30  animated animated">Nouvelle tendence</h4>
-                  <div class="product-list-small  animated animated">
-                    <article class="row align-items-center hover-up">
-                      <figure class="col-md-4 mb-0">
-                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-4.jpg" alt="" /></a>
-                      </figure>
-                      <div class="col-md-8 mb-0">
-                        <h6>
-                          <a href="shop-product-right.html">Organic Cage-Free Grade A Large Brown Eggs</a>
-                        </h6>
-                        <div class="product-rate-cover">
-                          <div class="product-rate d-inline-block">
-                            <div class="product-rating" style="width: 90%"></div>
-                          </div>
-                          <span class="font-small ml-5 text-muted"> (4.0)</span>
-                        </div>
-                        <div class="product-price">
-                          <span>$32.85</span>
-                          <span class="old-price">$33.8</span>
-                        </div>
-                      </div>
-                    </article>
-                    <article class="row align-items-center hover-up">
-                      <figure class="col-md-4 mb-0">
-                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-5.jpg" alt="" /></a>
-                      </figure>
-                      <div class="col-md-8 mb-0">
-                        <h6>
-                          <a href="shop-product-right.html">Seeds of Change Organic Quinoa, Brown, & Red Rice</a>
-                        </h6>
-                        <div class="product-rate-cover">
-                          <div class="product-rate d-inline-block">
-                            <div class="product-rating" style="width: 90%"></div>
-                          </div>
-                          <span class="font-small ml-5 text-muted"> (4.0)</span>
-                        </div>
-                        <div class="product-price">
-                          <span>$32.85</span>
-                          <span class="old-price">$33.8</span>
-                        </div>
-                      </div>
-                    </article>
-                    <article class="row align-items-center hover-up">
-                      <figure class="col-md-4 mb-0">
-                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-6.jpg" alt="" /></a>
-                      </figure>
-                      <div class="col-md-8 mb-0">
-                        <h6>
-                          <a href="shop-product-right.html">Naturally Flavored Cinnamon Vanilla Light Roast Coffee</a>
-                        </h6>
-                        <div class="product-rate-cover">
-                          <div class="product-rate d-inline-block">
-                            <div class="product-rating" style="width: 90%"></div>
-                          </div>
-                          <span class="font-small ml-5 text-muted"> (4.0)</span>
-                        </div>
-                        <div class="product-price">
-                          <span>$32.85</span>
-                          <span class="old-price">$33.8</span>
-                        </div>
-                      </div>
-                    </article>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-sm-5 mb-md-0 d-none d-lg-block wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">
-                  <h4 class="section-title style-1 mb-30  animated animated">Recement ajoutes</h4>
-                  <div class="product-list-small  animated animated">
-                    <article class="row align-items-center hover-up">
-                      <figure class="col-md-4 mb-0">
-                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-7.jpg" alt="" /></a>
-                      </figure>
-                      <div class="col-md-8 mb-0">
-                        <h6>
-                          <a href="shop-product-right.html">Pepperidge Farm Farmhouse Hearty White Bread</a>
-                        </h6>
-                        <div class="product-rate-cover">
-                          <div class="product-rate d-inline-block">
-                            <div class="product-rating" style="width: 90%"></div>
-                          </div>
-                          <span class="font-small ml-5 text-muted"> (4.0)</span>
-                        </div>
-                        <div class="product-price">
-                          <span>$32.85</span>
-                          <span class="old-price">$33.8</span>
-                        </div>
-                      </div>
-                    </article>
-                    <article class="row align-items-center hover-up">
-                      <figure class="col-md-4 mb-0">
-                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-8.jpg" alt="" /></a>
-                      </figure>
-                      <div class="col-md-8 mb-0">
-                        <h6>
-                          <a href="shop-product-right.html">Organic Frozen Triple Berry Blend</a>
-                        </h6>
-                        <div class="product-rate-cover">
-                          <div class="product-rate d-inline-block">
-                            <div class="product-rating" style="width: 90%"></div>
-                          </div>
-                          <span class="font-small ml-5 text-muted"> (4.0)</span>
-                        </div>
-                        <div class="product-price">
-                          <span>$32.85</span>
-                          <span class="old-price">$33.8</span>
-                        </div>
-                      </div>
-                    </article>
-                    <article class="row align-items-center hover-up">
-                      <figure class="col-md-4 mb-0">
-                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-9.jpg" alt="" /></a>
-                      </figure>
-                      <div class="col-md-8 mb-0">
-                        <h6>
-                          <a href="shop-product-right.html">Oroweat Country Buttermilk Bread</a>
-                        </h6>
-                        <div class="product-rate-cover">
-                          <div class="product-rate d-inline-block">
-                            <div class="product-rating" style="width: 90%"></div>
-                          </div>
-                          <span class="font-small ml-5 text-muted"> (4.0)</span>
-                        </div>
-                        <div class="product-price">
-                          <span>$32.85</span>
-                          <span class="old-price">$33.8</span>
-                        </div>
-                      </div>
-                    </article>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-sm-5 mb-md-0 d-none d-xl-block wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">
-                  <h4 class="section-title style-1 mb-30  animated animated">Mieux notes</h4>
-                  <div class="product-list-small  animated animated">
-                    <article class="row align-items-center hover-up">
-                      <figure class="col-md-4 mb-0">
-                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-10.jpg" alt="" /></a>
-                      </figure>
-                      <div class="col-md-8 mb-0">
-                        <h6>
-                          <a href="shop-product-right.html">Foster Farms Takeout Crispy Classic Buffalo Wings</a>
-                        </h6>
-                        <div class="product-rate-cover">
-                          <div class="product-rate d-inline-block">
-                            <div class="product-rating" style="width: 90%"></div>
-                          </div>
-                          <span class="font-small ml-5 text-muted"> (4.0)</span>
-                        </div>
-                        <div class="product-price">
-                          <span>$32.85</span>
-                          <span class="old-price">$33.8</span>
-                        </div>
-                      </div>
-                    </article>
-                    <article class="row align-items-center hover-up">
-                      <figure class="col-md-4 mb-0">
-                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-11.jpg" alt="" /></a>
-                      </figure>
-                      <div class="col-md-8 mb-0">
-                        <h6>
-                          <a href="shop-product-right.html">Angie’s Boomchickapop Sweet & Salty Kettle Corn</a>
-                        </h6>
-                        <div class="product-rate-cover">
-                          <div class="product-rate d-inline-block">
-                            <div class="product-rating" style="width: 90%"></div>
-                          </div>
-                          <span class="font-small ml-5 text-muted"> (4.0)</span>
-                        </div>
-                        <div class="product-price">
-                          <span>$32.85</span>
-                          <span class="old-price">$33.8</span>
-                        </div>
-                      </div>
-                    </article>
-                    <article class="row align-items-center hover-up">
-                      <figure class="col-md-4 mb-0">
-                        <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-12.jpg" alt="" /></a>
-                      </figure>
-                      <div class="col-md-8 mb-0">
-                        <h6>
-                          <a href="shop-product-right.html">All Natural Italian-Style Chicken Meatballs</a>
-                        </h6>
-                        <div class="product-rate-cover">
-                          <div class="product-rate d-inline-block">
-                            <div class="product-rating" style="width: 90%"></div>
-                          </div>
-                          <span class="font-small ml-5 text-muted"> (4.0)</span>
-                        </div>
-                        <div class="product-price">
-                          <span>$32.85</span>
-                          <span class="old-price">$33.8</span>
-                        </div>
-                      </div>
-                    </article>
+                  <div class="product-card-bottom">
+                    <div class="product-price">
+                      <span
+                        >{{ item.reduced_price | number : "1.0-0" }} CFA</span
+                      >
+                      <!-- <span class="old-price">$33.8</span> -->
+                    </div>
+                    <div class="add-cart">
+                      <a
+                        class="add"
+                        [routerLink]="['/details-product', item.slug]"
+                      >
+                        <i class="fi-rs-shopping-cart mr-5"></i>
+                        Voir+
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </section>
+          </div>
+        </div>
+      </section>
+      <!--End Deals-->
 
-
-      </div>
+      <section class="section-padding mb-30">
+        <div class="container">
+          <div class="row">
+            <div
+              class="col-xl-3 col-lg-4 col-md-6 mb-sm-5 mb-md-0 wow animate__animated animate__fadeInUp"
+              data-wow-delay="0"
+            >
+              <h4 class="section-title style-1 mb-30 animated animated">
+                Mieux vendu
+              </h4>
+              <div class="product-list-small animated animated">
+                <article class="row align-items-center hover-up">
+                  <figure class="col-md-4 mb-0">
+                    <a href="shop-product-right.html"
+                      ><img src="assets/imgs/shop/thumbnail-1.jpg" alt=""
+                    /></a>
+                  </figure>
+                  <div class="col-md-8 mb-0">
+                    <h6>
+                      <a href="shop-product-right.html"
+                        >Nestle Original Coffee-Mate Coffee Creamer</a
+                      >
+                    </h6>
+                    <div class="product-rate-cover">
+                      <div class="product-rate d-inline-block">
+                        <div class="product-rating" style="width: 90%"></div>
+                      </div>
+                      <span class="font-small ml-5 text-muted"> (4.0)</span>
+                    </div>
+                    <div class="product-price">
+                      <span>$32.85</span>
+                      <span class="old-price">$33.8</span>
+                    </div>
+                  </div>
+                </article>
+                <article class="row align-items-center hover-up">
+                  <figure class="col-md-4 mb-0">
+                    <a href="shop-product-right.html"
+                      ><img src="assets/imgs/shop/thumbnail-2.jpg" alt=""
+                    /></a>
+                  </figure>
+                  <div class="col-md-8 mb-0">
+                    <h6>
+                      <a href="shop-product-right.html"
+                        >Nestle Original Coffee-Mate Coffee Creamer</a
+                      >
+                    </h6>
+                    <div class="product-rate-cover">
+                      <div class="product-rate d-inline-block">
+                        <div class="product-rating" style="width: 90%"></div>
+                      </div>
+                      <span class="font-small ml-5 text-muted"> (4.0)</span>
+                    </div>
+                    <div class="product-price">
+                      <span>$32.85</span>
+                      <span class="old-price">$33.8</span>
+                    </div>
+                  </div>
+                </article>
+                <article class="row align-items-center hover-up">
+                  <figure class="col-md-4 mb-0">
+                    <a href="shop-product-right.html"
+                      ><img src="assets/imgs/shop/thumbnail-3.jpg" alt=""
+                    /></a>
+                  </figure>
+                  <div class="col-md-8 mb-0">
+                    <h6>
+                      <a href="shop-product-right.html"
+                        >Nestle Original Coffee-Mate Coffee Creamer</a
+                      >
+                    </h6>
+                    <div class="product-rate-cover">
+                      <div class="product-rate d-inline-block">
+                        <div class="product-rating" style="width: 90%"></div>
+                      </div>
+                      <span class="font-small ml-5 text-muted"> (4.0)</span>
+                    </div>
+                    <div class="product-price">
+                      <span>$32.85</span>
+                      <span class="old-price">$33.8</span>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div
+              class="col-xl-3 col-lg-4 col-md-6 mb-md-0 wow animate__animated animate__fadeInUp"
+              data-wow-delay=".1s"
+            >
+              <h4 class="section-title style-1 mb-30 animated animated">
+                Nouvelle tendence
+              </h4>
+              <div class="product-list-small animated animated">
+                <article class="row align-items-center hover-up">
+                  <figure class="col-md-4 mb-0">
+                    <a href="shop-product-right.html"
+                      ><img src="assets/imgs/shop/thumbnail-4.jpg" alt=""
+                    /></a>
+                  </figure>
+                  <div class="col-md-8 mb-0">
+                    <h6>
+                      <a href="shop-product-right.html"
+                        >Organic Cage-Free Grade A Large Brown Eggs</a
+                      >
+                    </h6>
+                    <div class="product-rate-cover">
+                      <div class="product-rate d-inline-block">
+                        <div class="product-rating" style="width: 90%"></div>
+                      </div>
+                      <span class="font-small ml-5 text-muted"> (4.0)</span>
+                    </div>
+                    <div class="product-price">
+                      <span>$32.85</span>
+                      <span class="old-price">$33.8</span>
+                    </div>
+                  </div>
+                </article>
+                <article class="row align-items-center hover-up">
+                  <figure class="col-md-4 mb-0">
+                    <a href="shop-product-right.html"
+                      ><img src="assets/imgs/shop/thumbnail-5.jpg" alt=""
+                    /></a>
+                  </figure>
+                  <div class="col-md-8 mb-0">
+                    <h6>
+                      <a href="shop-product-right.html"
+                        >Seeds of Change Organic Quinoa, Brown, & Red Rice</a
+                      >
+                    </h6>
+                    <div class="product-rate-cover">
+                      <div class="product-rate d-inline-block">
+                        <div class="product-rating" style="width: 90%"></div>
+                      </div>
+                      <span class="font-small ml-5 text-muted"> (4.0)</span>
+                    </div>
+                    <div class="product-price">
+                      <span>$32.85</span>
+                      <span class="old-price">$33.8</span>
+                    </div>
+                  </div>
+                </article>
+                <article class="row align-items-center hover-up">
+                  <figure class="col-md-4 mb-0">
+                    <a href="shop-product-right.html"
+                      ><img src="assets/imgs/shop/thumbnail-6.jpg" alt=""
+                    /></a>
+                  </figure>
+                  <div class="col-md-8 mb-0">
+                    <h6>
+                      <a href="shop-product-right.html"
+                        >Naturally Flavored Cinnamon Vanilla Light Roast
+                        Coffee</a
+                      >
+                    </h6>
+                    <div class="product-rate-cover">
+                      <div class="product-rate d-inline-block">
+                        <div class="product-rating" style="width: 90%"></div>
+                      </div>
+                      <span class="font-small ml-5 text-muted"> (4.0)</span>
+                    </div>
+                    <div class="product-price">
+                      <span>$32.85</span>
+                      <span class="old-price">$33.8</span>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div
+              class="col-xl-3 col-lg-4 col-md-6 mb-sm-5 mb-md-0 d-none d-lg-block wow animate__animated animate__fadeInUp"
+              data-wow-delay=".2s"
+            >
+              <h4 class="section-title style-1 mb-30 animated animated">
+                Recement ajoutes
+              </h4>
+              <div class="product-list-small animated animated">
+                <article class="row align-items-center hover-up">
+                  <figure class="col-md-4 mb-0">
+                    <a href="shop-product-right.html"
+                      ><img src="assets/imgs/shop/thumbnail-7.jpg" alt=""
+                    /></a>
+                  </figure>
+                  <div class="col-md-8 mb-0">
+                    <h6>
+                      <a href="shop-product-right.html"
+                        >Pepperidge Farm Farmhouse Hearty White Bread</a
+                      >
+                    </h6>
+                    <div class="product-rate-cover">
+                      <div class="product-rate d-inline-block">
+                        <div class="product-rating" style="width: 90%"></div>
+                      </div>
+                      <span class="font-small ml-5 text-muted"> (4.0)</span>
+                    </div>
+                    <div class="product-price">
+                      <span>$32.85</span>
+                      <span class="old-price">$33.8</span>
+                    </div>
+                  </div>
+                </article>
+                <article class="row align-items-center hover-up">
+                  <figure class="col-md-4 mb-0">
+                    <a href="shop-product-right.html"
+                      ><img src="assets/imgs/shop/thumbnail-8.jpg" alt=""
+                    /></a>
+                  </figure>
+                  <div class="col-md-8 mb-0">
+                    <h6>
+                      <a href="shop-product-right.html"
+                        >Organic Frozen Triple Berry Blend</a
+                      >
+                    </h6>
+                    <div class="product-rate-cover">
+                      <div class="product-rate d-inline-block">
+                        <div class="product-rating" style="width: 90%"></div>
+                      </div>
+                      <span class="font-small ml-5 text-muted"> (4.0)</span>
+                    </div>
+                    <div class="product-price">
+                      <span>$32.85</span>
+                      <span class="old-price">$33.8</span>
+                    </div>
+                  </div>
+                </article>
+                <article class="row align-items-center hover-up">
+                  <figure class="col-md-4 mb-0">
+                    <a href="shop-product-right.html"
+                      ><img src="assets/imgs/shop/thumbnail-9.jpg" alt=""
+                    /></a>
+                  </figure>
+                  <div class="col-md-8 mb-0">
+                    <h6>
+                      <a href="shop-product-right.html"
+                        >Oroweat Country Buttermilk Bread</a
+                      >
+                    </h6>
+                    <div class="product-rate-cover">
+                      <div class="product-rate d-inline-block">
+                        <div class="product-rating" style="width: 90%"></div>
+                      </div>
+                      <span class="font-small ml-5 text-muted"> (4.0)</span>
+                    </div>
+                    <div class="product-price">
+                      <span>$32.85</span>
+                      <span class="old-price">$33.8</span>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div
+              class="col-xl-3 col-lg-4 col-md-6 mb-sm-5 mb-md-0 d-none d-xl-block wow animate__animated animate__fadeInUp"
+              data-wow-delay=".3s"
+            >
+              <h4 class="section-title style-1 mb-30 animated animated">
+                Mieux notes
+              </h4>
+              <div class="product-list-small animated animated">
+                <article class="row align-items-center hover-up">
+                  <figure class="col-md-4 mb-0">
+                    <a href="shop-product-right.html"
+                      ><img src="assets/imgs/shop/thumbnail-10.jpg" alt=""
+                    /></a>
+                  </figure>
+                  <div class="col-md-8 mb-0">
+                    <h6>
+                      <a href="shop-product-right.html"
+                        >Foster Farms Takeout Crispy Classic Buffalo Wings</a
+                      >
+                    </h6>
+                    <div class="product-rate-cover">
+                      <div class="product-rate d-inline-block">
+                        <div class="product-rating" style="width: 90%"></div>
+                      </div>
+                      <span class="font-small ml-5 text-muted"> (4.0)</span>
+                    </div>
+                    <div class="product-price">
+                      <span>$32.85</span>
+                      <span class="old-price">$33.8</span>
+                    </div>
+                  </div>
+                </article>
+                <article class="row align-items-center hover-up">
+                  <figure class="col-md-4 mb-0">
+                    <a href="shop-product-right.html"
+                      ><img src="assets/imgs/shop/thumbnail-11.jpg" alt=""
+                    /></a>
+                  </figure>
+                  <div class="col-md-8 mb-0">
+                    <h6>
+                      <a href="shop-product-right.html"
+                        >Angie’s Boomchickapop Sweet & Salty Kettle Corn</a
+                      >
+                    </h6>
+                    <div class="product-rate-cover">
+                      <div class="product-rate d-inline-block">
+                        <div class="product-rating" style="width: 90%"></div>
+                      </div>
+                      <span class="font-small ml-5 text-muted"> (4.0)</span>
+                    </div>
+                    <div class="product-price">
+                      <span>$32.85</span>
+                      <span class="old-price">$33.8</span>
+                    </div>
+                  </div>
+                </article>
+                <article class="row align-items-center hover-up">
+                  <figure class="col-md-4 mb-0">
+                    <a href="shop-product-right.html"
+                      ><img src="assets/imgs/shop/thumbnail-12.jpg" alt=""
+                    /></a>
+                  </figure>
+                  <div class="col-md-8 mb-0">
+                    <h6>
+                      <a href="shop-product-right.html"
+                        >All Natural Italian-Style Chicken Meatballs</a
+                      >
+                    </h6>
+                    <div class="product-rate-cover">
+                      <div class="product-rate d-inline-block">
+                        <div class="product-rating" style="width: 90%"></div>
+                      </div>
+                      <span class="font-small ml-5 text-muted"> (4.0)</span>
+                    </div>
+                    <div class="product-price">
+                      <span>$32.85</span>
+                      <span class="old-price">$33.8</span>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   </div>
 </div>
-

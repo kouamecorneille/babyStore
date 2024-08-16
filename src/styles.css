@@ -3,6 +3,8 @@
 
 @import 'ngx-toastr/toastr';
 
+/* styles.css or styles.scss */
+@import 'swiper/swiper-bundle.css';
 
 .slick-slider {
   width: 100%;

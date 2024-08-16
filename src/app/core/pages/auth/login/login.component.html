@@ -132,6 +132,12 @@
                         minlength="6"
                         [ngClass]="{'border-danger': LoginForm?.controls?.['password']?.invalid && (LoginForm?.controls?.['password']?.dirty || LoginForm?.controls?.['password']?.touched) }"
                       />
+                      <small class="text-danger" *ngIf="LoginForm?.get('password')?.hasError('required') && LoginForm?.get('password')?.touched">
+                        Le mot de passe est un champ requis.
+                     </small>
+                     <small class="text-danger" *ngIf="LoginForm?.get('password')?.hasError('minlength')">
+                        Le mot de passe doit contenir au moins 6 caracteres.
+                    </small>
                     </div>
                   </div>
                   <div class="row g-0 mb-3">
@@ -149,6 +155,7 @@
                         class="text-decoration-underline"
                         > Mot de passe oublie ?</a
                       >
+
                     </div>
                   </div>
                   <div class="d-grid">
