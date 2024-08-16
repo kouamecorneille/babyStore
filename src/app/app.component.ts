@@ -60,33 +60,33 @@ export class AppComponent {
     });
 
     // Vérifier si les mises à jour du service worker sont activées
-    if (this.swUpdate.isEnabled) {
-      this.swUpdate.versionUpdates.subscribe(() => {
-        const updateApplied = localStorage.getItem('updateApplied');
+    // if (this.swUpdate.isEnabled) {
+    //   this.swUpdate.versionUpdates.subscribe(() => {
+    //     const updateApplied = localStorage.getItem('updateApplied');
 
-        if (!updateApplied) {
-          if (confirm("Nouvelle version disponible. Charger la nouvelle version ?")) {
-            // Marquez que la mise à jour a été appliquée
-            localStorage.setItem('updateApplied', 'true');
-            // Activer immédiatement le nouveau service worker
-            this.swUpdate.activateUpdate().then(() => {
-              // Nettoyer les caches pour ne conserver que la nouvelle version
-              if ('caches' in window) {
-                caches.keys().then((keyList) => {
-                  return Promise.all(keyList.map((key) => caches.delete(key)));
-                }).then(() => {
-                  // Recharger la page pour appliquer la nouvelle version
-                  window.location.reload();
-                });
-              } else {
-                // Recharger la page si l'API caches n'est pas disponible
-                  location.reload();
-              }
-            });
-          }
-        }
-      });
-    }
+    //     if (!updateApplied) {
+    //       if (confirm("Nouvelle version disponible. Charger la nouvelle version ?")) {
+    //         // Marquez que la mise à jour a été appliquée
+    //         localStorage.setItem('updateApplied', 'true');
+    //         // Activer immédiatement le nouveau service worker
+    //         this.swUpdate.activateUpdate().then(() => {
+    //           // Nettoyer les caches pour ne conserver que la nouvelle version
+    //           if ('caches' in window) {
+    //             caches.keys().then((keyList) => {
+    //               return Promise.all(keyList.map((key) => caches.delete(key)));
+    //             }).then(() => {
+    //               // Recharger la page pour appliquer la nouvelle version
+    //               window.location.reload();
+    //             });
+    //           } else {
+    //             // Recharger la page si l'API caches n'est pas disponible
+    //               location.reload();
+    //           }
+    //         });
+    //       }
+    //     }
+    //   });
+    // }
   }
 
   prepareRoute(outlet: RouterOutlet) {
