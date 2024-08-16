@@ -3,6 +3,7 @@ import { Product } from '../../interfaces/Iproduct';
 import { BehaviorSubject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { CartItem } from '../../interfaces/IcartItem';
+import { UserInfo } from '../../pages/content/shop-checkout/shop-checkout.component';
 
 
 
@@ -14,12 +15,23 @@ interface WhishListItem {
   providedIn: 'root'
 })
 export class CartService {
-  private cartItems: BehaviorSubject<CartItem[]> = new BehaviorSubject<CartItem[]>([]);
-  private whishListItems: BehaviorSubject<WhishListItem[]> = new BehaviorSubject<WhishListItem[]>([]);
+
+  defaultUser : UserInfo = {
+    full_name:'',
+    delivery_address:'',
+    commune:''
+  }
+
+  public cartItems: BehaviorSubject<CartItem[]> = new BehaviorSubject<CartItem[]>([]);
+  public whishListItems: BehaviorSubject<WhishListItem[]> = new BehaviorSubject<WhishListItem[]>([]);
   cartItemsSignal = signal<CartItem[]>([]);
+  cartItemsSignalSummary = signal<CartItem[]>([]);
   totalItems = new BehaviorSubject<number>(0);
   totalItemsWhishList = new BehaviorSubject<number>(0);
   totalCart = new BehaviorSubject<number>(0);
+  userInfo = signal<UserInfo>(this.defaultUser)
+
+
 
   constructor(private toastr: ToastrService,) {
 
@@ -27,10 +39,10 @@ export class CartService {
       // Charger le panier depuis le localStorage lors de l'initialisation du service
       const storedCartItems = localStorage.getItem('cartItems');
       if (storedCartItems) {
-        this.cartItems.next(JSON.parse(storedCartItems));
-        this.cartItemsSignal.set(JSON.parse(storedCartItems))
-        this.getTotalItems(); // Appel initial pour mettre à jour la valeur
-        this.getTotal()
+          this.cartItems.next(JSON.parse(storedCartItems));
+          this.cartItemsSignal.set(JSON.parse(storedCartItems))
+          this.getTotalItems(); // Appel initial pour mettre à jour la valeur
+          this.getTotal()
       } else {
         this.totalItems.next(0);
       }
@@ -49,10 +61,21 @@ export class CartService {
 
   }
 
+
+  ressetCart(){
+
+    this.totalCart.next(0)
+    this.totalItems.next(0)
+    this.cartItemsSignal.set([])
+
+    localStorage.removeItem('cartItems')
+
+  }
+
   getTotalItems(): void {
     let totalItems = 0;
 
-    this.cartItems.value.forEach(item => {
+    this.cartItemsSignal().forEach(item => {
       totalItems += item.quantity;
     });
 
@@ -67,23 +90,28 @@ export class CartService {
 }
 
 
+
   addToCart(product: Product, quantity: number = 1): void {
+
     const productId = product.id;
-    const existingItems = this.cartItems.value || [] ;
+    const existingItems = this.cartItemsSignal() || [] ;
     const existingItem = existingItems.find(item => item.product.id === productId);
 
     if (existingItem) {
+
       existingItem.quantity += quantity;
-      this.cartItems.next(existingItems); // Émettre la nouvelle valeur du panier
+      // this.cartItems.next(existingItems); // Émettre la nouvelle valeur du panier
       this.cartItemsSignal.set(existingItems)
       this.toastr.success('Le produit a été ajouté avec succès !', 'Succès !', { timeOut: 3000 });
       this.saveCartToLocalStorage();
       this.getTotalItems();
       this.getTotal()
+
     } else {
+
       const newItem: CartItem = { quantity, product };
       const updatedItems = [...existingItems, newItem]; // Créer un nouveau tableau avec l'élément ajouté
-      this.cartItems.next(updatedItems); // Émettre la nouvelle valeur du panier
+      // this.cartItems.next(updatedItems); // Émettre la nouvelle valeur du panier
       this.cartItemsSignal.set(updatedItems)
       this.toastr.success('Le produit a été ajouté avec succès !', 'Succès !', { timeOut: 3000 });
       this.saveCartToLocalStorage();
@@ -116,12 +144,20 @@ export class CartService {
 
 
   removeFromCart(productId: string): void {
-    const updatedItems = this.cartItems.value.filter(item => item.product.id !== productId);
-    this.cartItems.next(updatedItems); // Émettre la nouvelle valeur du panier
+    // Filtrer les éléments du panier pour exclure celui avec l'ID spécifié
+    const updatedItems = this.cartItemsSignal().filter(item => item.product.id !== productId);
+
+    // Mettre à jour le panier avec les éléments filtrés
+    this.cartItemsSignal.set(updatedItems)
+
+    // Sauvegarder les modifications dans le localStorage
     this.saveCartToLocalStorage();
+    this.toastr.success('Le produit a été supprimé de votre pannier !', 'Succès !', { timeOut: 3000 });
+    // Mettre à jour le nombre total d'articles et le total du panier
     this.getTotalItems();
-    this.getTotal()
+    this.getTotal();
   }
+
 
   removeFromWhishList(productId: string): void {
     const updatedItems = this.whishListItems.value.filter(item => item.product.id !== productId);
@@ -133,52 +169,31 @@ export class CartService {
 
 
   updateCartItemQuantity(productId: string, quantity: number): void {
-    const updatedItems = this.cartItems.value.map(item => {
+    const updatedItems =  this.cartItemsSignal().map(item => {
       if (item.product.id === productId) {
         item.quantity = quantity;
       }
       return item;
     });
 
-    this.cartItems.next(updatedItems); // Émettre la nouvelle valeur du panier
+    this.cartItemsSignal.set(updatedItems); // Émettre la nouvelle valeur du panier
     this.saveCartToLocalStorage();
     this.getTotalItems();
     this.getTotal()
   }
 
-  // updateWhishListItemQuantity(productId: string, quantity: number): void {
-  //   const updatedItems = this.whishListItems.value.map(item => {
-  //     if (item.product.id === productId) {
-  //       item.quantity = quantity;
-  //     }
-  //     return item;
-  //   });
 
-  //   this.whishListItems.next(updatedItems); // Émettre la nouvelle valeur du panier
-  //   this.saveWhishListToLocalStorage();
-  //   this.getTotalItemsWhishList();
-  // }
 
 
   getCartItems() {
     return this.cartItemsSignal();
   }
 
-  // getTotal(): number {
-  //   let total = 0;
-
-  //   this.cartItems.value.forEach(item => {
-  //     const itemPrice = parseFloat(item.product.reduced_price);
-  //     total += itemPrice * item.quantity;
-  //   });
-
-  //   return total;
-  // }
 
   getTotal() {
     let total = 0;
 
-    this.cartItems.value.forEach(item => {
+    this.cartItemsSignal().forEach(item => {
       const itemPrice = parseFloat(item.product.reduced_price);
       if (!isNaN(itemPrice)) { // Check for valid number
         total += itemPrice * item.quantity;
@@ -196,7 +211,7 @@ export class CartService {
 
 
   clearCart(): void {
-    this.cartItems.next([]);
+    this.cartItemsSignal.set([]);
     this.saveCartToLocalStorage();
     this.getTotalItems();
     this.getTotal()
@@ -204,7 +219,7 @@ export class CartService {
 
   private saveCartToLocalStorage(): void {
     if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('cartItems', JSON.stringify(this.cartItems.value));
+      localStorage.setItem('cartItems', JSON.stringify(this.cartItemsSignal()));
     }
   }
 

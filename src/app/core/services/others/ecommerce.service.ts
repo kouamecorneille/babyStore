@@ -69,9 +69,10 @@ export class EcommerceService {
       (response:Store[]) => {
 
         if(response){
-         setTimeout(()=>{
+
+         setTimeout(() => {
           this.listOfStores.next(response);
-         }, 1000)
+         }, 1000);
 
         }
       },
@@ -99,6 +100,12 @@ export class EcommerceService {
     )
 
   }
+
+    searchStore(value:string){
+
+      return this.apiService.getItems(`/shops/search/?q=${value}`)
+
+    }
 
   getVendorProductsCategory(category_id:string,shop_id:string) {
 

@@ -43,4 +43,9 @@ export class CartDropdownComponent {
 
   }
 
+  deleteItem(id:string){
+
+    this.cartService.removeFromCart(id)
+  }
+
 }

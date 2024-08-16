@@ -1,17 +1,14 @@
 <app-breadcrumb [firstTitle]="'Accueil'" [secondTitle]="'Shop'" [firdTitle]="'Commande'"></app-breadcrumb>
 
-<div class="container mb-80 mt-50">
+<div class="container mb-80 mt-20">
     <div class="row">
-        <div class="col-lg-8 mb-40">
+        <div class="col-lg-8 mb-10">
             <h1 class="heading-2 mb-10">Commande</h1>
-            <!-- <div class="d-flex justify-content-between">
-                <h6 class="text-body">There are <span class="text-brand">3</span> products in your cart</h6>
-            </div> -->
         </div>
     </div>
     <div class="row">
         <div class="col-lg-7">
-            <div class="row mb-50">
+            <div class="row mb-30">
                 <div class="col-lg-6 mb-sm-15 mb-lg-0 mb-md-3">
                     <div class="toggle_info">
                         <span><i class="fi-rs-user mr-10"></i><span class="text-muted font-lg">Avez vous un compte ?</span>
@@ -53,7 +50,7 @@
                 </div>
             </div>
             <div class="row">
-                <h4 class="mb-30">Adresse de livraison</h4>
+                <h4 class="mb-20">Adresse de livraison</h4>
                 <form method="post">
                     <div class="row">
                         <div class="form-group col-lg-12">
@@ -68,9 +65,12 @@
                             <input type="text" [(ngModel)]="commune" name="commune"  placeholder="Numéro de telephone *">
                         </div>
                     </div>
-                    <div class="form-group mb-30">
+                    <div class="form-group mb-10">
                         <textarea rows="3" [(ngModel)]="note" [ngModelOptions]="{standalone: true}" placeholder="Note ou  information supplementaire "></textarea>
                     </div>
+                    <a [routerLink]="'/hot-deals'" class="btn btn-primary mt-4 m-3"><i class="fi-rs-sign-in mr-15">
+                    </i>Continuer mes achats</a>
+
                 </form>
             </div>
         </div>
@@ -80,7 +80,7 @@
                     <h4>Vos articles</h4>
                     <h6 class="text-muted">Sous-total</h6>
                 </div>
-                <div class="divider-2 mb-20"></div>
+                <div class="divider-2 mb-10"></div>
                 <div class="table-responsive order_table checkout">
                     <table class="table no-border">
                         <tbody>
@@ -122,9 +122,9 @@
                           </tr>
                            }
 
-                           <tr class="mt-10">
+                           <tr class="mt-20">
                             <td class="cart_total_label">
-                                <h4 class="text-muted">Total :</h4>
+                                <h4 class="text-muted">Total : </h4>
                             </td>
                             <td class="cart_total_amount">
                                 <h4 class="text-brand text-end">{{totalCheckout | number:'1.0-0'}} CFA</h4>
@@ -135,7 +135,7 @@
                 </div>
             </div>
             <div class="payment ml-30">
-                <h4 class="mb-30">Paiement</h4>
+                <h4 class="mb-20">Paiement</h4>
                 <div class="payment_option">
                     <div class="custome-radio">
                         <input class="form-check-input" required="" type="radio" name="payment_option" id="exampleRadios3" checked="">
@@ -148,7 +148,7 @@
                     <img class="mr-15" src="assets/imgs/theme/icons/payment-master.svg" alt="">
                     <img src="assets/imgs/theme/icons/payment-zapper.svg" alt="">
                 </div> -->
-                <button  class="btn btn-fill-out btn-block mt-30"
+                <button  class="btn btn-primary mt-10"
                 (click)="onSubmit()"
                     [disabled]="!full_name || !delivery_address || !commune || loading"
                   >

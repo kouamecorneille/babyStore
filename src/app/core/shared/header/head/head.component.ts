@@ -1,4 +1,4 @@
-import { Component, Inject, PLATFORM_ID, inject } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, inject, signal } from '@angular/core';
 import { MobileMenuComponent } from '../mobile-menu/mobile-menu.component';
 import { HeaderBottomComponent } from '../header-bottom/header-bottom.component';
 import { HeaderActionRightComponent } from '../header-action-right/header-action-right.component';
@@ -8,6 +8,8 @@ import  $ from 'jquery';
 import { CartService } from '../../../services/others/cart.service';
 import { Product } from '../../../interfaces/Iproduct';
 import { EcommerceService } from '../../../services/others/ecommerce.service';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
+
 interface CartItem {
   quantity: number;
   product: Product;
@@ -17,7 +19,7 @@ interface CartItem {
 @Component({
   selector: 'app-head',
   standalone: true,
-  imports: [RouterModule,MobileMenuComponent,HeaderBottomComponent,HeaderActionRightComponent, CommonModule],
+  imports: [RouterModule,MobileMenuComponent,LoadingBarRouterModule,HeaderBottomComponent,HeaderActionRightComponent, CommonModule],
   templateUrl: './head.component.html',
   styleUrl: './head.component.css',
   // host:{ngSkipHydration:'true'}
@@ -28,18 +30,17 @@ export class HeadComponent {
   totalItems:number = 0;
   totalCheckout:number = 0;
   totalItemsWhishList:number = 0;
-  cartItems:CartItem[] = [];
-  ecomService=inject(EcommerceService)
+  cartItemsSignal = signal<CartItem[]>([]);
+  ecomService = inject(EcommerceService)
 
 
   baseUrl:string='http://djassa2baby.pythonanywhere.com/'
 
-  constructor(@Inject(PLATFORM_ID) private platformId: object, private router:Router,private cartService: CartService) {
+  constructor(@Inject(PLATFORM_ID) private platformId: object, private router:Router,public cartService: CartService) {
     // Récupérer l'année actuelle
     this.currentYear = new Date().getFullYear();
     // this.totalItems = this.cartService.totalItems()
   }
-
 
 
 
@@ -49,7 +50,8 @@ export class HeadComponent {
       this.totalItems = data  //recuperer le nombres d'articles dans  le panier
     })
 
-    this.cartItems = this.cartService.getCartItems().slice(0,3)
+    this.cartItemsSignal.set(this.cartService.getCartItems().slice(0,3))
+    //this.cartItems = this.cartService.getCartItems().slice(0,3)
 
      this.cartService.totalCart.subscribe((data)=>{
       // console.log(data)
@@ -75,6 +77,14 @@ export class HeadComponent {
 
     }
   }
+
+
+  deleteItem(id:string){
+
+    this.cartService.removeFromCart(id)
+
+  }
+
 
   Logout(){
 
@@ -107,8 +117,8 @@ export class HeadComponent {
       ) {
         e.preventDefault();
         if ($this.siblings("ul:visible").length) {
-          $this.parent("li").removeClass("active");
-          $this.siblings("ul").slideUp();
+            $this.parent("li").removeClass("active");
+            $this.siblings("ul").slideUp();
         } else {
           $this.parent("li").addClass("active");
           $this.closest("li").siblings("li").removeClass("active").find("li").removeClass("active");

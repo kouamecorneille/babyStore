@@ -123,6 +123,7 @@
                           type="submit"
                           class="button button-add-to-cart"
                           (click)="addTocart()"
+                          [disabled]="!productDetails().instock"
                         >
                           <i class="fi-rs-shopping-cart"></i>
                           J'ACHETE

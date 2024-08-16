@@ -52,13 +52,15 @@ export class CategorieWithFilterComponent {
   private displayedStoreCount = 4;
   ecommerceService = inject(EcommerceService);
   baseUrl:string='http://djassa2baby.pythonanywhere.com/'
+  allProducts!:Product[];
+  offersProducts!:Product[];
 
   minValue: number = 0;
-  maxValue: number = 500000;
-  sliderValue: number = 500;
-  highValue: number = 500000;
+  maxValue: number = 100000;
+  sliderValue: number = 1000;
+  highValue: number = 100000;
   sliderOptions: Options = {
-    floor: 500,
+    floor: 100,
     ceil: 500000,
     step: 1000,
     translate: (value: number): string => {
@@ -66,6 +68,10 @@ export class CategorieWithFilterComponent {
     }
   };
 
+  parseIntValue(value:string):number{
+
+    return parseInt(value);
+  }
 
   constructor(private apiService:ApiService,
     private elementRef: ElementRef,
@@ -140,7 +146,12 @@ export class CategorieWithFilterComponent {
     this.ecommerceService.listOfProduct.subscribe((data) => {
 
       this.listOfProducts.next(data.slice(0,10))
+      this.allProducts = data.slice(10, 15)
+      this.offersProducts = data.slice(15, 20)
+
     })
+
+
 
     this.ecommerceService.filterProductsByDate(this.ecommerceService.listOfProduct.value)
   }

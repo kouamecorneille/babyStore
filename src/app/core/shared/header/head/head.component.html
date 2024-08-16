@@ -1,4 +1,4 @@
-<div class="loader3" *ngIf="ecomService.isRefreshing()">
+<!-- <div class="loader3" *ngIf="ecomService.isRefreshing()">
     <div class="bar1"></div>
     <div class="bar2"></div>
     <div class="bar3"></div>
@@ -11,9 +11,9 @@
     <div class="bar10"></div>
     <div class="bar11"></div>
     <div class="bar12"></div>
-</div>
-
-<header class="header-area header-style-1 header-height-2">
+</div> -->
+<ngx-loading-bar></ngx-loading-bar>
+<header class="header-area header-style-1 header-height-1">
     <div class="mobile-promotion">
         <span>Profiter, <strong>de nos</strong> articles <strong> a moindre</strong> côut</span>
     </div>
@@ -92,23 +92,25 @@
                                 <a routerLink="/cart"><span class="lable">Pannier</span></a>
                                 <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                     <ul>
-                                        <li *ngFor="let item of cartItems">
+                                        <li *ngFor="let item of cartService.cartItemsSignal().slice(0,3)">
                                             <div class="shopping-cart-img">
-                                                <a><img alt="Nest" [src]="item.product.image1" /></a>
+                                                <a><img alt="Nest" [src]="item.product.image1"/></a>
                                             </div>
                                             <div class="shopping-cart-title">
-                                                <h4><a href="shop-product-right.html"> {{item.product.name.substring(0,10)}} ... </a></h4>
+                                                <h4><a [routerLink]="['/details-product', item.product.id]">
+                                                    {{item.product.name.substring(0,10)}} ...
+                                                 </a></h4>
                                                 <h4><span>{{item.quantity}} × </span>{{ (item.product.reduced_price && item.product.reduced_price.trim() !== '' ? item.product.reduced_price : item.product.price) | number: '1.0-0' }}</h4>
                                             </div>
-                                            <div class="shopping-cart-delete">
-                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
+                                            <div class="shopping-cart-delete" (click)="deleteItem(item.product.id)">
+                                                <a href="javascript:void(0);"><i class="fi-rs-cross-small"></i></a>
                                             </div>
                                         </li>
                                     </ul>
                                     <div class="shopping-cart-footer">
                                         <div class="shopping-cart-total">
                                           <h4>Total <span>{{totalCheckout | number:'1.0-0'}} CFA</span></h4>
-                                                                                </div>
+                                        </div>
                                         <div class="shopping-cart-button">
                                             <a routerLink="/cart" class="outline">Voir plus</a>
                                             <a routerLink="/shop-checkout">Commander</a>

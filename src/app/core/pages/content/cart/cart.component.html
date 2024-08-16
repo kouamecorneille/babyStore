@@ -7,7 +7,7 @@
             <table class="table table-wishlist">
                 <thead>
                     <tr class="main-heading">
-                        <th scope="col" colspan="2" class=" start pl-30">Produit</th>
+                        <th scope="col" colspan="2" class="start pl-30">Produit</th>
                         <th scope="col">Prix</th>
                         <th scope="col">Qté</th>
                         <th scope="col">Total</th>
@@ -15,7 +15,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if(cartItems.length > 0){
+                    @if(cartService.cartItemsSignal().length >0){
 
                       <tr class="pt-10 border-bottom" *ngFor="let item of cartItems">
                         <td class="image product-thumbnail pt-30"><img [src]="item.product.image1" alt="#"></td>
@@ -60,7 +60,7 @@
                           </h4>
                         </td>
                         <td class="action text-center" data-title="Supprimer">
-                          <a href="javascript:void(0);" role="button" class="text-body"><i class="fi-rs-trash"></i></a>
+                          <a href="javascript:void(0);" role="button" class="text-body" (click)="removeItem(item.product.id)"><i class="fi-rs-trash fs-5 text-danger"></i></a>
                         </td>
                     </tr>
                     }@else{
@@ -76,7 +76,7 @@
         <!-- <div class="divider-2 mb-20"></div> -->
 
         <div class="cart-action d-flex justify-content-between">
-          <a class="btn " [routerLink]="['/hot-deals']"><i class="fi-rs-arrow-left mr-10"></i>Continuer mes achats</a>
+          <a class="btn" [routerLink]="['/hot-deals']"><i class="fi-rs-arrow-left mr-10"></i>Continuer mes achats</a>
       </div>
     </div>
     <div class="col-lg-4">

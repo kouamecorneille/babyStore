@@ -28,7 +28,7 @@
                       <h6 class="text-truncate">
                         {{ item.name.length > 20 ? (item.name.substring(0, 20) + '...') : item.name }}
                       </h6>
-                      <p><span>{{ item.reduced_price ? item.reduced_price : item.price | number:'1.0-0' }}</span> FCFA</p>
+                      <p><span>{{ parseIntValue(item.reduced_price ? item.reduced_price : item.price ) | number:'1.0-0' }}</span> FCFA</p>
                     </div>
                   </div>
                 </li>
@@ -263,7 +263,8 @@
               </div>
             }
 
-            <app-articles-propulaires [title]="'Ventes Flash'" [categorys]="selectedCategory"></app-articles-propulaires>
+            <app-articles-propulaires [title]="'Ventes Flash'" [produts]="allProducts"></app-articles-propulaires>
+            <app-articles-propulaires [title]="'Les plus vendus'" [produts]="offersProducts"></app-articles-propulaires>
 
         </div>
 

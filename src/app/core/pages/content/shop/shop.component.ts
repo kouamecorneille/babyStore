@@ -29,19 +29,19 @@ export class ShopComponent {
   displayedCategoriesCount=4
 
   minValue: number = 0;
-  maxValue: number = 500000;
-  sliderValue: number = 500;
-  highValue: number = 500000;
+  maxValue: number = 100000;
+  sliderValue: number = 1000;
+  highValue: number = 100000;
   sliderOptions: Options = {
-    floor: 500,
-    ceil: 500000,
-    step: 500,
+    floor: 1000,
+    ceil: 100000,
+    step: 1000,
     translate: (value: number): string => {
       return  value + ' CFA' ;
     }
   };
 
-
+  loading: boolean=false;
 
   constructor(private apiService:ApiService, private cartService: CartService, private ecomService:EcommerceService) {
 
@@ -71,13 +71,14 @@ export class ShopComponent {
   searchItem(){
 
     if(this.searchString && this.searchString.length >=4){
-
+      this.loading = true
       this.ecomService.searchProduct(this.searchString).subscribe(
         (response:Product[])=>{
 
           if(response){
 
             this.searchProducts.next(response);
+            this.loading = false
           }
         }
       )
