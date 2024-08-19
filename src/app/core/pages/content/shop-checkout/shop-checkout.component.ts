@@ -30,6 +30,7 @@ export class ShopCheckoutComponent {
   note!:string
   loading:boolean = false
   orderItems:OrderItem[] = [];
+  amountCoupon:number = 0;
 
   User : UserInfo = {
     full_name:'',
@@ -96,6 +97,10 @@ export class ShopCheckoutComponent {
       this.orderItems.push(dt)
 
     })
+
+  }
+
+  getCouponAmount(){
 
   }
 
