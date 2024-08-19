@@ -16,7 +16,7 @@ import { CartService } from '../../../services/others/cart.service';
 export class DetailsVendorComponent {
   vendorDetails!: Store;
   slugVendor: string = '';
-  listOfLoader = Array.from({ length: 16 }, (_, i) => i); // Simplified loader array initialization
+  listOfLoader = Array.from({ length: 15 }, (_, i) => i); // Simplified loader array initialization
   listOfData = new BehaviorSubject<ICategory[]>([]);
   storeName: string = '';
   ecommerceService = inject(EcommerceService);
@@ -25,7 +25,9 @@ export class DetailsVendorComponent {
   isSelectedCategory:boolean=false
   searchString:string ='';
   searchProducts = new BehaviorSubject<Product[]>([])
-
+  listOfVendorProducts = new BehaviorSubject<Product[]>([])
+  listOfVentesFlash = new BehaviorSubject<Product[]>([])
+  loaderProduct :boolean = false
 
   constructor(
     private apiService: ApiService,
@@ -70,16 +72,52 @@ export class DetailsVendorComponent {
   }
 
 
+  getVendorProducts(slug:string) {
+    this.loaderProduct = true;
+    this.apiService.getItems(`/shops/${slug}/products`).subscribe(
+      (response:Product[]) => {
+
+        this.listOfVendorProducts.next(response.reverse());
+        this.listOfVentesFlash.next(response.reverse().slice(8, 15));
+        this.loaderProduct = false;
+      },
+      (error:any) => {
+        console.log(error.message)
+      }
+    )
+
+  }
+
+
+  getVendorProductsCategory(category_id:string,shop_id:string) {
+    this.loaderProduct = true;
+    this.apiService.getItems(`/products/shop/${shop_id}/category/${category_id}/`).subscribe(
+      (response:Product[]) => {
+
+        this.listOfVendorProducts.next(response.reverse());
+        this.loaderProduct = false;
+      },
+      (error:any) => {
+        console.log(error.message)
+      }
+    )
+
+  }
 
 
   chooseCategory(item:ICategory){
 
     this.isSelectedCategory = true
     this.selectedCategory = item.id
-    this.ecommerceService.getVendorProductsCategory(this.selectedCategory, this.vendorDetails.id);
-    this.ecommerceService.listOfProductByCategory.subscribe(
-      (products)=>{
-        this.ecommerceService.listOfVendorProducts.next(products)
+    this.getVendorProductsCategory(this.selectedCategory, this.vendorDetails.id)
+  }
+
+  getShopDetails(slug:string) {
+
+    this.apiService.getItem("shops", slug).subscribe(
+      (response:Store) => {
+
+        this.vendorDetails = response;
       }
     )
 
@@ -90,31 +128,25 @@ export class DetailsVendorComponent {
     const nameParam = this.activatedRoute.snapshot.paramMap.get('name');
     if (nameParam) {
       this.slugVendor = nameParam;
-      this.ecommerceService.getShopDetails(this.slugVendor);
-      this.ecommerceService.storeDetails.subscribe(
-        (data) => {
-          this.vendorDetails = data;
-          // console.log("vendorDetails :", data)
-          this.getVendorProducts();
-        }
-      );
+      this.getShopDetails(this.slugVendor)
+      this.getVendorProducts(this.slugVendor);
+
     } else {
       console.error('No "name" parameter found in the route.');
     }
   }
 
-  getVendorProducts(): void {
-    if (this.vendorDetails) {
-      this.ecommerceService.listOfVendorProducts.next([]);
-      this.ecommerceService.getVendorProducts(this.vendorDetails.slug);
-      this.ecommerceService.filterProductsByDate(this.ecommerceService.listOfProduct.value);
-    }
-  }
+  // getVendorProducts(): void {
+  //   if (this.vendorDetails) {
+  //     this.ecommerceService.getVendorProducts(this.vendorDetails.slug);
+  //     this.ecommerceService.filterProductsByDate(this.ecommerceService.listOfProduct.value);
+  //   }
+  // }
 
   getCategory(): void {
     this.apiService.getItems('categories').subscribe(
       (response: ICategory[]) => {
-        this.listOfData.next(response.slice(0,6));
+        this.listOfData.next(response.slice(0,10));
       },
       (error) => console.error(error)
     );
@@ -163,6 +195,13 @@ export class DetailsVendorComponent {
         }
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.ecommerceService.storeDetails.complete()
+    this.ecommerceService.listOfVendorProducts.complete()
   }
 
 

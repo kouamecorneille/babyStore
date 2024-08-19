@@ -1,22 +1,27 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { Store } from '../../interfaces/Ishop';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @Component({
   selector: 'app-banner-vendors',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,NgxSkeletonLoaderModule],
   templateUrl: './banner-vendors.component.html',
   styleUrl: './banner-vendors.component.css'
 })
 export class BannerVendorsComponent {
 
-  @Input() logo!:string;
-  @Input() shopName!:string;
-  @Input() bannerImage!:string
-  @Input() description!:string
-  @Input() number!:string
-  @Input() adresse!:string
-  @Input() date_aded!:string
+  @Input() vendor!:Store
+
+  loader = false
 
 
+  constructor() {
+    setTimeout(() => {
+
+      this.loader = true;
+
+    },2500)
+  }
 }

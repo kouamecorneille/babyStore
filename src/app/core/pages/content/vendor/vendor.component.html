@@ -53,10 +53,22 @@
 
     <div class="row vendor-grid">
       <!-- Afficher la liste des boutiques -->
-       @if(listOfVendors.value.length >0){
-          <div
+       @if(ecommerceService.listOfStores.value.length >0){
+          <!-- <div
             class="col-lg-6 col-md-6 col-12 col-sm-6"
-            *ngFor="let item of listOfVendors | async">
+            *ngFor="let item of ecommerceService.listOfStores | async">
+            <app-single-vendor
+              [nameBoutique]="item.name"
+              [logourl]="item.logo"
+              [numero]="item.phone_number_1"
+              [joineddate]="item.date_added"
+              [slug]="item.slug"
+              [adresse]="item.location">
+            </app-single-vendor>
+          </div> -->
+          <div
+            class="col-lg-3 col-md-6 col-12 col-sm-6"
+            *ngFor="let item of ecommerceService.listOfStores | async">
             <app-single-vendor
               [nameBoutique]="item.name"
               [logourl]="item.logo"
@@ -153,7 +165,7 @@
         <nav aria-label="Page navigation example">
           <ul class="pagination justify-content-end">
             <li class="page-item" [class.disabled]="currentPage === 1">
-              <a class="page-link" href="#" (click)="onPageChange(currentPage - 1)">
+              <a class="page-link" href="javascript:void(0);" (click)="onPageChange(currentPage - 1)">
                 <i class="fi-rs-arrow-small-left"></i>
               </a>
             </li>

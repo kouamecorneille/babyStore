@@ -17,3 +17,5 @@ export interface Store {
     slug: string;
     subscription: string;
 }
+
+

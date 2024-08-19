@@ -23,7 +23,7 @@ export class MobileMenuComponent {
     @Inject(DOCUMENT) private document: Document,
     @Inject(PLATFORM_ID) private platformId: object,
     private renderer: Renderer2,
-    private ecommService:EcommerceService
+    public ecommService:EcommerceService
   ) {
 
 

@@ -54,6 +54,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { RegisterStoreComponent } from './register-store/register-store.component';
 import { SuccessOrdersComponent } from './success-orders/success-orders.component';
 import {NgxPrintModule} from 'ngx-print';
+import { DetailsVendorTowComponent } from './details-vendor-tow/details-vendor-tow.component';
 
 @NgModule({
     declarations: [
@@ -83,7 +84,8 @@ import {NgxPrintModule} from 'ngx-print';
         ProductInfoComponent,
         TimestampFormatPipe, // Ajoutez le pipe aux déclarations
         RegisterStoreComponent,
-        SuccessOrdersComponent
+        SuccessOrdersComponent,
+        DetailsVendorTowComponent
     ],
     imports: [
         CommonModule,
