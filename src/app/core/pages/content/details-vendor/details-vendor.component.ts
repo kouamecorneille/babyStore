@@ -7,6 +7,7 @@ import { EcommerceService } from '../../../services/others/ecommerce.service';
 import { ICategory } from '../../../interfaces/Icategory';
 import { Product } from '../../../interfaces/Iproduct';
 import { CartService } from '../../../services/others/cart.service';
+import { ViewportService } from '../../../services/others/viewport.service';
 
 @Component({
   selector: 'app-details-vendor',
@@ -28,13 +29,15 @@ export class DetailsVendorComponent {
   listOfVendorProducts = new BehaviorSubject<Product[]>([])
   listOfVentesFlash = new BehaviorSubject<Product[]>([])
   loaderProduct :boolean = false
+  isMobile = this.viewportService.isMobile$;
 
   constructor(
     private apiService: ApiService,
     private activatedRoute: ActivatedRoute,
     private renderer: Renderer2,
     private elementRef: ElementRef,
-    private cartService: CartService
+    private cartService: CartService,
+    private viewportService: ViewportService
   ) {}
 
   ngOnInit(): void {
@@ -110,6 +113,15 @@ export class DetailsVendorComponent {
     this.isSelectedCategory = true
     this.selectedCategory = item.id
     this.getVendorProductsCategory(this.selectedCategory, this.vendorDetails.id)
+
+     // Vérifiez si l'affichage est mobile
+     this.viewportService.isMobile$.subscribe(isMobile => {
+      if (isMobile) {
+        // Effectuer le défilement vers le bas
+        window.scrollTo({ top: document.body.scrollHeight / 2.5, behavior: 'smooth' });
+      }
+    });
+
   }
 
   getShopDetails(slug:string) {

@@ -1,6 +1,8 @@
-<div class="pull-to-refresh">
-  <div *ngIf="isIphone && ecomService.isRefreshing()" class="loader">
-    <div class="spinner"></div>
+<div *ngIf="isIphone">
+  <div class="pull-to-refresh">
+    <div *ngIf="ecomService.isRefreshing()" class="loader">
+      <div class="spinner"></div>
+    </div>
+    <ng-content *ngIf="!ecomService.isRefreshing()"></ng-content>
   </div>
-  <!-- <ng-content *ngIf="!ecomService.isRefreshing()"></ng-content> -->
 </div>
