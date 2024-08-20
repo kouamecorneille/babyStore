@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { LoaderComponent } from './core/shared/header/loader/loader.component';
 import { ToastrModule } from 'ngx-toastr';
@@ -14,6 +14,7 @@ import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 // Step 1: Add the following line...
 import { register } from 'swiper/element/bundle';
+import { UpdateService } from './core/services/others/update.service';
 
 // Step 2: Add the following line...
 register();
@@ -41,6 +42,7 @@ registerLocaleData(localeFr);
 })
 export class AppComponent {
   title = 'babyStore';
+  updateService = inject(UpdateService)
 
   constructor(private router: Router,private viewScroller: ViewportScroller,private swUpdate: SwUpdate) {
 
@@ -48,7 +50,6 @@ export class AppComponent {
 
   ngOnInit() {
     // Réinitialiser l'indicateur après le rechargement
-    localStorage.removeItem('updateApplied');
 
     // Gérer les événements de navigation
     this.router.events.subscribe((event) => {
@@ -59,34 +60,7 @@ export class AppComponent {
       }
     });
 
-    // Vérifier si les mises à jour du service worker sont activées
-    // if (this.swUpdate.isEnabled) {
-    //   this.swUpdate.versionUpdates.subscribe(() => {
-    //     const updateApplied = localStorage.getItem('updateApplied');
-
-    //     if (!updateApplied) {
-    //       if (confirm("Nouvelle version disponible. Charger la nouvelle version ?")) {
-    //         // Marquez que la mise à jour a été appliquée
-    //         localStorage.setItem('updateApplied', 'true');
-    //         // Activer immédiatement le nouveau service worker
-    //         this.swUpdate.activateUpdate().then(() => {
-    //           // Nettoyer les caches pour ne conserver que la nouvelle version
-    //           if ('caches' in window) {
-    //             caches.keys().then((keyList) => {
-    //               return Promise.all(keyList.map((key) => caches.delete(key)));
-    //             }).then(() => {
-    //               // Recharger la page pour appliquer la nouvelle version
-    //               window.location.reload();
-    //             });
-    //           } else {
-    //             // Recharger la page si l'API caches n'est pas disponible
-    //               location.reload();
-    //           }
-    //         });
-    //       }
-    //     }
-    //   });
-    // }
+    this.updateService.checkForUpdates();
   }
 
   prepareRoute(outlet: RouterOutlet) {

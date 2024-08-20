@@ -1,8 +1,7 @@
-<!-- <div class="container" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd()">
-  <div class="pull-to-refresh" *ngIf="isRefreshing">
-    <p>Rafraîchissement en cours...</p>
+< <div class="pull-to-refresh">
+  <div *ngIf="isIphone && ecomService.isRefreshing()" class="loader">
+    <!-- Ici vous pouvez mettre un spinner ou autre loader -->
+    <div class="spinner"></div>
   </div>
-  <div class="content">
-
-  </div>
-</div> -->
+  <!-- <ng-content *ngIf="!ecomService.isRefreshing()"></ng-content> -->
+</div>
