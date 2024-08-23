@@ -45,7 +45,7 @@ export class AuthenticateService {
     const localStorage = document.defaultView?.localStorage;
 
     if (localStorage) {
-      const token = localStorage.getItem("Djassa2Refrech");
+      const token = localStorage.getItem("Djassa2Access");
 
       // Check if token exists
       if (token) {

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { delay, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
@@ -56,7 +56,9 @@ export class ApiService {
    */
   getItem(url:string, id:any):Observable<any>{
 
-    return this.Http.get<any>(`${this.baseUrl + url}/${id}`);
+    return this.Http.get<any>(`${this.baseUrl + url}/${id}`).pipe(
+      delay(2000)
+    );
 
   }
 
@@ -75,7 +77,9 @@ export class ApiService {
    */
   getItems(url:string):Observable<any[]>{
 
-    return this.Http.get<any[]>(this.baseUrl + url);
+    return this.Http.get<any[]>(this.baseUrl + url).pipe(
+      delay(2000)
+    );
 
   }
 

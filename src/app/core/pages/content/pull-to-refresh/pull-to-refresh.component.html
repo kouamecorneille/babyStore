@@ -1,8 +1,8 @@
-<!-- <div class="container" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd()">
-  <div class="pull-to-refresh" *ngIf="isRefreshing">
-    <p>Rafraîchissement en cours...</p>
+<div *ngIf="isIphone">
+  <div class="pull-to-refresh">
+    <div *ngIf="ecomService.isRefreshing()" class="loader">
+      <div class="spinner"></div>
+    </div>
+    <ng-content *ngIf="!ecomService.isRefreshing()"></ng-content>
   </div>
-  <div class="content">
-
-  </div>
-</div> -->
+</div>

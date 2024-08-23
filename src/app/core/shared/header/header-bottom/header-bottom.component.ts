@@ -9,6 +9,7 @@ import { CartItem } from '../../../interfaces/IcartItem';
 import { CartDropdownComponent } from '../../../components/cart-dropdown/cart-dropdown.component';
 import { EcommerceService } from '../../../services/others/ecommerce.service';
 import { RecommandationsCategorieComponent } from '../../../components/recommandations-categorie/recommandations-categorie.component';
+import { AuthenticateService } from '../../../services/auth/authenticate.service';
 
 @Component({
   selector: 'app-header-bottom',
@@ -26,6 +27,7 @@ export class HeaderBottomComponent{
   listOfData = new BehaviorSubject<ICategory[]>([]);
   listOfData2 = new BehaviorSubject<ICategory[]>([]);
   ecomService =inject(EcommerceService)
+  authService = inject(AuthenticateService)
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,

@@ -1,15 +1,22 @@
-.container {
+.pull-to-refresh {
   overflow: hidden;
   position: relative;
 }
-
-.pull-to-refresh {
-  text-align: center;
-  padding: 10px;
-  background-color: #f0f0f0;
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px; /* Vous pouvez ajuster cette hauteur */
 }
-
-.content {
-  padding: 20px;
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #000;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
 }
-
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

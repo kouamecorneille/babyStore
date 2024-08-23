@@ -12,7 +12,7 @@ import { Product } from '../../../interfaces/Iproduct';
 export class ShopWishlistComponent {
 
   whishListItems: BehaviorSubject<WhishListItem[]> = new BehaviorSubject<WhishListItem[]>([]);
-  constructor(private cartService: CartService) {
+  constructor(public cartService: CartService) {
 
     if (typeof localStorage !== 'undefined') {
       // Charger le panier depuis le localStorage lors de l'initialisation du service
@@ -30,6 +30,12 @@ export class ShopWishlistComponent {
     this.cartService.addToCart(product, 1)
   }
 
+
+  removeItem(id:string){
+
+    this.cartService.removeFromWhishList(id)
+
+  }
 
 
 }

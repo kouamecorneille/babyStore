@@ -5,11 +5,12 @@ import { EcommerceService } from "../../../services/others/ecommerce.service";
 import { ApiService } from "../../../services/api.service";
 import { ICategory } from "../../../interfaces/Icategory";
 import { BehaviorSubject } from "rxjs";
+import { PullToRefreshComponent } from "../../../pages/content/pull-to-refresh/pull-to-refresh.component";
 
 @Component({
   selector: 'app-mobile-menu',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, PullToRefreshComponent],
   templateUrl: './mobile-menu.component.html',
   styleUrl: './mobile-menu.component.css' // Corrected the property name
 })
@@ -23,7 +24,7 @@ export class MobileMenuComponent {
     @Inject(DOCUMENT) private document: Document,
     @Inject(PLATFORM_ID) private platformId: object,
     private renderer: Renderer2,
-    private ecommService:EcommerceService
+    public ecommService:EcommerceService
   ) {
 
 

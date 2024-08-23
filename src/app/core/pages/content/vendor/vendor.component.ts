@@ -30,8 +30,7 @@ export class VendorComponent {
   ngOnInit(): void {
 
     this.ecommerceService.getListOfVendors()
-    this.getListOfVendors()
-
+    // this.getListOfVendors()
   }
 
   searchStore(){
@@ -53,28 +52,28 @@ export class VendorComponent {
 
   }
 
-  getListOfVendors(){
+  // getListOfVendors(){
 
 
-    this.apiService.getItems(`shops`).subscribe(
-      (response:Store[]) => {
+  //   this.apiService.getItems(`shops`).subscribe(
+  //     (response:Store[]) => {
 
 
-        if(response){
+  //       if(response){
 
-          this.listOfVendors.next(response);
-          this.totalItems = this.ecommerceService.listOfStores.value.length;
-          this.updatePaginatedVendors(); // Mettre à jour les vendeurs paginés
+  //         this.listOfVendors.next(response);
+  //         this.totalItems = this.ecommerceService.listOfStores.value.length;
+  //         this.updatePaginatedVendors(); // Mettre à jour les vendeurs paginés
 
-        }
-      },
-      (err:any)=>{
+  //       }
+  //     },
+  //     (err:any)=>{
 
-        console.log(err)
-      }
-    )
+  //       console.log(err)
+  //     }
+  //   )
 
-  }
+  // }
 
   updatePaginatedVendors() {
     const startIndex = (this.currentPage - 1) * this.pageSize;

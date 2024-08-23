@@ -6,13 +6,15 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { EcommerceService } from '../../services/others/ecommerce.service';
 import { map, Observable } from 'rxjs';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @Component({
     selector: 'app-articles-propulaires',
     standalone: true,
     templateUrl: './articles-propulaires.component.html',
     styleUrl: './articles-propulaires.component.css',
-    imports: [SingleProductComponent, SingleProductComponent, CommonModule, RouterModule]
+    imports: [SingleProductComponent, SingleProductComponent, CommonModule,   NgxSkeletonLoaderModule,
+      RouterModule]
 })
 export class ArticlesPropulairesComponent {
 
@@ -25,6 +27,7 @@ export class ArticlesPropulairesComponent {
     productsCategory4!:Product[];
     allProducts!:Product[];
     offersProducts!:Product[];
+    listOfLoader = [0,1,2,3,4,5,6,7,8,9]
 
     constructor(private ecomService:EcommerceService) {
 

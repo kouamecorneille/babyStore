@@ -1,3 +1,5 @@
+<app-pull-to-refresh></app-pull-to-refresh>
+
 <div
     class="mobile-menu-wrap mobile-header-border"
     #offCanvasNav
@@ -13,16 +15,16 @@
                     Hot Deals
                 </a>
             </li>
-            <li class="menu-item-has-children active">
+            <!-- <li class="menu-item-has-children active">
               <span class="menu-expand">
               <i class="fi-rs-angle-small-down"></i></span>
                 <a href="javascript:void(0);">Categories</a>
                 <ul class="dropdown">
-                    <li *ngFor="let item of listOfData | async">
+                    <li *ngFor="let item of ecommService.listOfCategory | async">
                       <a [routerLink]="['/categorie', item.slug , 'product']">{{item.name}}</a>
                     </li>
                 </ul>
-            </li>
+            </li> -->
             <li>
                 <a
                     routerLink="/shop"
@@ -74,6 +76,9 @@
                     Mon compte
                 </a>
             </li>
+            <li>
+              <a routerLink="/contact-us" routerLinkActive="active">Faq</a>
+          </li>
         </ul>
     </nav>
     <!-- mobile menu end -->
