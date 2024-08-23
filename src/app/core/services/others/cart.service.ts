@@ -164,6 +164,7 @@ export class CartService {
     this.whishListItems.next(updatedItems); // Émettre la nouvelle valeur du panier
     this.saveWhishListToLocalStorage();
     this.getTotalItemsWhishList();
+    this.toastr.success('Le produit a été supprimé de votre liste des souhaits !', 'Succès !', { timeOut: 3000 });
   }
 
 

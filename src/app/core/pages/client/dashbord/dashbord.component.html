@@ -5,24 +5,33 @@
     [secondTitle]="'Pages'"
     [firdTitle]="'Mon compte'"
   ></app-breadcrumb>
-  <div class="page-content pt-30 pb-50">
-    <div class="container">
+  <div class="page-content pt-20 pb-30">
+    <div class="container-fluid">
       <div class="row">
-
-        <div class="col-lg-10 m-auto">
-          <div class="row">
-            <div class="col-md-3">
-              <app-sidebar></app-sidebar>
-            </div>
-            <div class="col-md-9">
-              <div class="tab-content account dashboard-content pl-50">
-                <router-outlet />
-              </div>
-            </div>
+          <!-- Toggle button for sidebar on small screens -->
+          <div class="col-12 d-md-none text-center">
+              <button class="btn  mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse">
+                <i class="fi-rs-list fs-2 text-dark"></i>
+              </button>
           </div>
-        </div>
       </div>
-    </div>
+      <div class="row m-auto">
+          <!-- Sidebar: Collapsible on smaller screens, always visible on larger screens -->
+          <div class="col-md-3">
+              <div class="collapse d-md-block" id="sidebarCollapse">
+                  <app-sidebar></app-sidebar>
+              </div>
+          </div>
+
+          <!-- Main content: Full-width on smaller screens, offset by sidebar on larger screens -->
+          <div class="col-md-9">
+              <div class="">
+                  <router-outlet></router-outlet>
+              </div>
+          </div>
+      </div>
+  </div>
+
   </div>
 </main>
 <app-footer />
