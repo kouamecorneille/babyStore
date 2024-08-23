@@ -112,13 +112,12 @@ export class ShopCheckoutComponent {
 
     const data ={
 
-      full_name:this.full_name,
-      delivery_address:this.delivery_address,
-      commune:this.commune,
-      note:this.note,
+      full_name: this.full_name,
+      delivery_address: this.delivery_address,
+      commune: this.commune,
+      note: this.note,
       items: this.orderItems,
       status:'pending'
-
     }
 
     this.User.full_name = data.full_name
