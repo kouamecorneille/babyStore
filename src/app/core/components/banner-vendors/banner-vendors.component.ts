@@ -22,6 +22,6 @@ export class BannerVendorsComponent {
 
       this.loader = true;
 
-    },2500)
+    },3000)
   }
 }
