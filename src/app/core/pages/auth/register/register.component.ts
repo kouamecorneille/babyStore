@@ -105,69 +105,75 @@ export class RegisterComponent {
 
   onSubmit() {
     this.loader = true
-    if (this.RegisterForm.value.password == this.RegisterForm.value.confirmPassword) {
+    if(this.RegisterForm.valid){
+      if (this.RegisterForm.value.password == this.RegisterForm.value.confirmPassword) {
 
-      if (this.RegisterForm.value.password.length >= 6) {
+        if (this.RegisterForm.value.password.length >= 6) {
 
-          const data = {
-            first_name: this.RegisterForm.value.nom,
-            last_name: this.RegisterForm.value.prenoms,
-            email: this.RegisterForm.value.email,
-            phone_number: this.RegisterForm.value.numero,
-            password: this.RegisterForm.value.password,
-            role: this.RegisterForm.value.role,
-          }
-
-          this.apiService.postItem(data, "users/create/").subscribe(
-            (response: any) => {
-              if (response) {
-
-                const userData = response
-                localStorage.setItem('DjassaAuthUser', JSON.stringify(userData.user))
-                localStorage.setItem('Djassa2Access', userData.access)
-                localStorage.setItem('Djassa2Refrech', userData.refresh)
-                this.toastr.success('Votre compte a ete creer avec succes !', 'Error');
-                this.router.navigate(['/dashboard'])
-
-              }else{
-
-                console.log("Error response :",response)
-
-              }
-            },
-            (error: any) => {
-              this.loader = false
-
-              console.log("Error : ", error)
-
-              if(error.error){
-                const err = error.error;
-                if (error.status == 400) {
-                  if (err.email) {
-                    this.toastr.error("Cette adresse e-mail existe déjà !", 'Erreur', {
-                      timeOut: 5000
-                    });
-                  } else if (err.password) {
-                    this.toastr.error("Le mot de passe dit contenir au moins 6 caractères !", 'Erreur', {
-                      timeOut: 5000
-                    });
-                  } else if (err.phone_number) {
-                    this.toastr.error("Le numéro de télephone existe déjà !", 'Erreur', {
-                      timeOut: 5000
-                    });
-                  }
-                }
-
-              }
+            const data = {
+              first_name: this.RegisterForm.value.nom,
+              last_name: this.RegisterForm.value.prenoms,
+              email: this.RegisterForm.value.email,
+              phone_number: this.RegisterForm.value.numero,
+              password: this.RegisterForm.value.password,
+              role: this.listOfRoles.find(role => role.label === 'client'),
             }
-          )
-      }else{
+
+            this.apiService.postItem(data, "users/create/").subscribe(
+              (response: any) => {
+                if (response) {
+
+                  const userData = response
+                  localStorage.setItem('DjassaAuthUser', JSON.stringify(userData.user))
+                  localStorage.setItem('Djassa2Access', userData.access)
+                  localStorage.setItem('Djassa2Refrech', userData.refresh)
+                  this.toastr.success('Votre compte a ete creer avec succes !', 'Error');
+
+                  this.router.navigate(['/dashboard'])
+
+                }else{
+
+                  console.log("Error response :",response)
+
+                }
+              },
+              (error: any) => {
+                this.loader = false
+
+                console.log("Error : ", error)
+
+                if(error.error){
+                  const err = error.error;
+                  if (error.status == 400) {
+                    if (err.email) {
+                      this.toastr.error("Cette adresse e-mail existe déjà !", 'Erreur', {
+                        timeOut: 5000
+                      });
+                    } else if (err.password) {
+                      this.toastr.error("Le mot de passe dit contenir au moins 6 caractères !", 'Erreur', {
+                        timeOut: 5000
+                      });
+                    } else if (err.phone_number) {
+                      this.toastr.error("Le numéro de télephone existe déjà !", 'Erreur', {
+                        timeOut: 5000
+                      });
+                    }
+                  }
+
+                }
+              }
+            )
+        }else{
+          this.loader = false
+          this.toastr.error('Le mot de passe dit contenir au moins 6 caractères !', 'Error');
+        }
+      } else {
         this.loader = false
-        this.toastr.error('Le mot de passe dit contenir au moins 6 caractères !', 'Error');
+        this.toastr.error('Les mots de passe ne correspondent pas!', 'Error');
       }
-    } else {
+    }else {
       this.loader = false
-      this.toastr.error('Les mots de passe ne correspondent pas!', 'Error');
+      this.toastr.error('Vueillez remplir tout les champs du formulaires !', 'Error');
     }
   }
 

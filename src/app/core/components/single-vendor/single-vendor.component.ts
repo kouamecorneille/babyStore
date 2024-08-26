@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { NotifcationsService } from '../../services/others/notifcations.service';
 
 @Component({
   selector: 'app-single-vendor',
@@ -18,6 +19,15 @@ export class SingleVendorComponent {
   @Input() adresse!:string;
   @Input() numero!:string;
   @Input() slug!:string;
+  @Input() id!:string;
 
+  constructor(private notificationService:NotifcationsService) {
 
+  }
+
+  subscribeSHop(shop:string):void {
+
+    this.notificationService.subscribeToShop( true,shop);
+
+  }
 }

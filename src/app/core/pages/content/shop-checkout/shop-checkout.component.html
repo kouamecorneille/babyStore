@@ -19,24 +19,49 @@
                             <p class="mb-30 font-sm">
                                 Connecter vous votre compte si vous en avez.
                             </p>
-                            <form method="post">
+                            <form  [formGroup]="LoginForm">
                                 <div class="form-group">
-                                    <input type="text" name="email" placeholder="Numero *">
+                                    <input
+                                    maxlength="10"
+                                    [ngClass]="{'border-danger': LoginForm?.controls?.['numero']?.invalid && (LoginForm?.controls?.['numero']?.dirty || LoginForm?.controls?.['numero']?.touched) }"
+                                    type="tel"
+                                    (keypress)="keyPress($event)"
+                                    formControlName="numero" placeholder="Numero *">
+                                    <small class="text-danger" *ngIf="LoginForm?.get('numero')?.hasError('required') && LoginForm?.get('numero')?.touched">
+                                      Le numéro est un champ requis.
+                                  </small>
+                                  <small class="text-danger" *ngIf="LoginForm?.get('numero')?.hasError('minlength')">
+                                      Le numéro doit contenir au moins 10 caracteres.
+                                  </small>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="password" placeholder="Mot de passe *">
+                                    <input
+                                    type="password"
+                                    formControlName="password"
+                                    minlength="6"
+                                     [ngClass]="{'border-danger': LoginForm?.controls?.['password']?.invalid && (LoginForm?.controls?.['password']?.dirty || LoginForm?.controls?.['password']?.touched) }"
+                                    placeholder="Mot de passe *">
+
+                                    <small class="text-danger" *ngIf="LoginForm?.get('password')?.hasError('required') && LoginForm?.get('password')?.touched">
+                                      Le mot de passe est un champ requis.
+                                   </small>
+                                   <small class="text-danger" *ngIf="LoginForm?.get('password')?.hasError('minlength')">
+                                      Le mot de passe doit contenir au moins 6 caracteres.
+                                  </small>
                                 </div>
                                 <div class="login_footer form-group">
                                     <div class="chek-form">
                                         <div class="custome-checkbox">
                                             <input class="form-check-input" type="checkbox" name="checkbox" id="remember" value="">
-                                            <label class="form-check-label" for="remember"><span>Remember me</span></label>
+                                            <label class="form-check-label" for="remember"><span>Se souvenir de moi</span></label>
                                         </div>
                                     </div>
-                                    <a routerLink="/auth/forgot-password">Forgot password?</a>
+                                    <a routerLink="/auth/forgot-password">Mot de passe oublié?</a>
                                 </div>
                                 <div class="form-group">
-                                    <button class="btn btn-md" name="login">Se connecter</button>
+                                    <button class="btn btn-md" name="login" [disabled]="loader" (click)="login()">
+                                      {{ loader ? "Connexion en cours..." : "Se connecter"}}
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -44,8 +69,8 @@
                 </div>
                 <div class="col-lg-6">
                     <form class="apply-coupon">
-                        <input type="text" placeholder="Enter le coupon...">
-                        <button class="btn  btn-md" name="login" type="button">Appliquer</button>
+                        <input type="text" placeholder="Enter le coupon..." [(ngModel)]="coupon_code">
+                        <button class="btn  btn-md" name="login" type="button" (click)="getCouponDetails()">Appliquer</button>
                     </form>
                 </div>
             </div>
@@ -122,6 +147,14 @@
                           </tr>
                            }
 
+                           <tr class="mt-20" *ngIf="montantCoupon">
+                            <td class="cart_total_label">
+                                <h5 class="text-muted">Réduction : </h5>
+                            </td>
+                            <td class="cart_total_amount">
+                                <h4 class="text-brand text-end">{{montantCoupon | number:'1.0-0'}} CFA</h4>
+                            </td>
+
                            <tr class="mt-20">
                             <td class="cart_total_label">
                                 <h4 class="text-muted">Total : </h4>
@@ -150,7 +183,7 @@
                 </div> -->
                 <button  class="btn btn-primary mt-10"
                 (click)="onSubmit()"
-                    [disabled]="!full_name || !delivery_address || !commune || loading"
+                    [disabled]="loading"
                   >
                  {{loading ? "Traitement en cours ...": "Finaliser ma Commande"}}
                   <i class="fi-rs-sign-out ml-15">

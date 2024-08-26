@@ -9,10 +9,8 @@
     <div class="row">
       <div class="col-md-5">
         <div>
-            <h5 class="mb-3">Merci pour votre commande, {{cartService.userInfo().full_name}} !</h5>
-            <p>Nous avons bien reçu votre commande et nous tenons à vous remercier pour votre confiance.</p>
-            <!-- <p>Votre commande #[Numéro de Commande] a été enregistrée avec succès et est actuellement en traitement.</p> -->
-            <!-- <p>Nous espérons que vous apprécierez vos achats ! Si vous avez des questions ou avez besoin d'assistance, n'hésitez pas à nous contacter.</p> -->
+            <h5 class="mb-2">Merci pour votre commande, {{cartService.userInfo().full_name}} !</h5>
+            <p>Nous avons reçu votre commande et nous vous remercions pour votre confiance.</p>
         </div>
         <img src="../../../../../assets/imgs/Successful purchase-cuate.svg" alt="" class="img-fluid">
 
@@ -31,20 +29,21 @@
               <div class="row align-items-center">
                 <div class="col-md-6">
                   <div class="logo">
-                    <a href="index.html" class="mr-20"
+                    <a href="javascript:void(0);" class="mr-20"
                       ><img src="assets/imgs/theme/logo.svg" alt="logo"
                     /></a>
                   </div>
                 </div>
-                <div class="col-md-6 text-end">
-                  <h2 class="mb-0">COMMANDE</h2>
-                </div>
+                <!-- <div class="col-md-6 text-end">
+                  <h5 class="mb-0">COMMANDE</h5>
+                </div> -->
               </div>
-              <div class="row align-items-center">
+              <div class="row align-items-center mt-2">
                 <div class="col-md-6">
                   <div class="text">
                    <strong>Adresse : </strong> {{cartService.userInfo().delivery_address}}<br />
-                    <abbr title="Phone">Numéro:</abbr> {{cartService.userInfo().commune}}<br />
+                    <strong> <abbr title="Numéro">Numéro :</abbr> </strong> {{cartService.userInfo().commune}}<br />
+                    <strong title="Nom complet">Nom complet :</strong> {{cartService.userInfo().full_name}}<br />
                   </div>
                 </div>
                 <div class="col-md-6 text-end">
@@ -57,13 +56,13 @@
                   <div class="hr mb-10"></div>
                 </div>
                 <div class="col-lg-4">
-                  <strong class="text-brand"> Commande N°:</strong> #789654
+                  <strong class="text-brand"> Commande N° :</strong> #789654
                 </div>
                 <div class="col-lg-4">
-                  <strong class="text-brand"> Date de commande :</strong> {{today | date:'longDate'}}
+                  <strong class="text-brand"> Date de commande : </strong> {{today | date:'longDate'}}
                 </div>
                 <div class="col-lg-4">
-                  <strong class="text-brand"> Methode de paiement:</strong>
+                  <strong class="text-brand"> Methode de paiement : </strong>
                   Paiement a la livraison
                 </div>
                 <div class="col-12">
@@ -95,46 +94,42 @@
                       <td class="text-center">{{item.quantity}} </td>
                       <td class="text-right">{{ Sum(item.product.reduced_price ? item.product.reduced_price: item.product.price, item.quantity) }}</td>
                     </tr>
+                    <tr *ngIf="cartService.userInfo().montantCoupon">
+                      <td colspan="3" class="text-end f-w-600">Réduction </td>
+                      <td class="text-right f-w-600">{{cartService.userInfo().montantCoupon}} FCFA</td>
+                    </tr>
                     <tr>
                       <td colspan="3" class="text-end f-w-600">Total général</td>
-                      <td class="text-right f-w-600">{{totalCheckout |number:'1.0-0'}} FCFA</td>
+                      <td class="text-right f-w-600">{{totalCheckout | number:'1.0-0'}} FCFA</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
-            <div class="invoice-bottom pb-80">
+            <div class="invoice-bottom pb-20">
               <div class="row">
-
                 <div class="text-end">
-                  <h6 class="mb-15">Montant total</h6>
-                  <h3 class="mt-0 mb-0 text-brand">{{totalCheckout |number:'1.0-0'}} FCFA</h3>
-                </div>
-              </div>
-              <div class="row text-center">
-                <div class="col-12">
-                  <div class="hr mt-30 mb-30"></div>
-                  <p class="mb-0 text-muted">
-                    <strong >Note:</strong> Cliquer sur le boutton << Imprimer le reçu >> pour télécharger le reçu de votre commande.
-                  </p>
+                  <h5 class="mb-15">Montant total</h5>
+                  <h4 class="mt-0 mb-0 text-brand">{{totalCheckout | number:'1.0-0'}} FCFA</h4>
                 </div>
               </div>
             </div>
           </div>
-          <div class="invoice-btn-section d-flex justify-content-between align-items-center">
-            <a
-              [routerLink]="'/hot-deals'"
-              class="btn btn-lg btn-custom btn-print hover-up"
-            >
-              <img src="assets/imgs/theme/icons/icon-print.svg" alt="" /> Continuer mes achats
-            </a>
+          <div class="row text-center">
+            <div class="col-12">
+              <div class="hr mb-5"></div>
+              <p class="mb-0">
+                <strong >Note : </strong> Cliquer sur le boutton << Imprimer le reçu >> pour télécharger le reçu de votre commande.
+              </p>
+            </div>
+          </div>
+          <div class="invoice-btn-section justify-content-end text-end mt-10">
             <button
-              class="btn btn-lg btn-custom btn-download hover-up"
-              [useExistingCss]="true"
-              printSectionId="print-section"
-              ngxPrint
-            >
-              <img src="assets/imgs/theme/icons/icon-download.svg" alt="" />
+                class="btn btn-custom btn-download hover-up"
+                [useExistingCss]="true"
+                printSectionId="print-section"
+                ngxPrint
+              >
               Imprimer le reçu
             </button>
           </div>

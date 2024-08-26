@@ -29,36 +29,37 @@ export class ForgotPasswordComponent {
 
   onSubmit() {
 
-    this.loading = true
+    if(this.PasswordForm.valid){
+        this.loading = true
+        const data ={
+          email:this.PasswordForm.value.email,
+        }
+        //garder l'email de l'utilisateur en session
+        this.authService.userEmailReinitialized.set(this.PasswordForm.value.email)
+        this.apiService.postItem(data, 'users/password-reset/').subscribe(
+        (response:any) => {
 
-    const data ={
-      email:this.PasswordForm.value.email,
-    }
+          if(response){
+            this.loading = false;
+            this.toastr.success('Mail envoyé avec succès  !', 'Succès !');
 
-    //garder l'email de l'utilisateur en session
-    this.authService.userEmailReinitialized.set(this.PasswordForm.value.email)
-    this.apiService.postItem(data, 'users/password-reset/').subscribe(
-      (response:any) => {
-
-        if(response){
+            this.router.navigate(['/auth/email-success-message'])
+          }
+        },
+        (error:any) => {
           this.loading = false;
-          this.toastr.success('Mail envoyé avec succès  !', 'Succès !');
+          console.log(error);
+          if(error.status == 404 || 400) {
 
-          this.router.navigate(['/auth/email-success-message'])
+            this.toastr.error('Aucun compte trouvé pour cet email !', 'Erreur !');
+
+          }
         }
-      },
-      (error:any) => {
-        this.loading = false;
-        console.log(error);
-        if(error.status == 404 || 400) {
 
-          this.toastr.error('Aucun compte trouvé pour cet email !', 'Erreur !');
-
-        }
-      }
-
-    )
-
+      )
+    } else {
+      this.toastr.error('Veuillez remplir tous les champs du formulaire !', 'Error');
+    }
 
   }
 

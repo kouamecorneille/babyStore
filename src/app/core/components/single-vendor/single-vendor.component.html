@@ -50,7 +50,7 @@
     <div class="vendor-img-action-wrap">
         <div class="vendor-img">
           <a [routerLink]="['/vendors/details', slug]">
-            <img class="default-img rounded-circle" [src]="logourl" alt="" />
+            <img class="default-img rounded-circle img-fluid" [src]="logourl" alt="" />
           </a>
         </div>
     </div>
@@ -79,7 +79,7 @@
             </ul>
         </div>
        <div>
-         <a [routerLink]="['/vendors/details', slug]" class="btn btn-xs"><i class="fi-rs-plus me-2"></i> S'abonner </a>
+         <a href="javascript:void(0);" (click)="subscribeSHop(id)" class="btn btn-xs"><i class="fi-rs-plus me-2"></i> S'abonner </a>
         <a [routerLink]="['/vendors/details', slug]" class="btn btn-xs ms-3">Visiter la boutique  <i class="fi-rs-arrow-small-right"></i></a>
        </div>
     </div>

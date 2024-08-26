@@ -19,7 +19,8 @@ export class CartService {
   defaultUser : UserInfo = {
     full_name:'',
     delivery_address:'',
-    commune:''
+    commune:'',
+    montantCoupon:0
   }
 
   public cartItems: BehaviorSubject<CartItem[]> = new BehaviorSubject<CartItem[]>([]);

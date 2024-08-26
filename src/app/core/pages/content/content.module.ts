@@ -55,7 +55,12 @@ import { RegisterStoreComponent } from './register-store/register-store.componen
 import { SuccessOrdersComponent } from './success-orders/success-orders.component';
 import {NgxPrintModule} from 'ngx-print';
 import { DetailsVendorTowComponent } from './details-vendor-tow/details-vendor-tow.component';
-
+import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { environment } from '../../../../environments/environment';
+import { initializeApp } from 'firebase/app';
+import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
+import { provideFirebaseApp } from '@angular/fire/app';
+import { NotifcationsService } from '../../services/others/notifcations.service';
 @NgModule({
     declarations: [
         ErrorComponent,
@@ -114,9 +119,16 @@ import { DetailsVendorTowComponent } from './details-vendor-tow/details-vendor-t
         NgxSkeletonLoaderModule,
         NgxSliderModule,
         CorePipesModule,
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFireMessagingModule,
+
     ],
     providers: [
-      { provide: LOCALE_ID, useValue: 'fr' }
+      { provide: LOCALE_ID, useValue: 'fr' },
+      { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },
+      NotifcationsService
     ],
 })
 export class ContentModule { }
+
+

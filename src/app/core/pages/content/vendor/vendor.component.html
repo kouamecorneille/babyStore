@@ -54,18 +54,6 @@
     <div class="row vendor-grid">
       <!-- Afficher la liste des boutiques -->
        @if(ecommerceService.listOfStores.value.length >0){
-          <!-- <div
-            class="col-lg-6 col-md-6 col-12 col-sm-6"
-            *ngFor="let item of ecommerceService.listOfStores | async">
-            <app-single-vendor
-              [nameBoutique]="item.name"
-              [logourl]="item.logo"
-              [numero]="item.phone_number_1"
-              [joineddate]="item.date_added"
-              [slug]="item.slug"
-              [adresse]="item.location">
-            </app-single-vendor>
-          </div> -->
           <div
             class="col-lg-3 col-md-6 col-12 col-sm-6"
             *ngFor="let item of ecommerceService.listOfStores | async">
@@ -75,9 +63,12 @@
               [numero]="item.phone_number_1"
               [joineddate]="item.date_added"
               [slug]="item.slug"
-              [adresse]="item.location">
+              [id]="item.id"
+              [adresse]="item.location"
+              >
             </app-single-vendor>
           </div>
+
        }@else {
           <!-- Afficher les loaders si aucun magasin n'est trouvé -->
           <div
@@ -150,8 +141,6 @@
           </div>
           </div>
        }
-
-
 
     </div>
 

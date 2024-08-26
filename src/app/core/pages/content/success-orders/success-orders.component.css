@@ -35,3 +35,13 @@
 }
 
 
+@media print {
+  a[href]:after {
+    content: none !important;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+}

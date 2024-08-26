@@ -15,7 +15,9 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
 // Step 1: Add the following line...
 import { register } from 'swiper/element/bundle';
 import { UpdateService } from './core/services/others/update.service';
-
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from '../environments/environment';
+import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
 // Step 2: Add the following line...
 register();
 // Register French locale data
@@ -34,7 +36,7 @@ registerLocaleData(localeFr);
     // for HttpClient use:
     LoadingBarHttpClientModule,
     LoadingBarModule,
-    PullToRefreshComponent
+    PullToRefreshComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

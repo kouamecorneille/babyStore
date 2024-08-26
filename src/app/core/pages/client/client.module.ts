@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ClientRoutingModule } from './client-routing.module';
@@ -15,6 +15,11 @@ import { FooterComponent } from '../../shared/footer/footer.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PasswordChangeComponent } from './password-change/password-change.component';
 import { CorePipesModule } from '../../helpers/pipes/pipes.module';
+import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { environment } from '../../../../environments/environment';
+import { initializeApp } from 'firebase/app';
+import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
+import { NotifcationsService } from '../../services/others/notifcations.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +40,16 @@ import { CorePipesModule } from '../../helpers/pipes/pipes.module';
     FooterComponent,
     ReactiveFormsModule, // Add here
     CorePipesModule,
-  ]
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireMessagingModule
+  ],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'fr' },
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },
+    NotifcationsService
+  ],
 })
 
 export class ClientModule { }
+
+

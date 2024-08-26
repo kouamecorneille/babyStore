@@ -60,8 +60,8 @@ export class CategorieWithFilterComponent {
   sliderValue: number = 1000;
   highValue: number = 100000;
   sliderOptions: Options = {
-    floor: 100,
-    ceil: 500000,
+    floor: 1000,
+    ceil: 100000,
     step: 1000,
     translate: (value: number): string => {
       return  value + ' CFA' ;
@@ -165,7 +165,7 @@ export class CategorieWithFilterComponent {
     this.ecomService.getCategory()
     this.ecomService.listOfCategory.subscribe(
       (data) => {
-        this.listOfData.next(data.slice(0, this.displayedCategoriesCount + 1));
+        this.listOfData.next(data);
         const category =this.shuffleArray(data)
         this.selectedCategory = category
       }

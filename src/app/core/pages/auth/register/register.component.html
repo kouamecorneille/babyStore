@@ -1,13 +1,13 @@
 <app-breadcrumb [firstTitle]="'Accueil'" [secondTitle]="'Authentification'" [firdTitle]="'Inscription'"></app-breadcrumb>
 
-<div class="page-content pt-20 pb-30" restoreScrollPosition>
+<div class="page-content pt-10 pb-30" restoreScrollPosition>
     <div class="container">
-      <div class="row justify-content-center py-5">
-        <div class="col-xl-6 col-lg-8">
+      <div class="row justify-content-center py-2">
+        <div class="col-xl-6 col-lg-8 col-md-12 m-auto">
           <div class="auth-card card">
             <div class="auth-card__header">
               <div class="d-flex flex-column flex-md-row align-items-start gap-3">
-                <div class="auth-card__header-icon bg-white p-3 rounded">
+                <div class="auth-card__header-icon bg-white p-2 rounded">
                   <svg
                     class="icon text-primary svg-icon-ti-ti-user-plus"
                     xmlns="http://www.w3.org/2000/svg"
@@ -28,13 +28,13 @@
                   </svg>
                 </div>
                 <div>
-                  <h3 class="auth-card__header-title fs-4 mb-1">
+                  <h3 class="auth-card__header-title fs-4 mb-1 mt-2">
                     Créer un compte
                   </h3>
-                  <p class="auth-card__header-description text-muted mb-20">
+                  <!-- <p class="auth-card__header-description text-muted mb-20">
                     Vos données personnelles seront utilisées pour améliorer votre
                     expérience sur ce site, et pour gérer l'accès à votre compte.
-                  </p>
+                  </p> -->
                 </div>
               </div>
             </div>
@@ -332,12 +332,12 @@
 
                   </div>
                 </div>
-                <div class="payment_option mb-10 d-flex">
+                <!-- <div class="payment_option mb-10 d-flex">
                   <div class="custome-radio ms-3" *ngFor="let item of listOfRoles; let i = index">
                       <input class="form-check-input" type="radio" [id]="'role_' + i" formControlName="role" [value]="item.id">
                       <label class="form-check-label" [for]="'role_' + i">Je suis un {{ item.label }}</label>
                   </div>
-              </div>
+              </div> -->
                 <div class="login_footer form-group mb-20">
                   <div class="chek-form">
                       <div class="custome-checkbox">
@@ -357,9 +357,9 @@
 
                 <div class="mb-3">
                   <button type="submit"
-                  [disabled]="RegisterForm.invalid || loader"
+                  [disabled]="loader"
                   (click)="onSubmit()"
-                  class="btn btn-primary d-block w-100">
+                  class="btn d-block w-100">
                   {{loader ? "Traitement en cours..." : "Créer un compte"}}
                   </button>
                 </div>
