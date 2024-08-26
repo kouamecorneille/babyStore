@@ -40,8 +40,6 @@ export class LoginComponent {
 
 
 
-
-
   login() {
     if (this.LoginForm.valid) {
       this.loader = true;
@@ -53,32 +51,31 @@ export class LoginComponent {
       this.authService.login(data).subscribe(
         (response: UserApiResponse) => {
           if (response) {
-
             this.authService.isAuthenticate = true;
             const userData = response;
 
             localStorage.setItem('Djassa2Access', this.crypt.encryptData(userData.access));
             localStorage.setItem('Djassa2Refrech', this.crypt.encryptData(userData.refresh));
-            localStorage.setItem('DjassaAuthUser',  this.crypt.encryptData(userData.user));
+            localStorage.setItem('DjassaAuthUser', this.crypt.encryptData(userData.user));
             this.loader = false;
 
             this.toastr.success('Connexion réussie avec succès!', 'Succès !');
 
-            this.router.navigate(['/dashboard']);
+            // Redirect to the previous page if available, otherwise to the dashboard
+            const redirectUrl = localStorage.getItem('redirectUrl') || '/dashboard';
+            this.router.navigate([redirectUrl]);
 
+            // Clear the redirect URL from local storage after navigation
+            localStorage.removeItem('redirectUrl');
           }
         },
         (err: any) => {
           this.loader = false;
           console.log(err);
-          if(err.status==401){
-
-            this.toastr.error('Numéro ou mot de passe incorrect, réessqyer encore !', 'Error');
-
-          }else{
-
+          if (err.status === 401) {
+            this.toastr.error('Numéro ou mot de passe incorrect, réessayez encore !', 'Error');
+          } else {
             this.toastr.error('Impossible de se connecter pour le moment !', 'Error');
-
           }
         }
       );
