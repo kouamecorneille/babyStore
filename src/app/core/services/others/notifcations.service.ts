@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root'
 })
-export class NotifcationsService {
+export class NotifcationsService  {
 
   fcm_token = new BehaviorSubject<string>('');
   userSession: User;
@@ -21,6 +21,7 @@ export class NotifcationsService {
     private toastr: ToastrService
   ) {
     this.userSession = this.authService.getUser()!;
+    this.getToken(); // Initialize the fcm_token BehaviorSubject with the saved token
   }
 
   getToken(): void {
@@ -32,7 +33,11 @@ export class NotifcationsService {
 
   subscribeToShop(receive_notifications: boolean, shop: string): void {
     if (this.userSession) {
-      this.requestPermission();
+      // Check if token is available, if not, request permission
+      if (!this.fcm_token.value) {
+        this.requestPermission();
+      }
+
       if (this.fcm_token.value) {
         const data = {
           user: this.userSession.id,
@@ -41,7 +46,7 @@ export class NotifcationsService {
           fcm_token: this.fcm_token.value
         };
 
-        this.apiService.postItem(data, 'subscribers').subscribe(
+        this.apiService.postItem(data, 'subscribers/').subscribe(
           (response: any) => {
             if (response) {
               this.toastr.success('Votre abonnement a été pris en compte !', 'Abonnement !');
@@ -49,9 +54,15 @@ export class NotifcationsService {
           },
           (error: any) => {
             console.error('Subscription error:', error);
-            this.toastr.error('Oops, erreur lors de votre abonnement !', 'Abonnement !');
+
+            if (error.status === 400) {
+              this.toastr.error('Vous êtes déjà abonné à cette boutique !', 'Abonnement !');
+            } else {
+              this.toastr.error('Oops, erreur lors de votre abonnement !', 'Abonnement !');
+            }
           }
         );
+
       } else {
         this.toastr.error('Vous devez accepter de recevoir les notifications !', 'Abonnement !');
       }
@@ -70,8 +81,10 @@ export class NotifcationsService {
       .pipe(take(1))
       .subscribe(
         (token: string | null) => {
-          console.log('Notification permission granted. Token:', token);
-          this.setToken(token!);
+          if (token) {
+            console.log('Notification permission granted. Token:', token);
+            this.setToken(token);
+          }
         },
         (error) => {
           console.error('Unable to get permission to notify.', error);
