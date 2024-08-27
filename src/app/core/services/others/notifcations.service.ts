@@ -5,6 +5,7 @@ import { AngularFireMessaging } from '@angular/fire/compat/messaging';
 import { AuthenticateService } from '../auth/authenticate.service';
 import { User } from '../../interfaces/Iuser';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class NotifcationsService  {
     private apiService: ApiService,
     private afMessaging: AngularFireMessaging,
     private authService: AuthenticateService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router:Router,
   ) {
     this.userSession = this.authService.getUser()!;
     this.getToken(); // Initialize the fcm_token BehaviorSubject with the saved token
@@ -67,6 +69,8 @@ export class NotifcationsService  {
         this.toastr.error('Vous devez accepter de recevoir les notifications !', 'Abonnement !');
       }
     } else {
+      localStorage.setItem('redirectUrl', window.location.pathname);
+      this.router.navigate(['/auth/login']);
       this.toastr.error('Connectez-vous d\'abord pour vous abonner à cette boutique !', 'Oops, erreur !');
     }
   }
