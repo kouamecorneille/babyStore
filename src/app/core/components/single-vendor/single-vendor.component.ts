@@ -27,7 +27,7 @@ export class SingleVendorComponent {
 
   subscribeSHop(shop:string):void {
 
-    this.notificationService.subscribeToShop( true,shop);
+    this.notificationService.subscribeToShop( true, shop);
 
   }
 }
