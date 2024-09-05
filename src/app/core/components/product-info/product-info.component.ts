@@ -21,8 +21,6 @@ interface RatingPercentages {
 }
 
 
-
-
 @Component({
   selector: 'app-product-info',
   // imports: [RouterModule, ReactiveFormsModule, CommonModule],
@@ -87,8 +85,7 @@ export class ProductInfoComponent {
           rating:this.rating
         };
 
-        console.log(data);
-        this.apiService.postItem(data, "product-reviews/").subscribe(
+        this.apiService.postItem(data, "/product-reviews/").subscribe(
           (response: ProductReview) => {
             this.loader = false;
             if (response) {
@@ -103,6 +100,7 @@ export class ProductInfoComponent {
           }
         );
       } else {
+        localStorage.setItem('redirectUrl', window.location.pathname);
         this.toastr.error('Vous devez être connecté pour commenter !', 'Connexion requise');
         this.router.navigate(["/auth/login"]);
       }
@@ -113,11 +111,13 @@ export class ProductInfoComponent {
 
   getProductReviews(){
 
-    this.apiService.getItems(`products/${this.product.slug}/reviews/`).subscribe(
+    this.apiService.getItems(`/products/${this.product.slug}/reviews/`).subscribe(
       (response:ProductReview[])=>{
+
         this.listOfReviews.next(response)
         this.reviews = response.reverse();
         this.calculateRatings();
+
       }
     )
 

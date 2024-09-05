@@ -4,185 +4,198 @@
   [firdTitle]="'Boutique'"
 ></app-breadcrumb>
 
-<div class="container mb-30">
-  <app-banner-vendors [vendor]="vendorDetails"> </app-banner-vendors>
+<div class="container mb-30" style="transform: none">
 
-    <div class="archive-header-2 text-center pt-10 pb-20">
-      <div class="row">
-        <div class="col-lg-5 mx-auto">
-          <div class="sidebar-widget-2 widget_search mb-50">
-            <div class="search-form">
-              <form>
-                <input
-                  type="text"
-                  placeholder="Rechercher vos articles ici ..."
-                />
-                <button type="submit"><i class="fi-rs-search"></i></button>
-              </form>
+  <div class="row flex-row-reverse pt-50" style="transform: none">
+    <div
+    class="col-lg-1-5 primary-sidebar sticky-sidebar"
+    style="
+      position: relative;
+      overflow: visible;
+      box-sizing: border-box;
+      min-height: 1px;
+    "
+  >
+    <!-- Fillter By Price -->
+
+    <div
+      class="theiaStickySidebar"
+      style="
+        padding-top: 0px;
+        padding-bottom: 1px;
+        position: static;
+        transform: none;
+        top: 0px;
+        left: 167px;
+      "
+    >
+    <app-banner-vendors [vendor]="vendorDetails"> </app-banner-vendors>
+
+      <div class="sidebar-widget widget-category-2 mb-30">
+        <h5 class="section-title style-1 mb-30">Categories</h5>
+        <app-vendors-categories [categorie]="ecommerceService._listCategory.value"></app-vendors-categories>
+      </div>
+      <div class="sidebar-widget price_range range mb-30">
+        <h5 class="section-title style-1 mb-30">Filtre par prix</h5>
+        <div class="price-filter">
+          <div class="price-filter-inner">
+
+            <div class="d-flex justify-content-between">
+              <div class="caption">
+                De :
+                <strong id="slider-range-value1" class="text-brand"
+                  >1000 CFA</strong
+                >
+              </div>
+              <div class="caption">
+                A :
+                <strong id="slider-range-value2" class="text-brand"
+                  >100000 CFA</strong
+                >
+              </div>
+
+            </div>
+            <div class="mt-3">
+              <ngx-slider
+                  [(value)]="sliderValue"
+                  [(highValue)]="highValue"
+                  [options]="sliderOptions"
+                >
+            </ngx-slider>
             </div>
           </div>
+        </div>
+        <div class="list-group">
+
+        </div>
+        <a class="btn btn-sm btn-default mt-3"
+          ><i class="fi-rs-filter mr-5"></i> Filtrer</a
+        >
+      </div>
+      <div
+        class="banner-img wow fadeIn mb-lg-0 animated d-lg-block d-none animated"
+        style="visibility: visible"
+      >
+        <img src="assets/imgs/banner/banner-11.png" alt="" />
+        <div class="banner-text">
+          <span>Oganic</span>
+          <h4>
+            Save 17% <br />
+            on <span class="text-brand">Oganic</span><br />
+            Juice
+          </h4>
         </div>
       </div>
     </div>
-    <div class="row flex-row-reverse">
-      <div class="col-lg-1-5 primary-sidebar sticky-sidebar">
-        <div class="sidebar-widget widget-category-2 mb-30">
-          <h5 class="section-title style-1 mb-20">Categories</h5>
-          <ul>
-            @if(listOfData.value.length > 0){
-            <li
-              *ngFor="let item of listOfData | async"
-              role="button"
-              (click)="chooseCategory(item)"
-              [ngClass]="{ selected: item.id === selectedCategory }"
-            >
-              <a href="javascript:void(0);">
-                <img [src]="item.image" alt="" />{{ item.name }}</a
-              >
-              <!-- <span class="count">30</span> [routerLink]="['/store', vendorDetails.slug , 'categorie', item.slug]" -->
-            </li>
-            <li role="button">
-              <a>
-                <div class="more_categories">
-                  <span class="icon mb-2"></span>
-                  <span class="heading-sm-1 mb-2">Affichez plus...</span>
-                </div>
-              </a>
-              <!-- <span class="count">30</span> -->
-            </li>
-            }@else{
-            <li>
-              <a class="category-loader ml-40">
-                <div class="loader3">
-                  <div class="bar1"></div>
-                  <div class="bar2"></div>
-                  <div class="bar3"></div>
-                  <div class="bar4"></div>
-                  <div class="bar5"></div>
-                  <div class="bar6"></div>
-                  <div class="bar7"></div>
-                  <div class="bar8"></div>
-                  <div class="bar9"></div>
-                  <div class="bar10"></div>
-                  <div class="bar11"></div>
-                  <div class="bar12"></div>
-                </div>
-              </a>
-            </li>
-            }
-          </ul>
+  </div>
+  <div class="col-lg-4-5">
+    @if(!loaderProduct){
+    <div class="row product-grid" id="products-section">
+      <div class="row product-grid">
+        <div
+          class="col-lg-3 col-md-4 col-12 col-sm-6"
+          *ngFor="
+            let item of listOfVendorProducts
+              | async
+              | slice : 0 : 8
+          "
+        >
+          <app-single-product [product]="item"></app-single-product>
         </div>
-        <!-- Product sidebar Widget -->
       </div>
-      <div class="col-lg-4-5">
-        @if(!loaderProduct){
-        <div class="row product-grid" id="products-section">
-          <div class="row product-grid">
-            <div
-              class="col-lg-3 col-md-4 col-12 col-sm-6"
-              *ngFor="
-                let item of listOfVendorProducts
-                  | async
-                  | slice : 0 : 8
-              "
-            >
-              <app-single-product [product]="item"></app-single-product>
-            </div>
-          </div>
-        </div>
+    </div>
 
-        }@else{
-          <div class="row product-grid">
-            <!--end product card-->
-            <div
-              class="col-lg-1-5 col-md-4 col-12 col-sm-6"
-              *ngFor="let item of listOfLoader"
-            >
-              <div class="product-cart-wrap mb-30">
-                <div class="fb-item m-2">
-                  <div class="first-section-wrapper">
-                    <div class="gravatar">
-                      <ngx-skeleton-loader
-                        appearance="circle"
-                        [theme]="{ width: '80px', height: '80px' }"
-                      >
-                      </ngx-skeleton-loader>
-                    </div>
-                    <div class="gravatar-title">
-                      <div>
-                        <ngx-skeleton-loader
-                          [theme]="{
-                            width: '200px',
-                            'border-radius': '0',
-                            height: '15px',
-                            'margin-bottom': '10px'
-                          }"
-                        ></ngx-skeleton-loader>
-                      </div>
-                      <div>
-                        <ngx-skeleton-loader
-                          [theme]="{
-                            width: '170px',
-                            'border-radius': '0',
-                            height: '15px'
-                          }"
-                        >
-                        </ngx-skeleton-loader>
-                      </div>
-                    </div>
+    }@else{
+      <div class="row product-grid">
+        <!--end product card-->
+        <div
+          class="col-lg-1-5 col-md-4 col-12 col-sm-6"
+          *ngFor="let item of listOfLoader"
+        >
+          <div class="product-cart-wrap mb-30">
+            <div class="fb-item m-2">
+              <div class="first-section-wrapper">
+                <div class="gravatar">
+                  <ngx-skeleton-loader
+                    appearance="circle"
+                    [theme]="{ width: '80px', height: '80px' }"
+                  >
+                  </ngx-skeleton-loader>
+                </div>
+                <div class="gravatar-title">
+                  <div>
+                    <ngx-skeleton-loader
+                      [theme]="{
+                        width: '200px',
+                        'border-radius': '0',
+                        height: '15px',
+                        'margin-bottom': '10px'
+                      }"
+                    ></ngx-skeleton-loader>
                   </div>
-                  <div class="second-section-wrapper">
-                    <div class="wrapper">
-                      <ngx-skeleton-loader
-                        [theme]="{
-                          width: '80%',
-                          'border-radius': '0',
-                          height: '15px',
-                          'margin-bottom': '10px'
-                        }"
-                      ></ngx-skeleton-loader>
-                    </div>
-                    <div class="wrapper">
-                      <ngx-skeleton-loader
-                        [theme]="{
-                          width: '90%',
-                          'border-radius': '0',
-                          height: '15px',
-                          'margin-bottom': '10px'
-                        }"
-                      ></ngx-skeleton-loader>
-                    </div>
-                    <div class="wrapper">
-                      <ngx-skeleton-loader
-                        [theme]="{
-                          width: '60%',
-                          'border-radius': '0',
-                          height: '15px',
-                          'margin-bottom': '10px'
-                        }"
-                      ></ngx-skeleton-loader>
-                    </div>
+                  <div>
+                    <ngx-skeleton-loader
+                      [theme]="{
+                        width: '170px',
+                        'border-radius': '0',
+                        height: '15px'
+                      }"
+                    >
+                    </ngx-skeleton-loader>
                   </div>
+                </div>
+              </div>
+              <div class="second-section-wrapper">
+                <div class="wrapper">
+                  <ngx-skeleton-loader
+                    [theme]="{
+                      width: '80%',
+                      'border-radius': '0',
+                      height: '15px',
+                      'margin-bottom': '10px'
+                    }"
+                  ></ngx-skeleton-loader>
+                </div>
+                <div class="wrapper">
+                  <ngx-skeleton-loader
+                    [theme]="{
+                      width: '90%',
+                      'border-radius': '0',
+                      height: '15px',
+                      'margin-bottom': '10px'
+                    }"
+                  ></ngx-skeleton-loader>
+                </div>
+                <div class="wrapper">
+                  <ngx-skeleton-loader
+                    [theme]="{
+                      width: '60%',
+                      'border-radius': '0',
+                      height: '15px',
+                      'margin-bottom': '10px'
+                    }"
+                  ></ngx-skeleton-loader>
                 </div>
               </div>
             </div>
           </div>
-        }
+        </div>
       </div>
-    </div>
 
-    @if(ecommerceService.newProducts.value.length >0){
-      <app-articles-propulaires
-        [title]="'Récement ajoutés'"
-        [produts]="ecommerceService.newProducts.value"
-      ></app-articles-propulaires>
+      @if(ecommerceService.newProducts.value.length >0){
+        <app-articles-propulaires
+          [title]="'Récement ajoutés'"
+          [produts]="ecommerceService.newProducts.value"
+        ></app-articles-propulaires>
+      }
+
+      @if(listOfVentesFlash.value){
+        <app-articles-propulaires
+          [title]="'Ventes Flash'"
+          [produts]="listOfVentesFlash.value"
+        ></app-articles-propulaires>
+      }
     }
 
-    @if(listOfVentesFlash.value){
-      <app-articles-propulaires
-        [title]="'Ventes Flash'"
-        [produts]="listOfVentesFlash.value"
-      ></app-articles-propulaires>
-    }
-  <!-- <app-top-selling></app-top-selling> -->
+  </div>
 </div>

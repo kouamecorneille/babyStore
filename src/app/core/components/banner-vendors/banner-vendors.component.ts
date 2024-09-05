@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Store } from '../../interfaces/Ishop';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { NotifcationsService } from '../../services/others/notifcations.service';
 
 @Component({
   selector: 'app-banner-vendors',
@@ -17,11 +18,18 @@ export class BannerVendorsComponent {
   loader = false
 
 
-  constructor() {
+  constructor(private notificationService:NotifcationsService) {
     setTimeout(() => {
 
       this.loader = true;
 
     },3000)
+  }
+
+
+  subscribeSHop(shop:string):void {
+
+    this.notificationService.subscribeToShop( true,shop);
+
   }
 }

@@ -52,28 +52,7 @@ export class VendorComponent {
 
   }
 
-  // getListOfVendors(){
 
-
-  //   this.apiService.getItems(`shops`).subscribe(
-  //     (response:Store[]) => {
-
-
-  //       if(response){
-
-  //         this.listOfVendors.next(response);
-  //         this.totalItems = this.ecommerceService.listOfStores.value.length;
-  //         this.updatePaginatedVendors(); // Mettre à jour les vendeurs paginés
-
-  //       }
-  //     },
-  //     (err:any)=>{
-
-  //       console.log(err)
-  //     }
-  //   )
-
-  // }
 
   updatePaginatedVendors() {
     const startIndex = (this.currentPage - 1) * this.pageSize;

@@ -1,5 +1,4 @@
-<div>
-  <!-- Affichage des détails du vendeur lorsque les données sont chargées -->
+<!-- <div>
   <div
     class="archive-header-3 mt-10 mb-40"
     *ngIf="loader"
@@ -50,12 +49,7 @@
                   <strong>Contact : </strong>
                   <span> {{ vendor.phone_number_1 }}</span>
                 </li>
-                <!-- <li>
-                  <button class="btn d-block ml-10 mt-2">
-                    <i class="fi-rs-plus mr-5"></i>
-                    Suivre
-                  </button>
-                </li> -->
+
               </ul>
             </div>
           </div>
@@ -81,7 +75,6 @@
     </div>
   </div>
 
-  <!-- Affichage de l'état de chargement pendant que les données sont en cours de récupération -->
 
     <div class="archive-header-3 mt-10 mb-40" *ngIf="!loader">
       <div class="product-cart-wrap mb-30">
@@ -150,5 +143,141 @@
         </div>
       </div>
     </div>
+</div> -->
+
+
+<div class="sidebar-widget widget-store-info mb-30 bg-3 border-0" *ngIf="loader && vendor">
+  <div class="vendor-logo mb-30">
+    <img [src]="vendor.logo"  alt="" class="rounded-circle"/>
+  </div>
+  <div class="vendor-info">
+    <div class="product-category">
+      <span class="text-muted"> Dépuis le {{ vendor.date_added | date: 'longDate' }}</span>
+    </div>
+    <h4 class="mb-5">
+      <a class="text-heading"
+        > {{ vendor.name }}</a
+      >
+    </h4>
+    <div class="product-rate-cover mb-15">
+      <div class="product-rate d-inline-block">
+        <div class="product-rating" style="width: 90%"></div>
+      </div>
+      <span class="font-small ml-5 text-muted"> (4.0)</span>
+    </div>
+    <div class="vendor-des mb-30">
+      <p class="font-sm text-heading">
+        {{ vendor.description}}
+      </p>
+    </div>
+    <div class="follow-social mb-20">
+      <h6 class="mb-15">Suivez-nous sur</h6>
+      <ul class="social-network">
+        <li class="hover-up">
+          <a [href]="vendor.whatsapp_link" target="_blank">
+            <img src="assets/imgs/theme/icons/social-wha.svg" alt="" />
+          </a>
+        </li>
+        <li class="hover-up">
+          <a [href]="vendor.facebook_link" target="_blank">
+            <img src="assets/imgs/theme/icons/social-fb.svg" alt="" />
+          </a>
+        </li>
+        <li class="hover-up">
+          <a [href]="vendor.instagram_link" target="_blank">
+            <img
+              src="assets/imgs/theme/icons/social-insta.svg"
+              alt=""
+            />
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="vendor-info">
+      <ul class="font-sm mb-20">
+        <li>
+          <img
+            class="mr-5"
+            src="assets/imgs/theme/icons/icon-location.svg"
+            alt=""
+          /><strong>Localisation : </strong>
+          <span
+            >{{ vendor.location }}</span
+          >
+        </li>
+        <li>
+          <img
+            class="mr-5"
+            src="assets/imgs/theme/icons/icon-contact.svg"
+            alt=""
+          /><strong>Contact : </strong><span> {{ vendor.phone_number_1 }}</span>
+        </li>
+      </ul>
+      <a class="btn btn-xs" href="javascript:void(0);" (click)="subscribeSHop(vendor.id)"
+        ><i class="fi-rs-plus me-2"></i
+          > S'abonner au vendeur </a>
+    </div>
+  </div>
 </div>
 
+<div class="sidebar-widget widget-store-info mb-30 bg-3 border-0"  *ngIf="!loader && !vendor">
+  <div class="vendor-logo mb-30">
+    <ngx-skeleton-loader
+      appearance="circle"
+      [theme]="{ width: '150px', height: '150px' }"
+    ></ngx-skeleton-loader>
+  </div>
+  <div class="vendor-info">
+    <div class="product-category">
+      <span class="text-muted">
+        <ngx-skeleton-loader
+        [theme]="{
+          width: '100%',
+          'border-radius': '0',
+          height: '20px',
+          'margin-bottom': '10px'
+        }"
+      ></ngx-skeleton-loader></span>
+    </div>
+    <h4 class="mb-5">
+      <a class="text-heading"
+        ><ngx-skeleton-loader
+        [theme]="{
+          width: '100%',
+          'border-radius': '0',
+          height: '15px',
+          'margin-bottom': '20px'
+        }"
+      ></ngx-skeleton-loader></a
+      >
+    </h4>
+
+    <div class="vendor-info">
+      <ul class="font-sm mb-20">
+        <li>
+          <ngx-skeleton-loader
+              [theme]="{
+                width: '100%',
+                'border-radius': '0',
+                height: '50px',
+                'margin-bottom': '10px'
+              }"
+            ></ngx-skeleton-loader>
+        </li>
+        <li>
+          <ngx-skeleton-loader
+          [theme]="{
+            width: '100%',
+            'border-radius': '0',
+            height: '50px',
+            'margin-bottom': '10px'
+          }"
+        ></ngx-skeleton-loader>
+        </li>
+      </ul>
+      <a class="btn btn-xs" href="javascript:void(0);"
+        ><i class="fi-rs-plus me-2"></i
+          > S'abonner au vendeur </a>
+    </div>
+  </div>
+</div>

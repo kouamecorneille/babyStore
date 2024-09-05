@@ -15,14 +15,14 @@
                         <div class="d-flex categori-dropdown-inner">
                             <ul>
                                 <li *ngFor="let item of listOfData |async">
-                                    <a [routerLink]="['/categorie', item.slug , 'product']"> <img [src]="item.image" alt="" />
+                                    <a href="javascript:void(0);" (click)="selectCategory(item)"> <img [src]="item.image" alt="" />
                                       {{item.name}}
                                     </a>
                                 </li>
                             </ul>
                             <ul class="end">
                               <li *ngFor="let item of listOfData2 |async">
-                                <a [routerLink]="['/categorie', item.slug , 'product']">
+                                <a href="javascript:void(0);" (click)="selectCategory(item)">
                                   <img [src]="item.image" alt="" />
                                   {{item.name}}
                                   </a>
@@ -68,33 +68,18 @@
                                 <img src="assets/imgs/theme/icons/icon-hot.svg" alt="hot deals" />
                                 <a routerLink="/hot-deals" routerLinkActive="active">Deals</a>
                             </li>
-                            <!-- <li>
-                                <a  routerLink="/home" routerLinkActive="active">Acceuil</a>
-                            </li> -->
                             <li>
                                 <a routerLink="/shop" routerLinkActive="active">Nos produits</a>
                             </li>
                             <li>
                                 <a routerLink="/vendors" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Boutiques</a>
                             </li>
-                            <!-- <li>
-                                <a routerLink="/recommandations"routerLinkActive="active" >Recommandations</a>
-                            </li> -->
-                            <!-- <li class="position-static">
-                                <a routerLink="/recommandations"routerLinkActive="active">Recommandations <i class="fi-rs-angle-down"></i></a>
-                               <app-recommandations-categorie></app-recommandations-categorie>
-                            </li> -->
-
-                            <!-- <li>
-                                <a routerLink="/contact-us" routerLinkActive="active">Contact</a>
-                            </li> -->
                             <li>
                                 <a  routerLink="/vendors/guide" routerLinkActive="active">Devenir vendeur</a>
                             </li>
-
-                            <li>
-                                <a routerLink="/contact-us" routerLinkActive="active">Tarifs</a>
-                            </li>
+                            <!-- <li>
+                                <a routerLink="/pricing" routerLinkActive="active">Tarifs</a>
+                            </li> -->
                             <li>
                               <a routerLink="/about" routerLinkActive="active">A propos</a>
                             </li>

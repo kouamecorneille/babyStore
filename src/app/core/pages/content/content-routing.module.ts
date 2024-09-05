@@ -22,6 +22,7 @@ import { ProductPerCategoryVendorComponent } from './product-per-category-vendor
 import { DetailsProductVendorComponent } from './details-product-vendor/details-product-vendor.component';
 import { RegisterStoreComponent } from './register-store/register-store.component';
 import { SuccessOrdersComponent } from './success-orders/success-orders.component';
+import { PrincingComponent } from './princing/princing.component';
 
 const routes: Routes = [
   {
@@ -81,6 +82,12 @@ const routes: Routes = [
         component: VendorComponent,
         canActivate: [networkStatusGuard],
         data: { animation: 'VendorPage' }
+      },
+      {
+        path: 'pricing',
+        component: PrincingComponent,
+        canActivate: [networkStatusGuard],
+        data: { animation: 'pricing' }
       },
       {
         path: 'vendors/guide',

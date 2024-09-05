@@ -1,0 +1,46 @@
+<ul>
+  @if(categorie.length > 0){
+    <li *ngFor="let item of categorie" class="d-flex">
+      <a  href="javascript:void(0);">
+        <img [src]="item.category.image" alt="" />
+        {{item.category.name}}
+      </a>
+    </li>
+  }@else{
+
+  <ngx-skeleton-loader
+    [theme]="{
+      width: '100%',
+      'border-radius': '0',
+      height: '50px',
+      'margin-bottom': '10px'
+    }"
+  ></ngx-skeleton-loader>
+
+  <ngx-skeleton-loader
+    [theme]="{
+      width: '100%',
+      'border-radius': '0',
+      height: '50px',
+      'margin-bottom': '10px'
+    }"
+  ></ngx-skeleton-loader>
+  <ngx-skeleton-loader
+    [theme]="{
+      width: '100%',
+      'border-radius': '0',
+      height: '50px',
+      'margin-bottom': '10px'
+    }"
+  ></ngx-skeleton-loader>
+  <ngx-skeleton-loader
+    [theme]="{
+      width: '100%',
+      'border-radius': '0',
+      height: '50px',
+      'margin-bottom': '10px'
+    }"
+  ></ngx-skeleton-loader>
+
+  }
+</ul>

@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   hmr: false,
-  apiUrl: 'https://djassa2baby.onrender.com/api/',
+  apiUrl: 'https://djassa2baby.onrender.com/api',
   firebaseConfig: {
     apiKey: "AIzaSyA1Y6YIoIOvfW2lhJ9enVN9RYej2wqh9W0",
     authDomain: "djassa2baby-275ef.firebaseapp.com",

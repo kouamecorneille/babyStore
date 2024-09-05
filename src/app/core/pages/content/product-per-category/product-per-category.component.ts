@@ -20,6 +20,7 @@ export class ProductPerCategoryComponent {
   ecommerceService = inject(EcommerceService);
 
 
+
   constructor(private activeRoute: ActivatedRoute,private cartService: CartService) {
 
     this.params = this.activeRoute.snapshot.paramMap.get('name');
@@ -28,14 +29,14 @@ export class ProductPerCategoryComponent {
 
   ngOnInit(): void {
 
-  
+
       // this.convertSlugToText(this.params);
       setTimeout(() => {
         if(this.params){
           this.ecommerceService.getProductsBySlug(this.params);
         }
       }, 2000);
-    
+
 
   }
 

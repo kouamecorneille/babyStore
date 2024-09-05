@@ -61,6 +61,8 @@ import { initializeApp } from 'firebase/app';
 import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
 import { provideFirebaseApp } from '@angular/fire/app';
 import { NotifcationsService } from '../../services/others/notifcations.service';
+import { VendorsCategoriesComponent } from '../../components/vendors-categories/vendors-categories.component';
+import { PrincingComponent } from './princing/princing.component';
 @NgModule({
     declarations: [
         ErrorComponent,
@@ -90,7 +92,8 @@ import { NotifcationsService } from '../../services/others/notifcations.service'
         TimestampFormatPipe, // Ajoutez le pipe aux déclarations
         RegisterStoreComponent,
         SuccessOrdersComponent,
-        DetailsVendorTowComponent
+        DetailsVendorTowComponent,
+        PrincingComponent
     ],
     imports: [
         CommonModule,
@@ -121,6 +124,7 @@ import { NotifcationsService } from '../../services/others/notifcations.service'
         CorePipesModule,
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFireMessagingModule,
+        VendorsCategoriesComponent
 
     ],
     providers: [

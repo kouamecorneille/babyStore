@@ -1,44 +1,5 @@
 <div class="container mb-30">
-  <div class="archive-header-2 text-center pt-10 pb-20">
-    <div class="row">
-      <div class="col-lg-5 mx-auto">
-        <div class="sidebar-widget-2 widget_search mb-40">
-          <div class="search-form">
-            <form>
-              <input
-                type="text"
-                placeholder="Rechercher vos articles ici ..."
-                [(ngModel)]="searchString"
-                name="searchString"
-                (input)="searchItem()"
-              />
-              <button type="submit" [disabled]="!searchString" (click)="searchItem()">
-                <i class="fi-rs-search"></i>
-              </button>
-            </form>
 
-
-            <div class="resultat-box card mt-2" *ngIf="searchString && searchProducts.value.length > 0">
-              <h6 class="text-center mt-2">Résultat de votre recherche</h6>
-              <ul>
-                <li class="border mb-1" *ngFor="let item of searchProducts | async" [routerLink]="['/details-product', item.slug]">
-                  <div class="d-flex">
-                    <img [src]="item.image1" height="40" width="40" [alt]="item.name" class="img-fluid me-3">
-                    <div>
-                      <h6 class="text-truncate">
-                        {{ item.name.length > 20 ? (item.name.substring(0, 20) + '...') : item.name }}
-                      </h6>
-                      <p><span>{{ parseIntValue(item.reduced_price ? item.reduced_price : item.price ) | number:'1.0-0' }}</span> FCFA</p>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
     <div class="row flex-row-reverse">
         <div class="col-lg-1-5 primary-sidebar sticky-sidebar">
             <div class="sidebar-widget widget-category-2 mb-30">
@@ -130,17 +91,7 @@
                   </ul>
                 </div>
                 <div class="list-group">
-                  <!-- <div class="d-flex">
-                      <div class="custome-checkbox mr-80">
-                        <div *ngFor="let item of listOfStores |async; trackBy: trackById">
-                            <input class="form-check-input" type="checkbox" name="checkbox" [id]="item.id" [value]="item.id">
-                            <label class="form-check-label" [for]="item.id"><span>
-                              {{item.name}}
-                            </span></label>
-                            <br>
-                        </div>
-                      </div>
-                  </div> -->
+
                     <div class="list-group-item mb-10 mt-10">
                       <h6 class="mb-3">Selectionner un prix</h6>
                       <div class="mb-20">
@@ -172,20 +123,46 @@
                   </div>
               </div>
             }
-
-            <div class="banner-img wow fadeIn mb-lg-0 animated d-lg-block d-none">
-                <img src="assets/imgs/Retail markdown-pana.svg" alt="">
-                <!-- <div class="banner-text">
-                    <span>Oganic</span>
-                    <h4>
-                        Save 17% <br>
-                        on <span class="text-brand">Oganic</span><br>
-                        Juice
-                    </h4>
-                </div> -->
-            </div>
         </div>
         <div class="col-lg-4-5">
+          <!-- <div class="archive-header-2 text-center pt-10 pb-20">
+            <div class="row">
+              <div class="col-lg-5 mx-auto">
+                <div class="sidebar-widget-2 widget_search mb-40">
+                  <div class="search-form">
+                    <form>
+                      <input
+                        type="text"
+                        placeholder="Rechercher vos articles ici ..."
+                        [(ngModel)]="searchString"
+                        name="searchString"
+                        (input)="searchItem()"
+                      />
+                      <button type="submit" [disabled]="!searchString" (click)="searchItem()">
+                        <i class="fi-rs-search"></i>
+                      </button>
+                    </form>
+                    <div class="resultat-box card mt-2" *ngIf="searchString && searchProducts.value.length > 0">
+                      <h6 class="text-center mt-2">Résultat de votre recherche</h6>
+                      <ul>
+                        <li class="border mb-1" *ngFor="let item of searchProducts | async" [routerLink]="['/details-product', item.slug]">
+                          <div class="d-flex">
+                            <img [src]="item.image1" height="40" width="40" [alt]="item.name" class="img-fluid me-3">
+                            <div>
+                              <h6 class="text-truncate">
+                                {{ item.name.length > 20 ? (item.name.substring(0, 20) + '...') : item.name }}
+                              </h6>
+                              <p><span>{{ parseIntValue(item.reduced_price ? item.reduced_price : item.price ) | number:'1.0-0' }}</span> FCFA</p>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
             @if(ecommerceService.listOfProduct.value.length > 0){
               <div class="row product-grid">
                 <div class="col-lg-1-5 col-md-4 col-12 col-sm-6" *ngFor="let item of listOfProducts |async">

@@ -60,7 +60,7 @@
                 <div class="product-category">
                     <span class="text-muted">Dépuis le {{joineddate | date:'longDate'}}</span>
                 </div>
-                <h4 class="mb-5"><a href="vendor-details-1.html">{{ nameBoutique }}</a></h4>
+                <h4 class="mb-5"><a  [routerLink]="['/vendors/details', slug]">{{ nameBoutique }}</a></h4>
                 <div class="product-rate-cover">
                     <div class="product-rate d-inline-block">
                         <div class="product-rating" style="width: 90%"></div>

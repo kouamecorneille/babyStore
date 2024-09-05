@@ -1,6 +1,6 @@
 import { Component, Inject, PLATFORM_ID, Renderer2, OnInit, inject } from '@angular/core';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { ApiService } from '../../../services/api.service';
 import { ICategory } from "../../../interfaces/Icategory";
@@ -28,6 +28,7 @@ export class HeaderBottomComponent{
   listOfData2 = new BehaviorSubject<ICategory[]>([]);
   ecomService =inject(EcommerceService)
   authService = inject(AuthenticateService)
+  router = inject(Router)
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
@@ -58,7 +59,7 @@ export class HeaderBottomComponent{
   }
 
   tooggleOpen(){
-    console.log("-----this.ecomService.searchVisible.set(true)-------")
+
     this.ecomService.searchVisible.set(true)
   }
 
@@ -94,7 +95,7 @@ export class HeaderBottomComponent{
 
   getCategory() {
     // Appel de l'API pour récupérer les catégories d'éléments
-    this.apiService.getItems('categories').subscribe(
+    this.apiService.getItems('/categories').subscribe(
       (response: ICategory[]) => {
         // Mettre à jour la première partie de la liste de données avec les 6 premiers éléments
         this.listOfData.next(response.slice(0, 6));
@@ -109,5 +110,10 @@ export class HeaderBottomComponent{
         console.error('Error fetching categories', error);
       }
     );
+  }
+
+  selectCategory(category:ICategory){
+    this.isOpen = !this.isOpen;
+    this.router.navigate(['/categorie', category.slug , 'product'])
   }
 }

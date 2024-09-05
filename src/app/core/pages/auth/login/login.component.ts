@@ -17,14 +17,24 @@ export class LoginComponent {
   message!:string
   loader: boolean=false;
   //private authService:AuthenticateService
-  constructor(private fb:FormBuilder,private authService:AuthenticateService,private toastr: ToastrService, private router:Router, private crypt:CrytodataService){
+  constructor(private fb:FormBuilder, private authService:AuthenticateService, private toastr: ToastrService, private router:Router, private crypt:CrytodataService){
 
     this.LoginForm = this.fb.group({
       numero:["", [Validators.required, Validators.minLength(10)]],
       password:["", [Validators.required,Validators.minLength(6)]]
     })
+
   }
 
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    if( this.authService.isAuthenticatedUser()){
+
+      this.router.navigate(['/hot-deals']);
+
+    }
+  }
 
   get f(): { [key: string]: AbstractControl } {
     return this.LoginForm.controls;

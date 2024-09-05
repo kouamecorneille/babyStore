@@ -4,6 +4,7 @@ import { Product } from '../../interfaces/Iproduct';
 import { ApiService } from '../api.service';
 import { Store } from '../../interfaces/Ishop';
 import { ICategory } from '../../interfaces/Icategory';
+import { Shopcategorie } from '../../interfaces/IShopCategorie';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class EcommerceService {
   listOfStores = new BehaviorSubject<Store[]>([]);
   searchVisible = signal<boolean>(false)
   isRefreshing = signal<boolean>(false)
-
+  titleCategorie!:string
   newProducts = new BehaviorSubject<Product[]>([]);
   // Créez un objet conforme à l'interface Store avec des valeurs initiales
   initialStore: Store = {
@@ -47,13 +48,14 @@ export class EcommerceService {
   storeDetails = new BehaviorSubject<Store>(this.initialStore);
   listOfProductByCategory = new BehaviorSubject<Product[]>([]);
   listOfCategory = new BehaviorSubject<ICategory[]>([]);
+  _listCategory = new BehaviorSubject<Shopcategorie[]>([]);
   constructor(private apiService:ApiService) {
 
   }
 
   getAllProducts() {
 
-    this.apiService.getItems("products").subscribe(
+    this.apiService.getItems("/products").subscribe(
       (response:Product[]) => {
         this.listOfProduct.next(response.reverse());
         this.listOfRecommendations.next(response.slice(5, 15));
@@ -68,7 +70,7 @@ export class EcommerceService {
   getListOfVendors(){
 
 
-    this.apiService.getItems(`shops`).subscribe(
+    this.apiService.getItems(`/shops`).subscribe(
       (response:Store[]) => {
 
         if(response){
@@ -124,7 +126,7 @@ export class EcommerceService {
 
   getProductBouqtiqueOfficielle() {
 
-    this.apiService.getItems("products").subscribe(
+    this.apiService.getItems("/products").subscribe(
       (response:Product[]) => {
 
         this.listOfProducts.next(response.reverse());
@@ -139,9 +141,9 @@ export class EcommerceService {
 
   getProductsBySlug(category_slug:string) {
 
-    this.apiService.getItems(`products/category/${category_slug}`).subscribe(
+    this.apiService.getItems(`/products/category/${category_slug}`).subscribe(
       (response:Product[]) => {
-
+        this.titleCategorie = response[0].category.name;
         this.listOfProductByCategory.next(response.reverse());
       },
       (error:any) => {
@@ -154,7 +156,7 @@ export class EcommerceService {
 
   getProductsVendorBySlug(category_slug:string) {
 
-    this.apiService.getItems(`shops/products/category/${category_slug}`).subscribe(
+    this.apiService.getItems(`/shops/products/category/${category_slug}`).subscribe(
       (response:Product[]) => {
 
         this.listOfProductByCategory.next(response.reverse());
@@ -169,7 +171,7 @@ export class EcommerceService {
 
   getCategory() {
     // Appel de l'API pour récupérer les catégories d'éléments
-    this.apiService.getItems('categories').subscribe(
+    this.apiService.getItems('/categories').subscribe(
       (response: ICategory[]) => {  // Utilisation de subscribe pour s'abonner à la réponse
         // Mettre à jour la première partie de la liste de données avec les 7 premiers éléments
         this.listOfCategory.next(response);
@@ -204,7 +206,7 @@ export class EcommerceService {
 
   getShopDetails(slug:string) {
 
-    this.apiService.getItem("shops", slug).subscribe(
+    this.apiService.getItem("/shops", slug).subscribe(
       (response:Store) => {
 
         this.storeDetails.next(response);
@@ -213,9 +215,20 @@ export class EcommerceService {
 
   }
 
+  getFavoritesCategorie(id:string) {
+    // Appel de l'API pour récupérer les catégories d'éléments
+    this.apiService.getItems(`/shop-categories/list-categorie/${id}`).subscribe(
+      (response:Shopcategorie[]) => {  // Utilisation de subscribe pour s'abonner à la réponse
+        // Mettre à jour la première partie de la liste de données avec les 7 premiers éléments
+        this._listCategory.next(response);
+        // Affichage de la valeur actuelle de listOfData dans la console
+      }
+    );
+  }
+
   searchProduct(term:string){
 
-    return this.apiService.getItems(`products/search/?q=${term}`);
+    return this.apiService.getItems(`/products/search/?q=${term}`);
   }
 
 

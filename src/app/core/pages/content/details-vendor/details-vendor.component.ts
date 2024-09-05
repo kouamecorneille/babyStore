@@ -8,6 +8,7 @@ import { ICategory } from '../../../interfaces/Icategory';
 import { Product } from '../../../interfaces/Iproduct';
 import { CartService } from '../../../services/others/cart.service';
 import { ViewportService } from '../../../services/others/viewport.service';
+import { Options } from '@angular-slider/ngx-slider';
 
 @Component({
   selector: 'app-details-vendor',
@@ -19,6 +20,7 @@ export class DetailsVendorComponent {
   slugVendor: string = '';
   listOfLoader = Array.from({ length: 15 }, (_, i) => i); // Simplified loader array initialization
   listOfData = new BehaviorSubject<ICategory[]>([]);
+ categorieVendors :ICategory[] = [];
   storeName: string = '';
   ecommerceService = inject(EcommerceService);
   baseUrl:string='http://djassa2baby.pythonanywhere.com/'
@@ -30,6 +32,18 @@ export class DetailsVendorComponent {
   listOfVentesFlash = new BehaviorSubject<Product[]>([])
   loaderProduct :boolean = false
   isMobile = this.viewportService.isMobile$;
+  minValue: number = 0;
+  maxValue: number = 100000;
+  sliderValue: number = 1000;
+  highValue: number = 100000;
+  sliderOptions: Options = {
+    floor: 1000,
+    ceil: 100000,
+    step: 1000,
+    translate: (value: number): string => {
+      return  value + ' CFA' ;
+    }
+  };
 
   constructor(
     private apiService: ApiService,
@@ -43,6 +57,7 @@ export class DetailsVendorComponent {
   ngOnInit(): void {
     this.getStoreDetails();
     this.getCategory();
+
   }
 
   parseIntValue(value:string):number{
@@ -126,10 +141,11 @@ export class DetailsVendorComponent {
 
   getShopDetails(slug:string) {
 
-    this.apiService.getItem("shops", slug).subscribe(
+    this.apiService.getItem("/shops", slug).subscribe(
       (response:Store) => {
 
         this.vendorDetails = response;
+        this.ecommerceService.getFavoritesCategorie(response.id)
       }
     )
 
@@ -143,20 +159,16 @@ export class DetailsVendorComponent {
       this.getShopDetails(this.slugVendor)
       this.getVendorProducts(this.slugVendor);
 
+
     } else {
       console.error('No "name" parameter found in the route.');
     }
   }
 
-  // getVendorProducts(): void {
-  //   if (this.vendorDetails) {
-  //     this.ecommerceService.getVendorProducts(this.vendorDetails.slug);
-  //     this.ecommerceService.filterProductsByDate(this.ecommerceService.listOfProduct.value);
-  //   }
-  // }
+
 
   getCategory(): void {
-    this.apiService.getItems('categories').subscribe(
+    this.apiService.getItems('/categories').subscribe(
       (response: ICategory[]) => {
         this.listOfData.next(response.slice(0,10));
       },

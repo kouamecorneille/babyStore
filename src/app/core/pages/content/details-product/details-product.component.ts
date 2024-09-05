@@ -162,7 +162,7 @@ export class DetailsProductComponent implements  OnInit, OnDestroy {
   }
 
   getDetailsProduct() {
-      this.apiService.getItem('products', this.slugProduct()).subscribe(
+      this.apiService.getItem('/products', this.slugProduct()).subscribe(
         (response: Product) => {
 
           this.bannersConfigs = [];
@@ -199,7 +199,7 @@ export class DetailsProductComponent implements  OnInit, OnDestroy {
 
  getSimilarProduct(){
   if(this.product){
-    this.apiService.getItems(`products/${this.product.slug}/similar`).subscribe(
+    this.apiService.getItems(`/products/${this.product.slug}/similar`).subscribe(
       (response:Product[])=>{
         // console.log("PRODUCT :",response);
         this.similarProduct = response.slice(0,4);
