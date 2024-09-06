@@ -9,6 +9,7 @@ export const environment = {
     storageBucket: "djassa2baby-275ef.appspot.com",
     messagingSenderId: "954955986841",
     appId: "1:954955986841:web:a1f3d26049526356934508",
-    measurementId: "G-4J4K3QYEQS"
+    measurementId: "G-4J4K3QYEQS",
+    vapidKey:"BDLDkLO7DklMm3kqjsxA2DorUz6Ns_RzMgb7DHKzBS0mv0Nu1Uv9MwgLlcYdChetRFocEKGsZY7hcVCiREnwpT0"
   }
 };

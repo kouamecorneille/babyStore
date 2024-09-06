@@ -57,7 +57,7 @@ export class ApiService {
   getItem(url:string, id:any):Observable<any>{
 
     return this.Http.get<any>(`${this.baseUrl + url}/${id}`).pipe(
-      delay(2000)
+      delay(1000)
     );
 
   }
@@ -78,7 +78,7 @@ export class ApiService {
   getItems(url:string):Observable<any[]>{
 
     return this.Http.get<any[]>(this.baseUrl + url).pipe(
-      delay(2000)
+      delay(1000)
     );
 
   }

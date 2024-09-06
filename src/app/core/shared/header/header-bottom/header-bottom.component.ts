@@ -99,10 +99,8 @@ export class HeaderBottomComponent{
       (response: ICategory[]) => {
         // Mettre à jour la première partie de la liste de données avec les 6 premiers éléments
         this.listOfData.next(response.slice(0, 6));
-
         // Mettre à jour la deuxième partie de la liste de données avec le reste des éléments
         this.listOfData2.next(response.slice(6));
-
         // Affichage de la valeur actuelle de listOfData dans la console
         console.log(this.listOfData.value);
       },

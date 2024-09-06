@@ -39,21 +39,42 @@ export class HotdealsComponent {
   }
 
 
-  getCategory() {
-    // Appel de l'API pour récupérer les catégories d'éléments
-    this.apiService.getItems('categories').subscribe(
-      (response: ICategory[]) => {  // Utilisation de subscribe pour s'abonner à la réponse
-        console.log(response);  // Affichage de la réponse dans la console
-
-        // Mettre à jour la première partie de la liste de données avec les 7 premiers éléments
-        this.listOfData.next(response.slice(0, 3));
-
-        // Affichage de la valeur actuelle de listOfData dans la console
-        console.log(this.listOfData.value);
-      }
-    );
+  // Fonction pour mélanger un tableau
+  private shuffleArray(array: any[]): any[] {
+    return array.sort(() => Math.random() - 0.5);
   }
 
+  // Fonction pour obtenir 3 catégories aléatoires une fois par jour
+  getCategory() {
+    const today = new Date().toDateString(); // Obtenir la date d'aujourd'hui au format string
+    const savedCategories = JSON.parse(localStorage.getItem('randomCategories') || 'null'); // Charger les catégories depuis le localStorage
+    const savedDate = localStorage.getItem('randomCategoriesDate'); // Charger la date enregistrée
+
+    // Si les catégories ont déjà été sélectionnées aujourd'hui, on les utilise
+    if (savedCategories && savedDate === today) {
+
+      this.listOfData.next(savedCategories);
+
+    } else {
+      // Sinon, on appelle l'API et on sélectionne de nouvelles catégories pour la journée
+      this.apiService.getItems('/categories').subscribe(
+        (response: ICategory[]) => {
+          const shuffledCategories = this.shuffleArray(response); // Mélanger les catégories
+          const randomCategories = shuffledCategories.slice(0, 3); // Sélectionner les 3 premières
+
+          // Enregistrer les catégories sélectionnées et la date dans le localStorage
+          localStorage.setItem('randomCategories', JSON.stringify(randomCategories));
+          localStorage.setItem('randomCategoriesDate', today);
+
+          // Mettre à jour la liste des données dans le BehaviorSubject
+          this.listOfData.next(randomCategories);
+        },
+        (error) => {
+          console.error('Erreur lors de la récupération des catégories:', error);
+        }
+      );
+    }
+  }
 
 
 

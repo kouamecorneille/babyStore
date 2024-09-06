@@ -32,7 +32,7 @@ export class ListCategorieComponent {
 
   getCategory() {
     // Appel de l'API pour récupérer les catégories d'éléments
-    this.apiService.getItems('categories').subscribe(
+    this.apiService.getItems('/categories').subscribe(
       (response: ICategory[]) => {  // Utilisation de subscribe pour s'abonner à la réponse
         console.log(response);  // Affichage de la réponse dans la console
         // Mettre à jour la première partie de la liste de données avec les 7 premiers éléments

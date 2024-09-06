@@ -44,13 +44,9 @@ export class HeadComponent {
     // this.totalItems = this.cartService.totalItems()
   }
 
-
-
   ngOnInit(): void {
 
     this.ecomService.getCategory()
-    console.log("listOfCategories :",this.ecomService.listOfCategories)
-
     this.cartService.totalItems.subscribe((data)=>{
       this.totalItems = data  //recuperer le nombres d'articles dans  le panier
     })
@@ -130,7 +126,7 @@ export class HeadComponent {
         $this.parent().hasClass("has-children") ||
         $this.parent().hasClass("has-sub-menu")
       ) {
-        e.preventDefault();
+         e.preventDefault();
         if ($this.siblings("ul:visible").length) {
             $this.parent("li").removeClass("active");
             $this.siblings("ul").slideUp();
