@@ -200,7 +200,9 @@
         </div>
 
         @if(ecommerceService.listOfProducts.value.length > 0){
-
+          <div class="section-title style-1 wow">
+            <h3> Des offres qui donnent la JOIE </h3>
+        </div>
         <div
           class="col-lg-1-5 col-md-4 col-12 col-sm-6"
           *ngFor="let item of ecommerceService.listOfProducts | async"
@@ -350,6 +352,9 @@
         </div>
         }
         <!--end product card-->
+        <app-articles-propulaires [title]="'Les bons Mouhments de chez nous !'" [produts]="ecommerceService.listOfProducts.value"></app-articles-propulaires>
+        <app-articles-propulaires [title]="'Les Bons plans de BabyShop'" [produts]="ecommerceService.listOfProducts.value"></app-articles-propulaires>
+
       </div>
       <!--product grid-->
       <div class="pagination-area mt-20 mb-20 text-end">

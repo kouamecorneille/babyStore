@@ -46,7 +46,7 @@
               >
 
                 <div class="mb-3 position-relative">
-                  <label for="name" class="form-label">Nom</label>
+                  <label for="name" class="form-label">Nom <span class="text-danger">*</span></label>
                   <div class="position-relative">
                     <span class="auth-input-icon input-group-text"
                       ><svg
@@ -82,7 +82,7 @@
                   </div>
                 </div>
                 <div class="mb-3 position-relative">
-                  <label for="name" class="form-label">Prénoms </label>
+                  <label for="name" class="form-label">Prénoms <span class="text-danger">*</span></label>
                   <div class="position-relative">
                     <span class="auth-input-icon input-group-text"
                       ><svg
@@ -118,7 +118,7 @@
                   </div>
                 </div>
                 <div class="mb-3 position-relative">
-                  <label for="email" class="form-label">Adresse email </label>
+                  <label for="email" class="form-label">Adresse email <span class="text-danger">*</span></label>
                   <div class="position-relative">
                     <span class="auth-input-icon input-group-text"
                       ><svg
@@ -167,7 +167,7 @@
                   </div>
                 </div>
                 <div class="mb-3 position-relative">
-                  <label for="phone" class="form-label">Numéro de téléphone</label>
+                  <label for="phone" class="form-label">Numéro de téléphone <span class="text-danger">*</span></label>
                   <div class="position-relative">
                     <span class="auth-input-icon input-group-text"
                       ><svg
@@ -217,7 +217,50 @@
                   </div>
                 </div>
                 <div class="mb-3 position-relative">
-                  <label for="password" class="form-label">Mot de passe</label>
+                  <label for="phone" class="form-label">Adresse de livraison <span class="text-danger">*</span></label>
+                  <div class="position-relative">
+                    <span class="auth-input-icon input-group-text"
+                      ><svg
+                        class="icon svg-icon-ti-ti-phone"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path
+                          d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"
+                        ></path></svg></span
+                    ><input
+                      class="form-control ps-5 js-phone-number-mask form-control"
+                      data-counter="250"
+                      placeholder="Adresse de livraison"
+                      autocomplete="text"
+                      formControlName="delivery_adresse"
+                      [ngClass]="{'border-danger': RegisterForm.controls?.['delivery_adresse']?.invalid && (RegisterForm.controls?.['delivery_adresse']?.dirty || RegisterForm.controls?.['delivery_adresse']?.touched) }"
+
+                      type="text"
+                      id="phone"
+                    />
+                    <small
+                          class="text-danger"
+                          *ngIf="
+                            RegisterForm?.get('delivery_adresse')?.hasError('required') &&
+                            RegisterForm?.get('delivery_adresse')?.touched
+                          "
+                        >
+                          L'adresse de livraison est un champ requis.
+                        </small>
+
+                  </div>
+                </div>
+                <div class="mb-3 position-relative">
+                  <label for="password" class="form-label">Mot de passe <span class="text-danger">*</span></label>
                   <div class="position-relative">
                     <span class="auth-input-icon input-group-text"
                       ><svg
@@ -268,7 +311,7 @@
                 </div>
                 <div class="mb-3 position-relative">
                   <label for="password_confirmation" class="form-label"
-                    >Confirmation du mot de passe</label
+                    >Confirmation du mot de passe <span class="text-danger">*</span></label
                   >
                   <div class="position-relative">
                     <span class="auth-input-icon input-group-text"

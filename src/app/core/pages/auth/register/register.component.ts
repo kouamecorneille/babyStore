@@ -57,7 +57,7 @@ export class RegisterComponent {
       numero: ["", [Validators.required, Validators.minLength(10)]], // Validators should be an array
       password: ["", Validators.required, Validators.minLength(6)],
       role: ["", Validators.required],
-      // securityCode: ["", Validators.required],
+      delivery_adresse: ["", Validators.required],
       confirmPassword: ["", Validators.required, Validators.minLength(6)],
       acceptTerms: [false, Validators.requiredTrue]
     },{
@@ -92,7 +92,6 @@ export class RegisterComponent {
         if (response && response.length > 0) {
           // Filter out roles labeled as 'admin'
           this.listOfRoles = response.filter((role: Role) => role.label !== 'admin');
-          console.log('Filtered roles:', this.listOfRoles);
         } else {
           console.log('No roles found or empty response.');
         }
@@ -114,6 +113,7 @@ export class RegisterComponent {
               first_name: this.RegisterForm.value.nom,
               last_name: this.RegisterForm.value.prenoms,
               email: this.RegisterForm.value.email,
+              delivery_adresse: this.RegisterForm.value.delivery_adresse,
               phone_number: this.RegisterForm.value.numero,
               password: this.RegisterForm.value.password,
               role: this.listOfRoles.find(role => role.label === 'client'),

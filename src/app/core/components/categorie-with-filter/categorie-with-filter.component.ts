@@ -112,6 +112,7 @@ export class CategorieWithFilterComponent {
     this.SortData()
     this.iniData()
     this.getListOfVendors()
+    this.ecomService.filterProductsByDate(this.ecomService.listOfProducts.value)
 
   }
 

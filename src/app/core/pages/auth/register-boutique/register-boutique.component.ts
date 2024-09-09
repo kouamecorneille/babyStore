@@ -23,6 +23,7 @@ export class RegisterBoutiqueComponent {
       phone_number_2: ['',Validators.minLength(10)],
       description: ['',[Validators.required,Validators.minLength(100)]],
       location: [''],
+      delivery_adresse: [''],
       facebook_link: [''],
       whatsapp_link: ['',[Validators.required,Validators.minLength(10)]],
       is_active: [true],
@@ -67,6 +68,7 @@ export class RegisterBoutiqueComponent {
     form.append('phone_number_2',this.shopForm.value.phone_number_2)
     form.append('description',this.shopForm.value.description)
     form.append('location',this.shopForm.value.location)
+    form.append('delivery_adresse',this.shopForm.value.delivery_adresse)
     form.append('facebook_link',this.shopForm.value.facebook_link)
     form.append('whatsapp_link',this.shopForm.value.whatsapp_link)
     this.apiService.postItem(form, 'shops').subscribe(

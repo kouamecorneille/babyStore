@@ -186,21 +186,22 @@ export class EcommerceService {
   filterProductsByDate(products: Product[]): void {
     // Obtenez la date actuelle en millisecondes depuis l'époque (01 janvier 1970 00:00:00 UTC)
     const currentDate = Date.now();
-    // Calculez le timestamp correspondant à 2 jours avant la date actuelle
-    const twoDaysAgo = currentDate - (2 * 24 * 60 * 60 * 1000); // 2 jours * 24 heures * 60 minutes * 60 secondes * 1000 millisecondes
-    // Filtrer les produits enregistrés il y a moins de 2 jours
+    // Calculez le timestamp correspondant à 7 jours avant la date actuelle
+    const oneWeekAgo = currentDate - (7 * 24 * 60 * 60 * 1000); // 7 jours * 24 heures * 60 minutes * 60 secondes * 1000 millisecondes
+    // Filtrer les produits enregistrés il y a moins de 7 jours
     const filteredProducts = products.filter(product => {
         // Obtenez le timestamp de la date d'ajout du produit
         const productAddedAt = new Date(product.added_at).getTime();
-        // Vérifiez si la date d'ajout est supérieure à deux jours avant la date actuelle
-        return productAddedAt > twoDaysAgo;
+        // Vérifiez si la date d'ajout est supérieure à une semaine avant la date actuelle
+        return productAddedAt >= oneWeekAgo;
     });
 
-    // console.log("Products :", filteredProducts);
+    console.log("filteredProducts :", filteredProducts);
     // Assurez-vous que `this.newProducts` est initialisé comme un BehaviorSubject
     // Retournez la liste des produits filtrés
-    this.newProducts.next(filteredProducts.slice(0,3));
+    this.newProducts.next(filteredProducts);
 }
+
 
 
 

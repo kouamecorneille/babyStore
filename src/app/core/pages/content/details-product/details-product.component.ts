@@ -32,6 +32,7 @@ export class DetailsProductComponent implements  OnInit, OnDestroy {
   whatsappUrl:string=''
   arrayOfLoader = Array(4).fill(0);
   private destroy$ = new Subject<void>();
+  remise:number =0
 
 
   constructor(
@@ -89,6 +90,25 @@ export class DetailsProductComponent implements  OnInit, OnDestroy {
     this.quantity +=1
 
   }
+
+
+  calculerTauxRemise(normal_price:string, reduce_price:string){
+
+    const price = parseInt(normal_price)
+    const reduction = parseInt(reduce_price)
+
+    if(price <= 0 || reduction <=0 || reduction  > price){
+
+      throw new Error('les prix ne sont pas valide');
+
+    }
+
+    const remise = ((price - reduction) / price) * 100
+    console.log('remise', price)
+    this.remise = Math.ceil(remise)
+  }
+
+
 
   reduceQuantity(): void {
     if (this.quantity > 1) { // Vérifiez si la quantité est supérieure à 1
@@ -187,6 +207,8 @@ export class DetailsProductComponent implements  OnInit, OnDestroy {
           }
 
           this.vendorDetails = response.shop;
+
+          this.calculerTauxRemise(this.productDetails().price,this.productDetails().reduced_price);
 
           this.getSimilarProduct();
 
