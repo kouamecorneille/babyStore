@@ -28,8 +28,8 @@
               <div class="row align-items-center">
                 <div class="col-md-6">
                   <div class="logo">
-                    <a href="javascript:void(0);" class="mr-20"
-                      ><img src="assets/imgs/theme/logo.svg" alt="logo"
+                    <a href="javascript:void(0);"
+                      ><img src="assets/imgs/babyshop-logo.png" alt="logo"
                     /></a>
                   </div>
                 </div>
@@ -40,7 +40,7 @@
               <div class="row align-items-center mt-2">
                 <div class="col-md-6">
                   <div class="text">
-                   <strong>Adresse : </strong> {{cartService.userInfo().delivery_address}}<br />
+                   <strong title="Adresse">Adresse : </strong> {{cartService.userInfo().delivery_address}}<br />
                     <strong> <abbr title="Numéro">Numéro :</abbr> </strong> {{cartService.userInfo().commune}}<br />
                     <strong title="Nom complet">Nom complet :</strong> {{cartService.userInfo().full_name}}<br />
                   </div>
@@ -85,7 +85,7 @@
                       <td>
                         <div class="item-desc-1 d-flex">
                           <img [src]="item.product.image1"
-                          alt="" height="50" width="50" class="img-fluid">
+                            alt="" height="50" width="50" class="img-fluid">
                           <span class="mt-2">{{item.product.name.substring(0,25)}} ...</span>
                         </div>
                       </td>
@@ -108,7 +108,7 @@
             <div class="invoice-bottom pb-20">
               <div class="row">
                 <div class="text-end">
-                  <h5 class="mb-15">Montant total</h5>
+                  <h6 class="mb-15">Montant total</h6>
                   <h4 class="mt-0 mb-0 text-brand">{{totalCheckout | number:'1.0-0'}} FCFA</h4>
                 </div>
               </div>
@@ -118,7 +118,7 @@
             <div class="col-12">
               <div class="hr mb-5"></div>
               <p class="mb-0">
-                <strong >Note : </strong> Cliquer sur le boutton << Imprimer le reçu >> pour télécharger le reçu de votre commande.
+                <strong >Note : </strong> Cliquer sur le boutton " Imprimer le reçu " pour télécharger le reçu de votre commande.
               </p>
             </div>
           </div>

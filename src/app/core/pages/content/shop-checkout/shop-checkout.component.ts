@@ -106,12 +106,14 @@ export class ShopCheckoutComponent {
             localStorage.setItem('Djassa2Access', this.crypt.encryptData(userData.access));
             localStorage.setItem('Djassa2Refrech', this.crypt.encryptData(userData.refresh));
             localStorage.setItem('DjassaAuthUser',  this.crypt.encryptData(userData.user));
+
+            this.full_name = userData.user.first_name + ' ' + userData.user.last_name;
+            this.delivery_address = userData.user.delivery_adresse
+            this.commune = userData.user.phone_number
+
             this.loader = false;
 
             this.toastr.success('Connexion réussie avec succès!', 'Succès !');
-
-            this.router.navigate(['/dashboard']);
-
           }
         },
         (err: any) => {
@@ -155,6 +157,7 @@ export class ShopCheckoutComponent {
 
       this.full_name = this.userSession.first_name + " " + this.userSession.last_name
       this.commune = this.userSession.phone_number
+      this.delivery_address = this.userSession.delivery_adresse
 
     }
   }
@@ -227,12 +230,12 @@ export class ShopCheckoutComponent {
           }
         );
       }else {
-        this.loading = true;
+        this.loading = false;
         this.toastr.error('Votre pannier est vide, vous ne pouvez  pas effectuer de commande !', 'Erreur !', { timeOut: 4000 });
       }
 
     } else {
-      this.loading = true;
+      this.loading = false;
       this.toastr.error('Veuillez remplir les informations de livraison !', 'Erreur !', { timeOut: 4000 });
     }
   }

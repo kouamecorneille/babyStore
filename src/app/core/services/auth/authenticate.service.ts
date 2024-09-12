@@ -31,7 +31,7 @@ export class AuthenticateService {
    */
   login(data:{phone_number:string, password:string}){
 
-    return this.apiService.postItem(data, 'users/login/');
+    return this.apiService.postItem(data, '/users/login/');
   }
 
   /**

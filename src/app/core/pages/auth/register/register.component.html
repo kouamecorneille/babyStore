@@ -385,12 +385,12 @@
                   <div class="chek-form">
                       <div class="custome-checkbox">
                           <input class="form-check-input" type="checkbox" formControlName="acceptTerms"  id="exampleCheckbox12" value="">
-                          <label
-                          class="form-check-label text-muted ms-1"
-                          for="exampleCheckbox12"
-                        >
-                          J'accepte les <a [routerLink]="['/privacy-policy']"> termes et conditions d'utilisation</a>
-                        </label>
+                            <label
+                            class="form-check-label text-muted ms-1"
+                            for="exampleCheckbox12"
+                          >
+                            J'accepte les <a [routerLink]="['/privacy-policy']"> termes et conditions d'utilisation</a>
+                          </label>
                           <small class="text-danger" *ngIf="RegisterForm?.get('acceptTerms')?.hasError('requiredTrue')">
                             Vous devez accepter nos conditions et terms.
                           </small>
@@ -406,11 +406,17 @@
                   {{loader ? "Traitement en cours..." : "Créer un compte"}}
                   </button>
                 </div>
-                <div class="text-center">
+                <div class="d-flex justify-content-between">
                   <p>
                     Vous avez déjà un compte ?
                     <a routerLink="/auth/login" >Connexion</a>
                   </p>
+                  <label
+                      class="form-check-label text-muted ms-1"
+                      for="exampleCheckbox12"
+                    >
+                  <a target="_blank" href="https://backoffice-vendor-dev.web.app/auth/register-boutique"> Créer un compte vendeur</a>
+                </label>
                 </div>
               </form>
             </div>

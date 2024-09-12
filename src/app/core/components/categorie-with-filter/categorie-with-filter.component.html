@@ -163,7 +163,7 @@
               </div>
             </div>
           </div> -->
-          @if (ecommerceService.newProducts.value) {
+          @if (ecommerceService.newProducts.value.length > 0) {
 
             <app-articles-propulaires [title]="'Récement ajoutées !'" [produts]="ecommerceService.newProducts.value"></app-articles-propulaires>
           }
@@ -171,93 +171,93 @@
           <div class="section-title style-1 wow">
               <h3> Les nouveautés sur BabyShop </h3>
           </div>
-            @if(ecommerceService.listOfProduct.value.length > 0){
-              <div class="row product-grid">
-                <div class="col-lg-1-5 col-md-4 col-12 col-sm-6" *ngFor="let item of listOfProducts |async">
-                    <app-single-product [product]="item"></app-single-product>
-                </div>
+          @if(ecommerceService.listOfProduct.value.length > 0){
+            <div class="row product-grid">
+              <div class="col-lg-1-5 col-md-4 col-12 col-sm-6" *ngFor="let item of listOfProducts |async">
+                  <app-single-product [product]="item"></app-single-product>
               </div>
-            }@else{
-              <div class="row product-grid">
-                <!--end product card-->
-                <div class="col-lg-1-5 col-md-4 col-12 col-sm-6" *ngFor="let item of listOfLoader">
-                  <div class="product-cart-wrap mb-30">
-                    <div class="fb-item m-2">
-                      <div class="first-section-wrapper">
-                        <div class="gravatar">
+            </div>
+          }@else{
+            <div class="row product-grid">
+              <!--end product card-->
+              <div class="col-lg-1-5 col-md-4 col-12 col-sm-6" *ngFor="let item of listOfLoader">
+                <div class="product-cart-wrap mb-30">
+                  <div class="fb-item m-2">
+                    <div class="first-section-wrapper">
+                      <div class="gravatar">
+                        <ngx-skeleton-loader
+                          appearance="circle"
+                          [theme]="{ width: '80px', height: '80px' }"
+                        >
+                        </ngx-skeleton-loader>
+                      </div>
+                      <div class="gravatar-title">
+                        <div>
                           <ngx-skeleton-loader
-                            appearance="circle"
-                            [theme]="{ width: '80px', height: '80px' }"
+                            [theme]="{
+                              width: '200px',
+                              'border-radius': '0',
+                              height: '15px',
+                              'margin-bottom': '10px'
+                            }"
+                          ></ngx-skeleton-loader>
+                        </div>
+                        <div>
+                          <ngx-skeleton-loader
+                            [theme]="{ width: '170px', 'border-radius': '0', height: '15px' }"
                           >
                           </ngx-skeleton-loader>
                         </div>
-                        <div class="gravatar-title">
-                          <div>
-                            <ngx-skeleton-loader
-                              [theme]="{
-                                width: '200px',
-                                'border-radius': '0',
-                                height: '15px',
-                                'margin-bottom': '10px'
-                              }"
-                            ></ngx-skeleton-loader>
-                          </div>
-                          <div>
-                            <ngx-skeleton-loader
-                              [theme]="{ width: '170px', 'border-radius': '0', height: '15px' }"
-                            >
-                            </ngx-skeleton-loader>
-                          </div>
-                        </div>
                       </div>
-                      <div class="second-section-wrapper">
-                        <div class="wrapper">
-                          <ngx-skeleton-loader
-                            [theme]="{
-                              width: '80%',
-                              'border-radius': '0',
-                              height: '15px',
-                              'margin-bottom': '10px'
-                            }"
-                          ></ngx-skeleton-loader>
-                        </div>
-                        <div class="wrapper">
-                          <ngx-skeleton-loader
-                            [theme]="{
-                              width: '90%',
-                              'border-radius': '0',
-                              height: '15px',
-                              'margin-bottom': '10px'
-                            }"
-                          ></ngx-skeleton-loader>
-                        </div>
-                        <div class="wrapper">
-                          <ngx-skeleton-loader
-                            [theme]="{
-                              width: '60%',
-                              'border-radius': '0',
-                              height: '15px',
-                              'margin-bottom': '10px'
-                            }"
-                          ></ngx-skeleton-loader>
-                        </div>
+                    </div>
+                    <div class="second-section-wrapper">
+                      <div class="wrapper">
+                        <ngx-skeleton-loader
+                          [theme]="{
+                            width: '80%',
+                            'border-radius': '0',
+                            height: '15px',
+                            'margin-bottom': '10px'
+                          }"
+                        ></ngx-skeleton-loader>
+                      </div>
+                      <div class="wrapper">
+                        <ngx-skeleton-loader
+                          [theme]="{
+                            width: '90%',
+                            'border-radius': '0',
+                            height: '15px',
+                            'margin-bottom': '10px'
+                          }"
+                        ></ngx-skeleton-loader>
+                      </div>
+                      <div class="wrapper">
+                        <ngx-skeleton-loader
+                          [theme]="{
+                            width: '60%',
+                            'border-radius': '0',
+                            height: '15px',
+                            'margin-bottom': '10px'
+                          }"
+                        ></ngx-skeleton-loader>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            }
+            </div>
+          }
 
-            @if(allProducts){
+          @if(allProducts.length > 0){
 
-              <app-articles-propulaires [title]="'Ventes Flash'" [produts]="allProducts"></app-articles-propulaires>
+            <app-articles-propulaires [title]="'Ventes Flash'" [produts]="allProducts"></app-articles-propulaires>
 
-            }
+          }
 
-            @if (offersProducts) {
+          @if (offersProducts.length > 0) {
 
-              <app-articles-propulaires [title]="'Les plus vendus'" [produts]="offersProducts"></app-articles-propulaires>
-            }
+            <app-articles-propulaires [title]="'Les plus vendus'" [produts]="offersProducts"></app-articles-propulaires>
+          }
 
         </div>
 
