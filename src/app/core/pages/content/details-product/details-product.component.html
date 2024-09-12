@@ -69,44 +69,47 @@
                   <div class="product-detail-rating">
                     <div class="product-rate-cover text-end">
                       <div class="product-rate d-inline-block">
-                        <div class="product-rating" style="width: 70%"></div>
+                        <div class="product-rating" style="width: 0%"></div>
                       </div>
                       <span class="font-small ml-5 text-muted">
-                        (0 reviews)</span
+                        (0 note)</span
                       >
+
                     </div>
                   </div>
-                  <div class="clearfix product-price-cover">
-                    <div class="product-price primary-color float-left">
-                      <div class="d-flex  justify-content-between">
-                        <span class="text-brand font-md color3 ml-15 fs-4"
+                  <div class="clearfix product-price-cover mb-0">
+                    <div class="product-price">
+                      <div class="d-inline-block justify-content-between">
+                        <span class="text-brand fw-bold font-md color3 fs-3"
                           >{{
                             productDetails().reduced_price | number : "1.0-0"
                           }} FCFA</span
                         >
-                        <div class="-dif -i-ctr">
-                          <span class="font-md ml-15 fs-4"
-                            >{{
-                              productDetails().price | number : "1.0-0"
-                            }} FCFA</span
-                          ><span data-disc="55%" class="stock-status out-stock font-md ml-15 fs-5"
+
+                          <span class="font-md fw-bold ml-15 fs-4"
+                            >
+                              <del>{{
+                                productDetails().price | number : "1.0-0"
+                              }} FCFA</del>
+                            </span
+                          ><span class="stock-status out-stock font-md ml-15 fs-5"
                             >- {{remise}} %</span
                           >
-                        </div>
+
                       </div>
 
                     </div>
                   </div>
-                  <!-- <div class="short-desc mb-30">
+                  <div class="short-desc mb-20">
                       <p
                         class="font-lg"
                         [innerHTML]="
                           productDetails().description.substring(0, 170) + '...'
                         "
                       ></p>
-                    </div> -->
+                    </div>
 
-                  <div class="detail-extralink mb-30">
+                  <div class="detail-extralink mb-20">
                     <div class="detail-qty border radius">
                       <a
                         role="button"
@@ -140,17 +143,17 @@
                   </div>
                   <div class="font-xs">
                     <ul class="mr-50 float-start">
-                      <li class="mb-5">
-                        Categorie:
+                      <li class="mb-5 fs-6">
+                        Categorie :
                         <span class="text-brand">
                           {{ productDetails().category.name }}
                         </span>
                       </li>
                       <!-- <li class="mb-5">MFG:<span class="text-brand"> Jun 4.2021</span></li> -->
-                      <li>LIFE: <span class="text-brand">70 days</span></li>
+                      <li>LIFE : <span class="text-brand">70 days</span></li>
                     </ul>
                     <ul class="float-start">
-                      <li class="mb-5">SKU: <a href="#">FWM15VKT</a></li>
+                      <li class="mb-5">SKU : <a href="#">FWM15VKT</a></li>
                       <!-- <li class="mb-5">Tags: <a href="#" rel="tag">Snack</a>, <a href="#" rel="tag">Organic</a>, <a href="#" rel="tag">Brown</a></li> -->
                       <li>
                         Stock :
@@ -183,7 +186,7 @@
                   "
                 >
                   <div
-                    class="sidebar-widget widget-vendor mb-30 bg-grey-9 box-shadow-none"
+                    class="sidebar-widget widget-vendor mb-10 bg-grey-9 box-shadow-none"
                   >
                     <h5 class="section-title style-3 mb-20">
                       Informations sur la boutique

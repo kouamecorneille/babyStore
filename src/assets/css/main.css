@@ -4074,7 +4074,7 @@ table .product-thumbnail img {
 }
 
 .product-cart-wrap .product-content-wrap .product-price {
-  padding-top: 5px;
+  padding-top: 3px;
 }
 
 .product-cart-wrap .product-content-wrap .product-price span {
@@ -5053,7 +5053,7 @@ table .product-thumbnail img {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin: 15px 0 30px 0;
+  margin: 10px 0 10px 0;
 }
 
 .detail-info .product-price .current-price {
